@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>learn-jpa-hibernate-ddl2java</artifactId>
+	<packaging>jar</packaging>
+
+	<name>learn-jpa-hibernate-ddl2java</name>
+	<description>Learn JPA Hibernate - ddl2java</description>
+
+	<parent>
+		<groupId>io.github.learnjpahibernate</groupId>
+		<artifactId>learn-jpa-hibernate</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-classes</phase>
+						<configuration>
+							<target>
+								<taskdef name="hibernatetool"
+									classname="org.hibernate.tool.ant.HibernateToolTask" />
+								<property name="hibernate.src.dir"
+									value="${project.basedir}/src/hbm" />
+								<property name="hbmxml.dir"
+									value="${project.build.directory}/hbmxml" />
+								<property name="codegen.dir"
+									value="${project.build.directory}/codegen" />
+								<loadproperties
+									srcFile="${hibernate.src.dir}/hibernate.properties" />
+
+								<sql driver="${hibernate.connection.driver_class}"
+									url="${hibernate.connection.url}"
+									userid="${hibernate.connection.username}"
+									password="${hibernate.connection.password}"
+									src="${hibernate.src.dir}/schema.sql"
+									 />
+
+								<!-- https://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
+
+								<!-- https://mikedesjardins.net/2008/08/05/hibernate-tools-tips-for-reverse/ -->
+								<mkdir dir="${hbmxml.dir}" />
+								<hibernatetool>
+									<jdbcconfiguration
+										propertyfile="${hibernate.src.dir}/hibernate.properties"
+										revengfile="${hibernate.src.dir}/hibernate.reveng.xml"
+										packagename="${project.groupId}" />
+									<!-- We set a template path to override the template for hibernate-mapping.hbm.ftl. 
+										The only thing changed is the DTD location. This is done because schema validation 
+										will fail behind authenticated HTTP proxies. Also note that the hibernate.reveng.xml 
+										file is a stand alone file as well for similar reasons. -->
+									<property key="hibernateMappingDtdLocation"
+										value="${hibernate.src.dir}/hibernate-mapping-3.0.dtd" />
+									<hbm2hbmxml destdir="${hbmxml.dir}"
+										templatepath="${project.basedir}/src" />
+								</hibernatetool>
+
+								<mkdir dir="${codegen.dir}" />
+								<hibernatetool>
+									<configuration
+										propertyfile="${hibernate.src.dir}/hibernate.properties">
+										<fileset dir="${hbmxml.dir}">
+											<include name="**/*.hbm.xml" />
+										</fileset>
+									</configuration>
+									<hbm2java jdk5="true" ejb3="true"
+										destdir="${codegen.dir}" />
+								</hibernatetool>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- Add to ant's classpath -->
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-tools</artifactId>
+						<version>${hibernate.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jboss.logging</groupId>
+						<artifactId>jboss-logging</artifactId>
+						<version>${jboss-logging.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.h2database</groupId>
+						<artifactId>h2</artifactId>
+						<version>${h2.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.derby</groupId>
+						<artifactId>derby</artifactId>
+						<version>${derby.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
