@@ -48,7 +48,7 @@ class is used to generate the DDL file.
 ## `learn-jpa-hibernate-ddl2java`
 
 Going in the opposite direction from starting with Java code is starting with an existing
-database schema, or at least schema first design.
+database schema, or at least "schema first" design.
 
 With Hibernate, this direction is not well maintained, and your mileage will vary depending 
 on how your schema is designed. Not all the relationships are detected or even implemented 
@@ -92,6 +92,46 @@ move passed the issue. But don't take too long. It isn't terribly difficult to w
 Java code with JPA relationships. There is a reason why the DDL to Java Code conversion
 library isn't maintained very well.
 
+## `learn-jpa-hibernate-equals-and-hashcode`
+
+There is an enormous amount of discussion on the internet about whether or not you need 
+to implement `equals()` and `hashCode()` on your entity beans. Below are just a few links:
+
+* https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/
+* https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+* https://vladmihalcea.com/hibernate-facts-equals-and-hashcode/
+* https://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma
+
+I have seen many simple projects get away without implementing them, and they satisfied 
+the requirements. But I have also seen projects with related entity beans that require having 
+proper implementations for updates to work.
+
+Fortunately implementing the code is easy (as is seen in the above links). The Spring 
+Data project even provides an `AbstractPersistable` class from which to extend from and
+it implements the code you need. However, that `AbstractPersistable` takes a strong
+opinion on the `Id` column. Spring's take on it may not be what you want, so that is 
+why this project includes a similar `AbstractEntity` class. It has the equivalent
+implementations of `equals()` and `hashCode()` but leaves the definition of the `Id` 
+to the class that extends from it.
+
+The examples in this project all use that `AbstractEntity` class (except for the bad 
+test cases).
+
+This project also includes an `EntityValidator` utility class that can be used to ensure
+that your implementations of `equals()` and `hashCode()` methods work properly for entity
+beans.
+
+#### Lombok
+
+It should be pointed out that Lombok and its convenient `@Data` annotation can cause 
+problems for entity beans. The `@Data` annotation provides not only *getter* and *setter*
+methods, but also implementations of `equals()`, `hashCode()` and `toString()`. These
+implementations are wrong for entity beans as the EntityValidator can show.
+When using Lombok in your project, have the entity beans just use @Getter and @Setter
+and let `AbstractPersisable` or `AbstractEntity` provide the `equals()`, `hashCode()`
+and `toString()` implementations.
+
+
 ## `learn-jpa-hibernate-relationships`
 
 `Coming soon...`
@@ -111,3 +151,10 @@ embedded identifiers, and entity maps.
 Advanced features of Spring are also included such as base repositories and projections.
 
 
+## For more information
+
+Here are some links to other great information:
+
+* https://github.com/AnghelLeonard/Hibernate-SpringBoot
+* https://dzone.com/articles/50-best-performance-practices-for-hibernate-5-amp
+  

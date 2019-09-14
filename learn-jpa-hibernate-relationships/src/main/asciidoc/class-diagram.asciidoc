@@ -1,0 +1,36 @@
+JPA Relationship Model
+======================
+////
+This file documents this projects class diagram that demonstrates all the JPA relationship types.
+
+To install graphviz on a Mac, run:
+
+brew cask install graphviz
+////
+:description: JPA Relationship: This document +
+              shows the class diagram that demonstrates +
+              all the JPA relationship types.
+:library: Asciidoctor
+ifdef::asciidoctor[]
+:source-highlighter: coderay
+endif::asciidoctor[]
+:idprefix:
+//:stylesheet: asciidoc.css
+:imagesdir: images
+//:backend: docbook45
+:backend: html5
+//:doctype: book
+//:sectids!:
+:plus: &#43;
+
+[role='lead']
+Beloe is the class diagram that demonstrates all the JPA relationship types:
+
+## PlantUML Plugin
+
+[plantuml,"test",png]
+----
+class Author
+class Book
+class Preference
+----

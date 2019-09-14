@@ -28,6 +28,8 @@
 	<modules>
 		<module>learn-jpa-hibernate-java2ddl</module>
 		<module>learn-jpa-hibernate-ddl2java</module>
+		<module>learn-jpa-hibernate-equals-and-hashcode</module>
+		<module>learn-jpa-hibernate-relationships</module>
 	</modules>
 	
 	<build>
@@ -57,12 +59,12 @@
 								</pluginExecution>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>org.flywaydb</groupId>
-										<artifactId>flyway-maven-plugin</artifactId>
+										<groupId>org.asciidoctor</groupId>
+										<artifactId>asciidoctor-maven-plugin</artifactId>
 										<versionRange>[1.0,)</versionRange>
 										<goals>
 											<!-- plugin goals -->
-											<goal>migrate</goal>
+											<goal>process-asciidoc</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

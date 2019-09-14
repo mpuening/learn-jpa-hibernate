@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>learn-jpa-hibernate-java2ddl</artifactId>
+	<artifactId>learn-jpa-hibernate-relationships</artifactId>
 	<packaging>jar</packaging>
 
-	<name>learn-jpa-hibernate-java2ddl</name>
-	<description>Learn JPA Hibernate - java2ddl</description>
+	<name>learn-jpa-hibernate-relationships</name>
+	<description>Learn JPA Hibernate - relationships</description>
 
 	<parent>
 		<groupId>io.github.learnjpahibernate</groupId>
@@ -16,6 +16,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+
+	<properties>
+		<asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
+		<asciidoctorj.diagram.version>1.5.18</asciidoctorj.diagram.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -42,13 +47,39 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- File Differ -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
+	<build>
+		<defaultGoal>generate-resources</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>${asciidoctor.maven.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctorj-diagram</artifactId>
+						<version>${asciidoctorj.diagram.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!-- default is docbook -->
+					<backend>html5</backend>
+					<requires>
+						<require>asciidoctor-diagram</require>
+					</requires>
+				</configuration>
+				<executions>
+					<execution>
+						<id>output-html</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

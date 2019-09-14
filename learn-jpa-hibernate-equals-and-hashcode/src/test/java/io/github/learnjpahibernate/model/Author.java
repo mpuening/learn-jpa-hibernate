@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.github.learnjpahibernate.data.AbstractEntity;
@@ -31,7 +30,4 @@ public class Author extends AbstractEntity<Long> {
 
 	@ManyToMany(mappedBy = "authors")
 	private Set<Book> books = new HashSet<>();
-
-	@OneToMany(mappedBy = "id.authorId")
-	private Set<Preference> preferences = new HashSet<>();
 }

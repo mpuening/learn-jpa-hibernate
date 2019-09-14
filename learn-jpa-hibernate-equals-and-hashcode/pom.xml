@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>learn-jpa-hibernate-java2ddl</artifactId>
+	<artifactId>learn-jpa-hibernate-equals-and-hashcode</artifactId>
 	<packaging>jar</packaging>
 
-	<name>learn-jpa-hibernate-java2ddl</name>
-	<description>Learn JPA Hibernate - java2ddl</description>
+	<name>learn-jpa-hibernate-equals-and-hashcode</name>
+	<description>Learn JPA Hibernate - equals-and-hashcode</description>
 
 	<parent>
 		<groupId>io.github.learnjpahibernate</groupId>
@@ -23,11 +23,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.github.learnjpahibernate</groupId>
-			<artifactId>learn-jpa-hibernate-equals-and-hashcode</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
@@ -40,13 +35,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- File Differ -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
