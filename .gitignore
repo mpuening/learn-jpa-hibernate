@@ -170,7 +170,6 @@ jspm_packages
 
 # Misc
 .DS_Store
-data/
 classes/
 work/
 dist/
