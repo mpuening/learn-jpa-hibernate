@@ -3,9 +3,10 @@ JPA Relationship Model
 ////
 This file documents this projects class diagram that demonstrates all the JPA relationship types.
 
-To install graphviz on a Mac, run:
+To install graphviz on a Mac, run: "brew install graphviz"
 
-brew cask install graphviz
+PlantUML Documentation: http://plantuml.com/class-diagram
+
 ////
 :description: JPA Relationship: This document +
               shows the class diagram that demonstrates +
@@ -24,13 +25,27 @@ endif::asciidoctor[]
 :plus: &#43;
 
 [role='lead']
-Beloe is the class diagram that demonstrates all the JPA relationship types:
+Below is the class diagram that demonstrates all the JPA relationship types:
 
-## PlantUML Plugin
+## Class Diagram
 
-[plantuml,"test",png]
+[plantuml,"model",png]
 ----
-class Author
-class Book
-class Preference
+skinparam linetype ortho
+
+hide members
+
+Reservation "Many" <-right-> "Many" Customer : "                              "
+Customer "One" -right-> "One" Address : "                              "
+Customer "One" -up-> "Many" HailingFrequency : ""
+
+Reservation <-down-> Voyage : ""
+Customer "One" <-down-> "One" Ship : ""
+Address "Many" -down-> "One" Planet: ""
+
+Voyage "Many" -right-> "One" Ship : "                              "
+Voyage "Many" -> "One" Planet : "                              "
+
+Ship "One" -down-> "Many" Cabin : ""
+Reservation "Many" -> "Many" Cabin : ""
 ----
