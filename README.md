@@ -85,7 +85,7 @@ Here are the steps to create code for yourself:
 Review the code that gets generated and see if there are improvements to be made. Check 
 that all the relationships are identified and implemented properly. If they aren't, you might 
 consider checking if another database can be used to generate code from. For example, the 
-example in this project has a `many-to-many` relationship between `Book` and `Author`. 
+example in this project has a `many to many` relationship between `Book` and `Author`. 
 While `H2` can detect the relationship, `Derby` does not. This is why I say your 
 mileage may vary. Perhaps you can play around with the schema or the database type to 
 move passed the issue. But don't take too long. It isn't terribly difficult to write 
@@ -97,10 +97,10 @@ library isn't maintained very well.
 There is an enormous amount of discussion on the internet about whether or not you need 
 to implement `equals()` and `hashCode()` on your entity beans. Below are just a few links:
 
-* https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/
-* https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-* https://vladmihalcea.com/hibernate-facts-equals-and-hashcode/
-* https://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma
+* `https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/`
+* `https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/`
+* `https://vladmihalcea.com/hibernate-facts-equals-and-hashcode/`
+* `https://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma`
 
 I have seen many simple projects get away without implementing them, and they satisfied 
 the requirements. But I have also seen projects with related entity beans that require having 
@@ -127,29 +127,371 @@ It should be pointed out that Lombok and its convenient `@Data` annotation can c
 problems for entity beans. The `@Data` annotation provides not only *getter* and *setter*
 methods, but also implementations of `equals()`, `hashCode()` and `toString()`. These
 implementations are wrong for entity beans as the EntityValidator can show.
-When using Lombok in your project, have the entity beans just use @Getter and @Setter
+When using Lombok in your project, have the entity beans just use `@Getter` and `@Setter`
 and let `AbstractPersisable` or `AbstractEntity` provide the `equals()`, `hashCode()`
 and `toString()` implementations.
 
 
 ## `learn-jpa-hibernate-relationships`
 
-`Coming soon...`
-
 This project contains a *contrived* data model that demonstrates each of the relationship 
-types (e.g. one-to-many uni-directional and bi-directional). Spring Boot is used to 
-bootstrap the app, and expose a REST API. Swagger UI is included for easy invocation 
-of the APIs.
+types (e.g. one to many uni-directional and bi-directional). Spring Boot is used to 
+bootstrap the app, and expose a REST API. The data model is inspired from the O'Reilly's
+Enterprise JavaBeans book (5th Edition) and is a Star Trek themed reservation system. Please
+do not evaluate this model as being the best ever, because it exists to show how to implement 
+each of the JPA relationship types and play with different configuration settings as opposed
+to being the best data model. Some parts  of model may seem a bit awkward, but at least there
+is a working relationship type to test.
 
-## `learn-jpa-hibernate-advanced`
+Consider the following when building your own model:
+
+####  Multiplicity
+
+Multiplicity describes how many entities appear in a relationship. In JPA, the multiplicity 
+is either *one* or *many*. 
+
+#### Direction
+
+The direction describes how one can navigate a relationship. In JPA, there are uni-directional
+and bi-directional relationship.
+
+#### Aggregation versus Composition
+
+Aggregation describes a relationship where the child entity may exist independently of the parent 
+entity. For example, a university has both students and courses, and they are related 
+when a student enrolls in a course. Deleting a student does not mean the  course is deleted, 
+it just means the student dropped out. Likewise, deleting a course does not mean the 
+students get deleted. It just means the course isn't offered anymore.
+
+Composition describes a relationship where the child entity cannot exist independently of the parent 
+entity. For example, an apartment building consists on apartments. If one were to delete 
+the building, then the apartments would not exist either.
+
+In JPA, relationships can have an `orphanRemoval` setting that can be used to determine 
+what might happen to orphans. The flag should be used judiciously.
+
+#### Relationship Fetch Type
+
+Below are the JPA defaults for FetchType:
+
+* `OneToMany` and `ManyToMany` relationships are `FetchType.LAZY` relationships by default.
+* `OneToOne` and `ManyToOne` relationships are `FetchType.EAGER` relationships by default.
+
+Changing the default settings change what queries are done. For example, a one to one 
+relationship will typically generate inner joins or left outer joins to pull in extra 
+data from child entities in order to minimize the number of queries. But this costs more
+data to queried than might be necessary for a use case. If one we change a relationship 
+to lazy, less data is queried initially, but additional queries may be executed to 
+traverse the relationship which might impact performance in another way, for example 
+the N+1 query problem. FetchType is a static configuration that one must choose wisely.
+Dynamic configuration is preferred  which is why one should know and understand entity
+graphs and projections.
+
+#### Land Mines and Pitfalls
+
+Consider the following:
+
+* Prefer `Set` rather than `List` for relationships.
+* Avoid `OneToMany` *uni-directional* relationships. Set up bi-directional or element collection 
+  relationships instead.
+* Avoid `CascadeType.REMOVE` (and `CascadeType.ALL`) settings on `OnetoMany` and `ManytoMany `
+  relationships. Implement a bulk delete on child entity table.
+* Learn to recognize the N+1 problem
+
+#### Example Data Model
+
+Below is the class diagram our model. The arrows between classes are labeled as being 
+*many* or *one* and show whether they are *uni-directional* or *bi-directional*.
+
+![alt text](docs/images/model.png "Class Diagram")
+
+Below are sections to help you identify where in the model an example is of each of the 
+seven JPA relationship types:
+
+#### 1) `One-to-One Uni-directional` Relationship
+
+`Person` to `Address` represents a one to one relationship. This means a person has
+one and only one address and an address has only one person. Furthermore, the relationship
+can only be navigated from the person side. The code below also indicated that the address
+is required and all operations are cascaded (such as delete).
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "PERSON")
+public class Person {
+    // Join column exists in this entity
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ADDRESS_ID", nullable = false)
+    private Address address;
+}
+
+@Entity
+@Table(name = "ADDRESS")
+public class Address {
+    // No code required
+}
+```
+
+#### 2) `One-to-One Bi-directional` Relationship
+
+`Ship` to `Customer` represents a one to one bidirectional relationship. This relationship
+is similar in regards to the multiplicity of the previous relationship, but expands on it by 
+allowing navigation from both sides.
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "PERSON")
+public class Person {
+    // Bi-directional relationship has 'mappedBy' attribute in other entity
+    @OneToOne(optional = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "SHIP_ID", nullable = true)
+    private Ship ship;
+}
+
+@Entity
+@Table(name = "SHIP")
+public class Ship {
+    @OneToOne(mappedBy = "ship", optional = false)
+    private Person person;
+}
+```
+
+#### 3) `One-to-Many Uni-directional` Relationship
+
+```
+Warning!!!
+```
+One to many uni-directional relationship should be *avoided*. More information can 
+be found here:
+
+`https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/`
+
+`Customer` to `HailingFrequency` can be considered to be a one to many relationship. 
+But because of the problems that Hibernate has with dealing with this relationship, it does *NOT* appear
+in the code of this project. It has been switched to a bidirectional relationship with 
+the child `HailingFrequency` entity not having a generated Id. It also has a nice example 
+with using a `@PrePersist` method to copy the the generated Id into the composite key.
+```
+Warning!!!
+```
+Even though the relationship was improved upon, it does have an N+1 issue on the cascade 
+delete operation. Make sure to implement a bulk delete of the child entities when implementing
+such a relationship.
+
+Despite the discussion above, here is some sample code of such a relationship
+(with unrelated properties removed for clarity):
+
+```
+@Entity
+@Table(name = "PERSON")
+public class Person {
+    // Join column exists in the other entity (or join table)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
+    private Set<HailingFrequency> hailingFrequencies;
+}
+
+@Entity
+@Table(name = "HAILING_FREQUENCY")
+public class HailingFrequency {
+    // No code required
+}
+```
+
+#### 4) `Many-to-One Uni-directional` Relationship
+
+`Address` to `Planet` represents a many to one relationship. This means that there are many 
+addresses for each planet, however navigation is only from the address side.
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "ADDRESS")
+public class Address {
+    // Join column exists in this entity
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "PLANET_ID", nullable = false)
+    private Planet planet;
+}
+
+@Entity
+@Table(name = "PLANET")
+public class Planet {
+    // No code required
+}
+```
+
+#### 5) `One-to-Many and Many-to-One Bi-directional` Relationship
+
+`Voyage` to `Reservation` represents both the one to many and many to one relationship, 
+because both relationship are the same, just from opposite perspectives.
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "RESERVATION")
+public class Reservation {
+    // Bi-directional relationship has 'mappedBy' attribute in other entity 
+    @ManyToOne
+    @JoinColumn(name = "VOYAGE_ID", nullable = false)
+    private Voyage voyage;
+}
+
+@Entity
+@Table(name = "VOYAGE")
+public class Voyage {
+    @OneToMany(mappedBy="voyage")
+    private Set<Reservation> reservations;
+}
+```
+
+#### 6) `Many-to-Many Uni-directional` Relationship
+
+`Reservation` to `Cabin` represents a many to many relationship. The many to many relationship 
+requires a join table. Being unidirectional means that the relationship is only navigated 
+from one side. In other words, a cabin cannot navigate to its reservation.
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "RESERVATION")
+public class Reservation {
+    // This relationship requires a join table
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "RESERVATION_CABIN", joinColumns = @JoinColumn(name = "RESERVATION_ID"), inverseJoinColumns = @JoinColumn(name = "CABIN_ID"))
+    private Set<Cabin> cabins;
+}
+
+@Entity
+@Table(name = "CABIN")
+public class Cabin {
+    // No code required
+}
+```
+
+#### 7) `Many-to-Many Bi-directional` Relationship
+
+`Reservation` to `Person` represents a many to many bidirectional relationship. This relationship
+is similar in regards to the multiplicity of the previous relationship, but expands on it by 
+allowing navigation from both sides.
+
+Code (with unrelated properties removed for clarity):
+
+```java
+@Entity
+@Table(name = "RESERVATION")
+public class Reservation {
+    // Bi-directional relationship has 'mappedBy' attribute in other entity
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "RESERVATION_PERSON", joinColumns = @JoinColumn(name = "RESERVATION_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
+    private Set<Person> passengers;
+}
+
+@Entity
+@Table(name = "PERSON")
+public class Person {
+    @ManyToMany(mappedBy = "passengers")
+    private Set<Reservation> reservations;
+}
+```
+
+#### Other Interesting Features
+
+* `@DiscriminatorColumn` Column
+
+    The `PERSON` table contains a discriminator column for both passengers and captains of ships.
+
+* `@PrePersist`
+
+    An example of using `@PrePersist` is in the `HailingFrequency` entity class. The method
+    is responsible for making sure the `Id` key property is properly set from the foreign
+    key relationship.
+
+* Currency (`MonetaryAmount`)
+
+    Hibernate has features that have not been exposed through the JPA API.One of those
+    features is `Type` mapping. On the `Cabin` entity class is a property called `price`.
+    Even though it is implemented as one property, it is stored as two columns in the database.
+    One column for the monetary amount and another for cerrency type. It even stores the numeric
+    value in the minor amount (e.g. pennies) so that the database doesn't lose fractions of pennies.
+    (Remember Superman III?). You can find the logic to support the type in `MonetaryAmountUserType`.
+
+    In addition, the `MonetaryAmount` does not render to JSON very well. This is easily fixed with
+    Jackson (de)serializers. You can how money values are rendered to and from JSON in the
+    `MonetaryAmountSerializer` and `MonetaryAmountDeserializer` classes. They are engaged by
+    annotating a property (e.g. `price`) with the `MonetaryAmountJsonSerialize` annotation.
+
+* `DatasourceProxyBeanPostProcessor`
+
+    The test cases in this project assert the database statements for various situations. Being
+    able to assert what statements are executed is key to making sure your model does what it
+    is designed to do. It as allows you to find where the model can be improved where otherwise
+    it wouldn't be as obvious. Here are as example of what is possible with the proxy:
+
+```java
+        Assert.assertThat(proxyDataSource, executionCount(10));
+        Assert.assertThat(proxyDataSource, insertCount(4));
+        Assert.assertThat(proxyDataSource, selectCount(1));
+        Assert.assertThat(proxyDataSource, updateCount(1));
+        Assert.assertThat(proxyDataSource, deleteCount(4));
+```
+
+* HAL Browser
+
+    This project includes the HAL Browser to navigate the Hateoas API. I didn't spent too
+    much testing the UI. though. Springfox 2.9.2 does not support Spring Boot 2.1 Hateoas,
+    and Springfox 3.0 is not released at the time this is being written.
+
+    There is a test case `ShipRestRepositoryTests` that invokes the API to add a `Cabin` to a `Ship`.
+
+## `learn-jpa-hibernate-criteria-api`
 
 `Coming soon...`
 
-There are also examples of some more complex mappings such as mapped super classes,
-embedded identifiers, and entity maps.
+## `learn-jpa-hibernate-resolve-n-plus-1-problem`
 
-Advanced features of Spring are also included such as base repositories and projections.
+`Coming soon...`
 
+## `learn-jpa-hibernate-mapped-super-class`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-entity-graphs`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-projections`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-multiple-datasources`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-extended-repository`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-active-record-pattern`
+
+`Coming soon...`
+
+This will need an example `test` project.
+
+## `learn-jpa-hibernate-swap-in-openjpa`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-swap-in-eclipselink`
+
+`Coming soon...`
 
 ## For more information
 
