@@ -13,11 +13,18 @@ spring:
       minimum-idle: 1
       connection-timeout: 30000
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     show-sql: true
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         generate_statistics: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 #logging:
   #level:
