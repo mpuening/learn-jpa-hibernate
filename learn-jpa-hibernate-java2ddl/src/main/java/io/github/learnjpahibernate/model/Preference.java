@@ -40,7 +40,7 @@ public class Preference extends AbstractEntity<PreferenceId> {
 	public static class PreferenceId implements java.io.Serializable {
 		private static final long serialVersionUID = 8631701868884857104L;
 		@Column(name = "AUTHOR_ID", nullable = false, updatable = false)
-		private long authorId;
+		private Long authorId;
 
 		@Column(name = "NAME", nullable = false, updatable = false)
 		private String name;

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import io.github.learnjpahibernate.data.EntityValidator;
 import io.github.learnjpahibernate.model.Author;
@@ -21,6 +22,9 @@ import io.github.learnjpahibernate.repository.BookRepository;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class LearnJPAHibernateApplicationTests {
+
+	@Autowired
+	protected TransactionTemplate transactionTemplate;
 
 	@Autowired
 	protected AuthorRepository authorRepository;
@@ -40,9 +44,9 @@ public class LearnJPAHibernateApplicationTests {
 		Author author = new Author();
 		author.setName("");
 
-		EntityValidator.assertEntityIsValid(author, authorRepository, a -> {
+		EntityValidator.with(author, authorRepository).beforeUpdate(a -> {
 			a.setName("John Doe");
-		});
+		}).withTransactions(transactionTemplate).assertEntityIsValid();
 	}
 
 	@Test
@@ -52,9 +56,9 @@ public class LearnJPAHibernateApplicationTests {
 		book.setIsbn("978-9730228236");
 		book.setName("High-Performance Java Persistence");
 
-		EntityValidator.assertEntityIsValid(book, bookRepository, b -> {
+		EntityValidator.with(book, bookRepository).beforeUpdate(b -> {
 			b.setName("More High-Performance Java Persistence");
-		});
+		}).withTransactions(transactionTemplate).assertEntityIsValid();
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -63,9 +67,9 @@ public class LearnJPAHibernateApplicationTests {
 		BadSimpleEntity badSimpleEntity = new BadSimpleEntity();
 		badSimpleEntity.setName("simple");
 
-		EntityValidator.assertEntityIsValid(badSimpleEntity, badSimpleEntityRepository, b -> {
+		EntityValidator.with(badSimpleEntity, badSimpleEntityRepository).beforeUpdate(b -> {
 			b.setName("bad simple");
-		});
+		}).withTransactions(transactionTemplate).assertEntityIsValid();
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -75,8 +79,8 @@ public class LearnJPAHibernateApplicationTests {
 		badLombokEntity.setIsbn("Bad");
 		badLombokEntity.setName("lombok");
 
-		EntityValidator.assertEntityIsValid(badLombokEntity, badLombokEntityRepository, a -> {
-			a.setName("bad lombok");
-		});
+		EntityValidator.with(badLombokEntity, badLombokEntityRepository).beforeUpdate(b -> {
+			b.setName("bad lombok");
+		}).withTransactions(transactionTemplate).assertEntityIsValid();
 	}
 }
