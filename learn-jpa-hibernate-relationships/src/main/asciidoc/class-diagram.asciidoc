@@ -35,12 +35,15 @@ skinparam linetype ortho
 
 hide members
 
-Reservation "Many" <-right-> "Many" Customer : "                              "
-Customer "One" -right-> "One" Address : "                              "
-Customer "One" -up-> "Many" HailingFrequency : ""
+Reservation "Many" <-right-> "Many" Person : "                              "
+Person "One" -right-> "One" Address : "                              "
+Person "One" -up-> "Many" HailingFrequency : ""
+
+Person <|-- Passenger
+Person <|-- Captain
 
 Reservation <-down-> Voyage : ""
-Customer "One" <-down-> "One" Ship : ""
+Captain "One" <-down-> "One" Ship : ""
 Address "Many" -down-> "One" Planet: ""
 
 Voyage "Many" -right-> "One" Ship : "                              "
