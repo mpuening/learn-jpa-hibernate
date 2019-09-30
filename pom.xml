@@ -30,8 +30,10 @@
 		<module>learn-jpa-hibernate-ddl2java</module>
 		<module>learn-jpa-hibernate-equals-and-hashcode</module>
 		<module>learn-jpa-hibernate-relationships</module>
+		<module>learn-jpa-hibernate-active-record-aspects</module>
+		<module>learn-jpa-hibernate-active-record-example</module>
 	</modules>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -50,6 +52,22 @@
 										<goals>
 											<!-- plugin goals -->
 											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<!-- just ignore the plugin -->
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>aspectj-maven-plugin</artifactId>
+										<versionRange>[1.8,)</versionRange>
+										<goals>
+											<!-- plugin goals -->
+											<goal>compile</goal>
+											<goal>test-compile</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

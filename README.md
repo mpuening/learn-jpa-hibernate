@@ -436,11 +436,11 @@ public class Person {
     it wouldn't be as obvious. Here are as example of what is possible with the proxy:
 
 ```java
-        Assert.assertThat(proxyDataSource, executionCount(10));
-        Assert.assertThat(proxyDataSource, insertCount(4));
-        Assert.assertThat(proxyDataSource, selectCount(1));
-        Assert.assertThat(proxyDataSource, updateCount(1));
-        Assert.assertThat(proxyDataSource, deleteCount(4));
+Assert.assertThat(proxyDataSource, executionCount(10));
+Assert.assertThat(proxyDataSource, insertCount(4));
+Assert.assertThat(proxyDataSource, selectCount(1));
+Assert.assertThat(proxyDataSource, updateCount(1));
+Assert.assertThat(proxyDataSource, deleteCount(4));
 ```
 
 * HAL Browser
@@ -451,11 +451,19 @@ public class Person {
 
     There is a test case `ShipRestRepositoryTests` that invokes the API to add a `Cabin` to a `Ship`.
 
-## `learn-jpa-hibernate-criteria-api`
+    TODO: Add validation annotations to the entity beans.
+
+* Hibernate Statistics
+
+    The Spring Actuator can expose Hibernate statistics.
+
+    TODO: Add information to fetch stats.
+
+## `learn-jpa-hibernate-resolve-n-plus-1-problem`
 
 `Coming soon...`
 
-## `learn-jpa-hibernate-resolve-n-plus-1-problem`
+## `learn-jpa-hibernate-criteria-api`
 
 `Coming soon...`
 
@@ -479,11 +487,47 @@ public class Person {
 
 `Coming soon...`
 
-## `learn-jpa-hibernate-active-record-pattern`
+## `learn-jpa-hibernate-active-record-aspects`
+## `learn-jpa-hibernate-active-record-example`
 
-`Coming soon...`
+Martin Fowler defines an active record as "an object that wraps a row in a database table or view,
+encapsulates the database access, and adds domain logic on that data." For Spring Data 
+JPA, the key aspect here is that the database access is encapsulated in the entity bean, 
+and not using a repository bean.
 
-This will need an example `test` project.
+Some people call the *active record pattern* an *anti-pattern*. That won't be debated 
+here. These projects, inspired from Spring Roo, merely serve as a curiosity for implementing
+the active record in Java using AspectJ.
+
+Consider these two code examples for getting and saving a `Person`, first as an active record,
+
+```java
+Person person = Person.find(Person.class, Long.valueOf(1L));
+
+Person newPerson = new Person("Name");
+newPerson.persist();
+```
+
+and then using Spring repositories:
+
+```java
+Person person = personRepository.find(Person.class, Long.valueOf(1L));
+
+Person newPerson = new Person("Name");
+personRepository.save(newPerson);
+```
+
+The big difference here is the lack of using Spring repositories. It is not saving 
+that much code, and you lose the ability to mock the repositories. In addition, the
+IDE tooling takes some time to get right, so take that into consideration when deciding
+to use the active record on your applications. If you ask me, I won't be using it.
+
+Tooling wise, for Eclipse, install the AspectJ Development Tools.
+
+```
+Warning!!!
+```
+`Lombok` is not compatible with `AspectJ` at the time of this writing.
 
 ## `learn-jpa-hibernate-swap-in-openjpa`
 

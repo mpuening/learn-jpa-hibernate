@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>learn-jpa-hibernate-active-record-aspects</artifactId>
+	<packaging>jar</packaging>
+
+	<name>learn-jpa-hibernate-active-record-aspects</name>
+	<description>Learn JPA Hibernate - active-record-aspects</description>
+
+	<parent>
+		<groupId>io.github.learnjpahibernate</groupId>
+		<artifactId>learn-jpa-hibernate</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.github.learnjpahibernate</groupId>
+			<artifactId>learn-jpa-hibernate-equals-and-hashcode</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+						<configuration>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<complianceLevel>${java.version}</complianceLevel>
+					<outxmlfile>/META-INF/aop.xml</outxmlfile>
+					<outxml>true</outxml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
