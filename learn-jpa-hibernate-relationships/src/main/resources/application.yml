@@ -19,7 +19,7 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        generate_statistics: true
+        generate_statistics: false
 management:
   endpoints:
     web:
