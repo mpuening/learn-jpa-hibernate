@@ -32,6 +32,8 @@
 		<module>learn-jpa-hibernate-relationships</module>
 		<module>learn-jpa-hibernate-active-record-aspects</module>
 		<module>learn-jpa-hibernate-active-record-example</module>
+		<module>learn-jpa-hibernate-swap-in-openjpa</module>
+		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
 	</modules>
 
 	<build>
@@ -88,6 +90,21 @@
 									<action>
 										<!-- just ignore the plugin -->
 										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.openjpa</groupId>
+										<artifactId>openjpa-maven-plugin</artifactId>
+										<versionRange>[3.0,)</versionRange>
+										<goals>
+											<goal>enhance</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

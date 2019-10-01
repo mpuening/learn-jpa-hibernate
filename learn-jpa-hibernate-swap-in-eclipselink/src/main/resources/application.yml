@@ -1,0 +1,28 @@
+---
+spring:
+  application:
+    name: learnjpahibernate
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ''
+    initialization-mode: always
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
+      connection-timeout: 30000
+  jpa:
+    generate-ddl: false
+    show-sql: true
+
+eclipselink:
+  database: H2
+  properties:
+    eclipselink.weaving: false
+    eclipselink.ddl-generation: none
+    eclipselink.logging.level.sql: FINE
+
+#logging:
+  #level:
+    #org.springframework.data.jpa: DEBUG

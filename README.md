@@ -530,12 +530,32 @@ Warning!!!
 `Lombok` is not compatible with `AspectJ` at the time of this writing.
 
 ## `learn-jpa-hibernate-swap-in-openjpa`
-
-`Coming soon...`
-
 ## `learn-jpa-hibernate-swap-in-eclipselink`
 
-`Coming soon...`
+Many times when people say they are using JPA, they are using Hibernate. Even Spring's 
+own `spring-boot-starter-data-jpa` includes Hibernate. But people need to know that 
+when Spring Data JPA is mentioned, there is the JPA Specification, of which Hibernate 
+is but one implementation, and Spring is there to make using them so much easier.
+
+But in order for one to say they really know them, one needs to know where the dividing lines
+are. And one way to investigate that is by playing with other implemementations of JPA. 
+Two other JPA implementations besides Hibernate are OpenJPA and EclipseLink.
+
+There are two submodules in this project that are similar in nature. Each swaps out the
+default Hibernate implementation in favor of OpenJPA and EclipseLink respectively.
+
+Notable differences between these and the Hibernate version is the required configuration
+class (`OpenJpaConfiguration`, `EclipseLinkConfiguration`) to implement a `TransactionManager`
+and `EntityManagerFactory`. They each have their own properties which one can see in 
+the `application.yml` file.
+
+Playing around with the different implementations, one notices small differences. For 
+example, Hibernate has no problem understanding this query: `From Course`. However, 
+EclipseLink wants the query to have an alias like so: `From Course c`. Finally OpenJPA 
+wants a statement like this: `Select c from Course c`. 
+
+Hibernate still remains my favorite implementation. OpenJPA is my least favorite because
+of the weaving step. (I haven't found a dynamic configuration that works for me.)
 
 ## For more information
 
