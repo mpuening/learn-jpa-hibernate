@@ -459,31 +459,62 @@ Assert.assertThat(proxyDataSource, deleteCount(4));
 
     TODO: Add information to fetch stats.
 
-## `learn-jpa-hibernate-resolve-n-plus-1-problem`
-
-`Coming soon...`
-
-## `learn-jpa-hibernate-criteria-api`
-
-`Coming soon...`
-
-## `learn-jpa-hibernate-mapped-super-class`
-
-`Coming soon...`
-
 ## `learn-jpa-hibernate-entity-graphs`
 
-`Coming soon...`
+#### How to Recognize and Resolve the N+1 Problem
 
-## `learn-jpa-hibernate-projections`
+#### How to Better Query Data (Criteria API)
 
-`Coming soon...`
+Want to know how to recognize the N+1 problem? You just need to be able to easily count 
+how many queries take place for a given use case and have an expectation for how many
+should take place. For example, if you expect one query to take place and find that
+thousands are actually taking place, then you should probably investigate your design
+to see if are suffering from the N+1 problem. 
+
+This project contains a *contrived* model to accentuate the N+1 problem. The model
+consists of students, teachers and courses. Obviously, students enroll in courses and 
+the courses are taught by teachers. To really cause an N+1 mess, the relationship between 
+the entities are all `LAZY`.
+
+The use case is to create a report (CSV file) of all the students and their courses 
+along with which teacher is teaching the course. Just ignore that fact that we are producing 
+a report of the entire database. But we will produce the report in a variety of ways 
+to investigate how many queries get executed:
+
+* The N+1 Problematic Way
+* Custom Queries
+* Entity Graphs
+
+A test case will show how many queries get executed. The take away from this exercise 
+is that one should be skilled in asserting how many queries get executed for each test 
+case, and then knowing the tools to resolve problems.
+
+Knowing that you have options on how data is retrieved, you can resolve and prevent 
+the N+1 problem in your application.
+
+More information can be found here:
+
+https://vladmihalcea.com/how-to-detect-the-n-plus-one-query-problem-during-testing/
+
+#### How to Better Control Data with Projections
+
+Another way the N+1 problem manifests itself is by relationships being traversed when
+serializing a entity into JSON. In order to not traverse unintended relationships,
+one can define projections. A projection is implemented via an interface that specifies
+exactly what data should be returned to a client.
+
+This project defines several projections and compares the data returned to a client 
+to not using a projection.
 
 ## `learn-jpa-hibernate-multiple-datasources`
 
 `Coming soon...`
 
 ## `learn-jpa-hibernate-extended-repository`
+
+`Coming soon...`
+
+## `learn-jpa-hibernate-mapped-super-class`
 
 `Coming soon...`
 
@@ -541,7 +572,7 @@ But in order for one to say they really know them, one needs to know where the d
 are. And one way to investigate that is by playing with other implemementations of JPA. 
 Two other JPA implementations besides Hibernate are OpenJPA and EclipseLink.
 
-There are two submodules in this project that are similar in nature. Each swaps out the
+There are two subprojects in this project that are similar in nature. Each swaps out the
 default Hibernate implementation in favor of OpenJPA and EclipseLink respectively.
 
 Notable differences between these and the Hibernate version is the required configuration

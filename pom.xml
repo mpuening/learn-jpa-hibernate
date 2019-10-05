@@ -30,6 +30,7 @@
 		<module>learn-jpa-hibernate-ddl2java</module>
 		<module>learn-jpa-hibernate-equals-and-hashcode</module>
 		<module>learn-jpa-hibernate-relationships</module>
+		<module>learn-jpa-hibernate-entity-graphs</module>
 		<module>learn-jpa-hibernate-active-record-aspects</module>
 		<module>learn-jpa-hibernate-active-record-example</module>
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
