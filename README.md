@@ -523,7 +523,12 @@ transaction manager to dual JPA data source transaction managers.
 
 ## `learn-jpa-hibernate-extended-repository`
 
-`Coming soon...`
+Spring's ability to dynamically implement `@Repository` interfaces is super powerful. 
+But sometimes there is a requirement where the out of box features do not support what 
+is needed. It is nice to extend what Spring implements. And that is what this
+project shows. The key to enabling a new base class for the interface is the 
+` @EnableJpaRepositories`. In the extension, one can implement new features, or
+change and/or override what Spring provides.
 
 ## `learn-jpa-hibernate-mapped-super-class`
 
