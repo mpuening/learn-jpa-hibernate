@@ -508,7 +508,18 @@ to not using a projection.
 
 ## `learn-jpa-hibernate-multiple-datasources`
 
-`Coming soon...`
+Having multiple data sources also means having multiple entity manager factories and
+deciding if one should have multiple transaction managers or a single one with XA support.
+
+This project shows how to set up multiple data sources, one H2 database, one Derby database 
+with a JTA transaction manager using Bitronix.
+
+There are abstract classes, `AbstractDataSourceConfiguration` and `AbstractJpaConfiguration`
+with re-usable code that one can use to create data sources and entity manager factories.
+
+The `TransactionManagerConfiguration` class contains instructions to change from the Bitronix
+transaction manager to dual JPA data source transaction managers.
+
 
 ## `learn-jpa-hibernate-extended-repository`
 

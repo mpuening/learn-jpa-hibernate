@@ -1,0 +1,61 @@
+---
+spring:
+  application:
+    name: learnjpahibernate
+ 
+application:
+  primary:
+    datasource:
+      name: primary
+# When using JTA/XA these properties are not needed
+#      embeddedDatabaseType: H2
+#      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: ''
+      initialization-mode: always
+      schema: schema-primary.sql
+      data: data-primary.sql
+      xa:
+        data-source-class-name: org.h2.Driver
+      hikari:
+        maximum-pool-size: 3
+        minimum-idle: 1
+        connection-timeout: 30000
+    jpa:
+      database: H2
+      generate-ddl: false
+      show-sql: true
+      properties:
+        hibernate:
+          hbm2ddl.auto: validate
+          generate_statistics: false
+  secondary:
+    datasource: 
+      name: secondary
+# When using JTA/XA these properties are not needed
+#      driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+      url: jdbc:derby:memory:testdb;create=true
+      username: APP
+      password: APP
+      initialization-mode: always
+      schema: schema-secondary.sql
+      data: data-secondary.sql
+      xa:
+        data-source-class-name: org.apache.derby.jdbc.EmbeddedDriver
+      hikari:
+        maximum-pool-size: 3
+        minimum-idle: 1
+        connection-timeout: 30000
+    jpa:
+      database: DERBY
+      generate-ddl: false
+      show-sql: true
+      properties:
+        hibernate:
+          hbm2ddl.auto: validate
+          generate_statistics: false
+
+#logging:
+  #level:
+    #org.springframework.data.jpa: DEBUG
