@@ -124,6 +124,9 @@ logs
 *.log
 npm-debug.log*
 
+# Bitronix Logs
+*.btm
+
 # Runtime data
 pids
 *.pid
