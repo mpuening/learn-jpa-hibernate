@@ -61,8 +61,8 @@ public class OpenJpaConfiguration {
 		return localContainerEntityManagerFactoryBean.getObject();
 	}
 
-	// If one prefers, the prefix could be "spring.openjpa"
-	@ConfigurationProperties(prefix = "openjpa")
+	// If one prefers, the prefix could be "openjpa.jpa"
+	@ConfigurationProperties(prefix = "spring.jpa")
 	public static class OpenJpaProperties extends JpaProperties {
 	}
 }

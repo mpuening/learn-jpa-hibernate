@@ -61,8 +61,8 @@ public class EclipselinkConfiguration {
 		return localContainerEntityManagerFactoryBean.getObject();
 	}
 
-	// If one prefers, the prefix could be "spring.eclipselink"
-	@ConfigurationProperties(prefix = "eclipselink")
+	// If one prefers, the prefix could be "eclipselink.jpa"
+	@ConfigurationProperties(prefix = "spring.jpa")
 	public static class EclipseLinkJpaProperties extends JpaProperties {
 	}
 }

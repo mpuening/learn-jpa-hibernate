@@ -13,17 +13,15 @@ spring:
       minimum-idle: 1
       connection-timeout: 30000
   jpa:
-    generate-ddl: false
-    show-sql: true
-
-openjpa:
-  database: H2
-  properties:
-    openjpa.jdbc.SynchronizeMappings: validate
-    openjpa.Log: openjpa.jdbc.SQL=trace
-#    openjpa.DynamicEnhancementAgent: false
-#    openjpa.RuntimeUnenhancedClasses: unsupported
-#    openjpa.jdbc.SynchronizeMappings: buildSchema(ForeignKeys=true) 
+    database: H2
+    properties:
+      # SynchronizeMappings values include: buildSchema, dropSchema, validate (see MappingTool.java)
+      openjpa.jdbc.SynchronizeMappings: validate
+      # Log values include: TRACE, INFO, WARN, ERROR or FATAL
+      openjpa.Log: openjpa.jdbc.SQL=trace
+#     openjpa.DynamicEnhancementAgent: false
+#     openjpa.RuntimeUnenhancedClasses: unsupported
+#     openjpa.jdbc.SynchronizeMappings: buildSchema(ForeignKeys=true) 
 
 #logging:
   #level:
