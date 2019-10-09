@@ -499,7 +499,7 @@ https://vladmihalcea.com/how-to-detect-the-n-plus-one-query-problem-during-testi
 #### How to Better Control Data with Projections
 
 Another way the N+1 problem manifests itself is by relationships being traversed when
-serializing a entity into JSON. In order to not traverse unintended relationships,
+serializing an entity into JSON. In order to not traverse unintended relationships,
 one can define projections. A projection is implemented via an interface that specifies
 exactly what data should be returned to a client.
 
@@ -520,19 +520,30 @@ with re-usable code that one can use to create data sources and entity manager f
 The `TransactionManagerConfiguration` class contains instructions to change from the Bitronix
 transaction manager to dual JPA data source transaction managers.
 
-
 ## `learn-jpa-hibernate-extended-repository`
 
 Spring's ability to dynamically implement `@Repository` interfaces is super powerful. 
 But sometimes there is a requirement where the out of box features do not support what 
 is needed. It is nice to extend what Spring implements. And that is what this
 project shows. The key to enabling a new base class for the interface is the 
-` @EnableJpaRepositories`. In the extension, one can implement new features, or
+`@EnableJpaRepositories` annotation. In the extension, one can implement new features, or
 change and/or override what Spring provides.
+
+This project implements a new method to query by a property passed into the repository
+and perform a `like` query against of value.
 
 ## `learn-jpa-hibernate-mapped-super-class`
 
-`Coming soon...`
+Mapped super classes provide a convenient location for modeling common
+columns/properties across two or more similar entity beans.
+
+In this silly example, a star schema is used as the model. But as I have
+seen many times, developers who want to use JPA where JPA might not be
+appropriate, have a database view created to make using JPA easier. So
+included in this model is a view that brings together the dimension and
+fact tables so that the developer doesn't need to model any dimension tables.
+Since views cannot be updated, an updatable version of the sales entity bean
+is created. The two versions of the sales entity share a mapped super class.
 
 ## `learn-jpa-hibernate-active-record-aspects`
 ## `learn-jpa-hibernate-active-record-example`
@@ -585,10 +596,10 @@ when Spring Data JPA is mentioned, there is the JPA Specification, of which Hibe
 is but one implementation, and Spring is there to make using them so much easier.
 
 But in order for one to say they really know them, one needs to know where the dividing lines
-are. And one way to investigate that is by playing with other implemementations of JPA. 
+are. And one way to investigate that is by playing with other implementations of JPA. 
 Two other JPA implementations besides Hibernate are OpenJPA and EclipseLink.
 
-There are two subprojects in this project that are similar in nature. Each swaps out the
+There are two sub-projects in this project that are similar in nature. Each swaps out the
 default Hibernate implementation in favor of OpenJPA and EclipseLink respectively.
 
 Notable differences between these and the Hibernate version is the required configuration
@@ -610,4 +621,11 @@ Here are some links to other great information:
 
 * https://github.com/AnghelLeonard/Hibernate-SpringBoot
 * https://dzone.com/articles/50-best-performance-practices-for-hibernate-5-amp
-  
+
+## TODO
+
+Code review.. too much repeating code, remove updatable = true
+Identity columns... start at 100?
+README.md files in sub modules. Just show me the code links...
+java2ddl examples for eclipselink and openjpa (https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm)
+excessive config present? Like hibernate metrics: false?

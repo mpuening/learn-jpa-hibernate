@@ -33,6 +33,7 @@
 		<module>learn-jpa-hibernate-entity-graphs</module>
 		<module>learn-jpa-hibernate-multiple-datasources</module>
 		<module>learn-jpa-hibernate-extended-repository</module>
+		<module>learn-jpa-hibernate-mapped-super-class</module>
 		<module>learn-jpa-hibernate-active-record-aspects</module>
 		<module>learn-jpa-hibernate-active-record-example</module>
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
