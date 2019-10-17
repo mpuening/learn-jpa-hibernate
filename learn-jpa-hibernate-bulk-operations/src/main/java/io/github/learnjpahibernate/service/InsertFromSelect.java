@@ -25,10 +25,14 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory;
 import org.hibernate.hql.spi.QueryTranslator;
 import org.hibernate.hql.spi.QueryTranslatorFactory;
+import org.hibernate.internal.util.collections.Stack;
+import org.hibernate.internal.util.collections.StandardStack;
 import org.hibernate.query.criteria.internal.CriteriaQueryImpl;
 import org.hibernate.query.criteria.internal.compile.CriteriaInterpretation;
 import org.hibernate.query.criteria.internal.compile.ExplicitParameterInfo;
 import org.hibernate.query.criteria.internal.compile.RenderingContext;
+import org.hibernate.query.criteria.internal.expression.function.FunctionExpression;
+import org.hibernate.sql.ast.Clause;
 import org.springframework.data.jpa.domain.Specification;
 
 public class InsertFromSelect {
@@ -123,6 +127,19 @@ public class InsertFromSelect {
 			@Override
 			public Dialect getDialect() {
 				throw new UnsupportedOperationException("getDialect() not supported yet");
+			}
+
+			private final Stack<Clause> clauseStack = new StandardStack<>();
+			private final Stack<FunctionExpression> functionContextStack = new StandardStack<>();
+
+			@Override
+			public Stack<Clause> getClauseStack() {
+				return clauseStack;
+			}
+
+			@Override
+			public Stack<FunctionExpression> getFunctionStack() {
+				return functionContextStack;
 			}
 		});
 		String selectjpaql = null;
