@@ -558,6 +558,14 @@ specification to produce a query and column mappings to produce the insert state
 The class uses Hibernate internals to produce the native query statement that is still
 required to execute the query.
 
+## `learn-jpa-hibernate-batch-operations`
+
+JPA batch operations align with JDBC batch operations and try to optimize a long series
+of SQL statements that need to be executed by the application.
+
+I have another Github project called `learn-apache-poi-xssf` that implements JPA
+batch statements. Feel free to review that project as an example for JPA batch operations.
+
 ## `learn-jpa-hibernate-active-record-aspects`
 ## `learn-jpa-hibernate-active-record-example`
 
@@ -642,4 +650,3 @@ Identity columns... start at 100?
 README.md files in sub modules. Just show me the code links...
 java2ddl examples for eclipselink and openjpa (https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm)
 excessive config present? Like hibernate metrics: false?
-batch operations
