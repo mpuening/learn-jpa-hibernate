@@ -30,7 +30,7 @@ public class Captain extends Person {
 
 	// Bi-directional relationship has 'mappedBy' attribute
 	@OneToOne(optional = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "SHIP_ID", nullable = true)
+	@JoinColumn(name = "SHIP_ID")
 	private Ship ship;
 
 }

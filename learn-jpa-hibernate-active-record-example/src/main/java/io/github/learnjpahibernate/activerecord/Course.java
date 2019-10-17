@@ -23,7 +23,7 @@ public class Course extends Jpa2ActiveRecord<Long> {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NAME", columnDefinition = "VARCHAR(50)", nullable = false, unique = true, length = 50, updatable = true)
+	@Column(name = "NAME", columnDefinition = "VARCHAR(50)", nullable = false, unique = true, length = 50)
 	private String name;
 
 	@ManyToMany(mappedBy = "courses", cascade = { CascadeType.PERSIST, CascadeType.MERGE })

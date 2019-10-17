@@ -44,7 +44,7 @@ public class Person extends AbstractEntity<Long> {
 
 	// Uni-directional relationship means not having 'mappedBy' attribute
 	@OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "HOME_ADDRESS_ID", nullable = false, insertable = true, updatable = true)
+	@JoinColumn(name = "HOME_ADDRESS_ID", nullable = false, insertable = true)
 	private Address address;
 
 	// CascadeType.ALL causes N+1 queries to find hailing frequencies to delete.

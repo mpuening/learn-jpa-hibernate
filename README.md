@@ -645,7 +645,7 @@ Here are some links to other great information:
 
 ## TODO
 
-Code review.. too much repeating code, remove updatable = true
+Code review.. too much repeating code
 Identity columns... start at 100?
 README.md files in sub modules. Just show me the code links...
 java2ddl examples for eclipselink and openjpa (https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm)

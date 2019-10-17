@@ -49,6 +49,6 @@ public class Cabin extends AbstractEntity<Long> {
 
 	@NotNull
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "SHIP_ID", nullable = true)
+	@JoinColumn(name = "SHIP_ID")
 	private Ship ship;
 }

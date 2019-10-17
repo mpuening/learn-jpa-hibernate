@@ -28,7 +28,7 @@ public class Student {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NAME", columnDefinition = "VARCHAR(100)", nullable = false, length = 100, updatable = true)
+	@Column(name = "NAME", columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
 	private String name;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
