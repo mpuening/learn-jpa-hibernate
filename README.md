@@ -545,6 +545,19 @@ fact tables so that the developer doesn't need to model any dimension tables.
 Since views cannot be updated, an updatable version of the sales entity bean
 is created. The two versions of the sales entity share a mapped super class.
 
+## `learn-jpa-hibernate-bulk-operations`
+
+Bulk operations are those that are performed by the database and not in the application.
+At the time of this writing, JPA supports only delete and update statements. JPA does not
+support insert statements except for native queries.
+
+This project includes an easy example of performing both the update and delete statements,
+but my challenge was to support the insert from select statement where the select statement
+is a JPQL statement. The `InsertFromSelect` class contains a method that accepts a 
+specification to produce a query and column mappings to produce the insert statement.
+The class uses Hibernate internals to produce the native query statement that is still
+required to execute the query.
+
 ## `learn-jpa-hibernate-active-record-aspects`
 ## `learn-jpa-hibernate-active-record-example`
 
@@ -629,3 +642,4 @@ Identity columns... start at 100?
 README.md files in sub modules. Just show me the code links...
 java2ddl examples for eclipselink and openjpa (https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm)
 excessive config present? Like hibernate metrics: false?
+batch operations
