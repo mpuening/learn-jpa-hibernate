@@ -18,6 +18,14 @@ spring:
       eclipselink.weaving: false
       # ddl-generate values include: create-tables, drop-and-create-tables, none
       eclipselink.ddl-generation: none
+
+      # the following settings can be used to generate schema files from entities
+      # https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm
+      #eclipselink.ddl-generation: drop-and-create-tables
+      #eclipselink.create-ddl-jdbc-file-name: create-schema.sql
+      #eclipselink.drop-ddl-jdbc-file-name: drop-schema.sql
+      #eclipselink.ddl-generation.output-mode: both
+
       # logging.level.sql values include: SEVERE, WARNING, INFO, FINE, ALL
       eclipselink.logging.level.sql: FINE
 

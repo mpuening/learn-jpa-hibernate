@@ -28,7 +28,7 @@ Because JPA implements ORM, there *theoretically* exists a way to translate your
 Entity Beans to DDL, and vice versa, create Java Entity Beans from DDL.
 
 One use case for JPA is quickly implementing an application without regards to how the
-database schema looks. But should the application shows value, you may want to look 
+database schema looks. But should the application show value, you may want to look 
 at the schema. This can be for several reasons above and beyond the curiosity of reviewing
 the schema. For example, your company may have a policy that only DBA's can implement
 schema changes. Another example is that you may want to track schema changes via Flyway
@@ -40,10 +40,18 @@ Boot test case that demonstrates that the model works. The project also contains
 class that can be used to export a DDL file from an object model. There is also a test 
 case to show that it works.
 
-If you want DDL from your Java Entity Beans, just use the DDLExporter. The code is not 
+If you want DDL from your Java Entity Beans, just use the `DDLExporter`. The code is not 
 terribly complex. The code is based on Spring to boot up a `SessionFactory` from which 
 a metadata source model is obtained. Once you have the metadata, the `SchemaExport` 
-class is used to generate the DDL file.
+class is used to generate the DDL file. Note that the `DDLExporter` is Hibernate specific.
+
+The `learn-jpa-hibernate-swap-in-eclipselink` project contains commented out configuration
+in the `application.yml` file that makes `EclipseLink` generate `create-schema.sql` and
+`drop-schema.sql` files for the entity beans in its project.
+
+The `learn-jpa-hibernate-swap-in-openjpa` project also contains commented out configuration
+in the `application.yml` file that makes `OpenJPA` generate schema but its output is 
+in the logs and not as a file.
 
 ## `learn-jpa-hibernate-ddl2java`
 
@@ -648,5 +656,4 @@ Here are some links to other great information:
 Code review.. too much repeating code
 Identity columns... start at 100?
 README.md files in sub modules. Just show me the code links...
-java2ddl examples for eclipselink and openjpa (https://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm)
 excessive config present? Like hibernate metrics: false?

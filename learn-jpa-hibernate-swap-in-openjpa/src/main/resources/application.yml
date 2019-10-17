@@ -15,10 +15,16 @@ spring:
   jpa:
     database: H2
     properties:
-      # SynchronizeMappings values include: buildSchema, dropSchema, validate (see MappingTool.java)
+      # SynchronizeMappings values include: buildSchema(ForeignKeys=true), dropSchema, validate (see MappingTool.java)
       openjpa.jdbc.SynchronizeMappings: validate
+      
+      # the following settings can be used to log schema from entities
+      #openjpa.jdbc.SynchronizeMappings: buildSchema(ForeignKeys=true)
+      #openjpa.Log: DefaultLevel=TRACE,SQL=TRACE
+      
       # Log values include: TRACE, INFO, WARN, ERROR or FATAL
       openjpa.Log: openjpa.jdbc.SQL=trace
+
 #     openjpa.DynamicEnhancementAgent: false
 #     openjpa.RuntimeUnenhancedClasses: unsupported
 #     openjpa.jdbc.SynchronizeMappings: buildSchema(ForeignKeys=true) 
