@@ -1,23 +1,20 @@
 package io.github.learnjpahibernate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.sql.DataSource;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import io.github.learnjpahibernate.service.StudentReportService;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.hamcrest.DataSourceAssertMatchers;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class StudentReportTests {
 
@@ -40,11 +37,11 @@ public class StudentReportTests {
 		assertEquals(36, report.split("\n").length);
 
 		// See? Ugly... 18 queries to produce a 36 line report....
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(18));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(18));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(18));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(18));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 
 	@Test
@@ -59,11 +56,11 @@ public class StudentReportTests {
 		assertEquals(36, report.split("\n").length);
 
 		// Nice!... one query to produce a 36 line report....
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 
 	@Test
@@ -78,11 +75,11 @@ public class StudentReportTests {
 		assertEquals(36, report.split("\n").length);
 
 		// Nice!... one query to produce a 36 line report....
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 
 	@Test
@@ -98,11 +95,11 @@ public class StudentReportTests {
 
 		// Slightly better... 8 queries to produce a 36 line report....
 		// Teachers are not part of the graph
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(8));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(8));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(8));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(8));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 
 	@Test
@@ -117,11 +114,11 @@ public class StudentReportTests {
 		assertEquals(36, report.split("\n").length);
 
 		// Nice!... 1 query to produce a 36 line report....
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 	
 	@Test
@@ -136,10 +133,10 @@ public class StudentReportTests {
 		assertEquals(36, report.split("\n").length);
 
 		// Nice!... 1 query to produce a 36 line report....
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(1));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 }

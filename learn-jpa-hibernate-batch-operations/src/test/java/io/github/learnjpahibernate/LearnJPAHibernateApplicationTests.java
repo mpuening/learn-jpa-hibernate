@@ -1,7 +1,7 @@
 package io.github.learnjpahibernate;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -10,19 +10,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.learnjpahibernate.model.Event;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.hamcrest.DataSourceAssertMatchers;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class LearnJPAHibernateApplicationTests {
 
@@ -57,11 +54,11 @@ public class LearnJPAHibernateApplicationTests {
 		entityManager.clear();
 
 		// With batching, insert count is decreased: 5000 / 50 = 100 insert stmts
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(201));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(100));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.otherCount(101));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(201));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(100));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.otherCount(101));
 	}
 }

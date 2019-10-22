@@ -5,12 +5,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import io.github.learnjpahibernate.config.DatasourceProxyBeanPostProcessor;
@@ -24,7 +22,6 @@ import net.ttddyy.dsproxy.asserts.PreparedExecution;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.QueryExecution;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 @Import(DatasourceProxyBeanPostProcessor.class)
 @Sql("/test-case-data.sql")

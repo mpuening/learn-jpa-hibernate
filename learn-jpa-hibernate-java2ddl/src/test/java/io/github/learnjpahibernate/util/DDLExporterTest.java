@@ -1,11 +1,11 @@
 package io.github.learnjpahibernate.util;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DDLExporterTest {
 	@Test
@@ -16,6 +16,6 @@ public class DDLExporterTest {
 
 		File actual = new File("target/schema-generated.sql");
 		File expected = new File("src/test/resources/schema-expected.sql");
-		assertTrue("The schemas differ!", FileUtils.contentEquals(actual, expected));
+		assertTrue(FileUtils.contentEquals(actual, expected), "The schemas differ!");
 	}
 }

@@ -1,17 +1,15 @@
 package io.github.learnjpahibernate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.sql.DataSource;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.learnjpahibernate.model.Course;
@@ -22,7 +20,6 @@ import net.sf.ehcache.CacheManager;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.hamcrest.DataSourceAssertMatchers;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class LearnJPAHibernateApplicationTests {
 
@@ -91,11 +88,11 @@ public class LearnJPAHibernateApplicationTests {
 
 		// Six queries should take place, two for courses (one cached), two for
 		// students (one cached), two for teachers (one relationship, one select)
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(6));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(6));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(6));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(6));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 
 	@Test
@@ -122,10 +119,10 @@ public class LearnJPAHibernateApplicationTests {
 		assertEquals("Mr. Cooper", teacherRepository.findTeacherByName("Mr. Cooper").getName());
 
 		// Six queries take place because the cache size is 1 (see ehcache.xml)
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(6));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(6));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
-		Assert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(6));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(6));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
 }

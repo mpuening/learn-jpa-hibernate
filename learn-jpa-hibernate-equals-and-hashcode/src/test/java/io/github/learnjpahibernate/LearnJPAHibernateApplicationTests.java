@@ -1,12 +1,11 @@
 package io.github.learnjpahibernate;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import io.github.learnjpahibernate.data.EntityValidator;
@@ -19,7 +18,6 @@ import io.github.learnjpahibernate.repository.BadLombokEntityRepository;
 import io.github.learnjpahibernate.repository.BadSimpleEntityRepository;
 import io.github.learnjpahibernate.repository.BookRepository;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class LearnJPAHibernateApplicationTests {
 
@@ -61,26 +59,30 @@ public class LearnJPAHibernateApplicationTests {
 		}).withTransactions(transactionTemplate).assertEntityIsValid();
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void validateBadSimpleEntity() {
-		assertNotNull(badSimpleEntityRepository);
-		BadSimpleEntity badSimpleEntity = new BadSimpleEntity();
-		badSimpleEntity.setName("simple");
+		Assertions.assertThrows(RuntimeException.class, () -> {
+			assertNotNull(badSimpleEntityRepository);
+			BadSimpleEntity badSimpleEntity = new BadSimpleEntity();
+			badSimpleEntity.setName("simple");
 
-		EntityValidator.with(badSimpleEntity, badSimpleEntityRepository).beforeUpdate(b -> {
-			b.setName("bad simple");
-		}).withTransactions(transactionTemplate).assertEntityIsValid();
+			EntityValidator.with(badSimpleEntity, badSimpleEntityRepository).beforeUpdate(b -> {
+				b.setName("bad simple");
+			}).withTransactions(transactionTemplate).assertEntityIsValid();
+		});
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void validateBadLombokEntity() {
 		assertNotNull(badLombokEntityRepository);
 		BadLombokEntity badLombokEntity = new BadLombokEntity();
 		badLombokEntity.setIsbn("Bad");
 		badLombokEntity.setName("lombok");
 
-		EntityValidator.with(badLombokEntity, badLombokEntityRepository).beforeUpdate(b -> {
-			b.setName("bad lombok");
-		}).withTransactions(transactionTemplate).assertEntityIsValid();
+		Assertions.assertThrows(RuntimeException.class, () -> {
+			EntityValidator.with(badLombokEntity, badLombokEntityRepository).beforeUpdate(b -> {
+				b.setName("bad lombok");
+			}).withTransactions(transactionTemplate).assertEntityIsValid();
+		});
 	}
 }
