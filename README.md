@@ -300,7 +300,7 @@ public class Person {
     // Join column exists in the other entity (or join table)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
-    private Set<HailingFrequency> hailingFrequencies;
+    private Set<HailingFrequency> hailingFrequencies = new HashSet<>(0);
 }
 
 @Entity
@@ -355,7 +355,7 @@ public class Reservation {
 @Table(name = "VOYAGE")
 public class Voyage {
     @OneToMany(mappedBy="voyage")
-    private Set<Reservation> reservations;
+    private Set<Reservation> reservations = new HashSet<>(0);
 }
 ```
 
@@ -374,7 +374,7 @@ public class Reservation {
     // This relationship requires a join table
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "RESERVATION_CABIN", joinColumns = @JoinColumn(name = "RESERVATION_ID"), inverseJoinColumns = @JoinColumn(name = "CABIN_ID"))
-    private Set<Cabin> cabins;
+    private Set<Cabin> cabins = new HashSet<>(0);
 }
 
 @Entity
@@ -399,14 +399,14 @@ public class Reservation {
     // Bi-directional relationship has 'mappedBy' attribute in other entity
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "RESERVATION_PERSON", joinColumns = @JoinColumn(name = "RESERVATION_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
-    private Set<Person> passengers;
+    private Set<Person> passengers = new HashSet<>(0);
 }
 
 @Entity
 @Table(name = "PERSON")
 public class Person {
     @ManyToMany(mappedBy = "passengers")
-    private Set<Reservation> reservations;
+    private Set<Reservation> reservations = new HashSet<>(0);
 }
 ```
 
