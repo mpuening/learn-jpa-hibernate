@@ -553,6 +553,19 @@ fact tables so that the developer doesn't need to model any dimension tables.
 Since views cannot be updated, an updatable version of the sales entity bean
 is created. The two versions of the sales entity share a mapped super class.
 
+## `learn-jpa-hibernate-L2-caching`
+
+In JPA, the "Level 1" cache is the entity manager itself. The "Level 2" cache allows 
+for caching of entities and queries across entity sessions or transactions. In this
+project, Hibernate is configured with `ehcache` capabilities.
+
+The `pom.xml` file has the extra dependency for `hibernate-ehcache` and `application.yml`
+file has the Hibernate properties to enable caching for both entities and queries.
+The `Course` entity bean has Hibernate's `Cacheable` annotation to enable caching of
+courses. The `TeacherRepository` uses a `QueryHint` to allow queries to cached.
+The `ehcache.xml` file has the configuration to allow one to carefully manage how
+objects are stored in the cached.
+
 ## `learn-jpa-hibernate-bulk-operations`
 
 Bulk operations are those that are performed by the database and not in the application.

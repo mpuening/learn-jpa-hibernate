@@ -1,0 +1,29 @@
+---
+spring:
+  application:
+    name: learnjpahibernate
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ''
+    initialization-mode: always
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
+      connection-timeout: 30000
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        generate_statistics: false
+        cache.use_second_level_cache: true
+        cache.use_query_cache: true
+        cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+#logging:
+  #level:
+    #org.springframework.data.jpa: DEBUG

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+	<defaultCache name="defaut" maxElementsInMemory="500"
+		eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="300"
+		overflowToDisk="false" diskPersistent="false"
+		memoryStoreEvictionPolicy="LRU" />
+	<cache name="io.github.learnjpahibernate.model.Course"
+		maxElementsInMemory="500" eternal="false" timeToIdleSeconds="300"
+		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
+		memoryStoreEvictionPolicy="LRU" />
+	<cache name="io.github.learnjpahibernate.model.Course.teacher"
+		maxElementsInMemory="500" eternal="false" timeToIdleSeconds="300"
+		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
+		memoryStoreEvictionPolicy="LRU" />
+	<!-- Max of one query cached to test ehcache setting -->
+	<cache name="default-query-results-region"
+		maxElementsInMemory="1" eternal="false" timeToIdleSeconds="300"
+		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
+		memoryStoreEvictionPolicy="LRU" />
+</ehcache>
