@@ -35,6 +35,7 @@
 		<module>learn-jpa-hibernate-extended-repository</module>
 		<module>learn-jpa-hibernate-mapped-super-class</module>
 		<module>learn-jpa-hibernate-L2-caching</module>
+		<module>learn-jpa-hibernate-batch-operations</module>
 		<module>learn-jpa-hibernate-bulk-operations</module>
 		<module>learn-jpa-hibernate-active-record-aspects</module>
 		<module>learn-jpa-hibernate-active-record-example</module>

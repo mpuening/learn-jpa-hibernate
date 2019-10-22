@@ -566,6 +566,20 @@ courses. The `TeacherRepository` uses a `QueryHint` to allow queries to cached.
 The `ehcache.xml` file has the configuration to allow one to carefully manage how
 objects are stored in the cached.
 
+## `learn-jpa-hibernate-batch-operations`
+
+JPA batch operations align with JDBC batch operations and try to optimize a long series
+of SQL statements that need to be executed by the application.
+
+The `application.yml` file contains Hibernate properties that enable batching, in this
+case 50 records each. The `Event` entity is the bean that is inserted into the database
+in batches. It is important to note that the `Event` entity bean uses sequences to generate
+its Id column, because identity columns are not supported for batch statements.
+
+A potential optimization when dealing with a long list of records is to flush and clear
+the entity manager of saved records. This way, the entire list of records does not need 
+to be stored in memory.
+
 ## `learn-jpa-hibernate-bulk-operations`
 
 Bulk operations are those that are performed by the database and not in the application.
@@ -578,14 +592,6 @@ is a JPQL statement. The `InsertFromSelect` class contains a method that accepts
 specification to produce a query and column mappings to produce the insert statement.
 The class uses Hibernate internals to produce the native query statement that is still
 required to execute the query.
-
-## `learn-jpa-hibernate-batch-operations`
-
-JPA batch operations align with JDBC batch operations and try to optimize a long series
-of SQL statements that need to be executed by the application.
-
-I have another Github project called `learn-apache-poi-xssf` that implements JPA
-batch statements. Feel free to review that project as an example for JPA batch operations.
 
 ## `learn-jpa-hibernate-active-record-aspects`
 ## `learn-jpa-hibernate-active-record-example`
@@ -661,6 +667,7 @@ of the weaving step. (I haven't found a dynamic configuration that works for me.
 
 Here are some links to other great information:
 
+* https://vladmihalcea.com/tutorials/hibernate/
 * https://github.com/AnghelLeonard/Hibernate-SpringBoot
 * https://dzone.com/articles/50-best-performance-practices-for-hibernate-5-amp
 
