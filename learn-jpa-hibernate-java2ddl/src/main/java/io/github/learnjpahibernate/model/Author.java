@@ -30,8 +30,8 @@ public class Author extends AbstractEntity<Long> {
 	private String name;
 
 	@ManyToMany(mappedBy = "authors")
-	private Set<Book> books = new HashSet<>();
+	private Set<Book> books = new HashSet<>(0);
 
 	@OneToMany(mappedBy = "id.authorId")
-	private Set<Preference> preferences = new HashSet<>();
+	private Set<Preference> preferences = new HashSet<>(0);
 }

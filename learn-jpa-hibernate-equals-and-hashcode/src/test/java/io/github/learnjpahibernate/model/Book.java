@@ -30,7 +30,7 @@ public class Book extends AbstractEntity<String> {
 
 	@ManyToMany
 	@JoinTable(name = "BOOK_AUTHOR", joinColumns = @JoinColumn(name = "ISBN_NUMBER"), inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID"))
-	private Set<Author> authors = new HashSet<>();
+	private Set<Author> authors = new HashSet<>(0);
 
 	@Override
 	@Transient

@@ -29,5 +29,5 @@ public class Author extends AbstractEntity<Long> {
 	private String name;
 
 	@ManyToMany(mappedBy = "authors")
-	private Set<Book> books = new HashSet<>();
+	private Set<Book> books = new HashSet<>(0);
 }
