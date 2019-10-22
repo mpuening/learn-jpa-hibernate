@@ -29,7 +29,7 @@ public class LateInvoice extends AbstractEntity<Long> {
 
 	@Column(name = "NAME", columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
 	private String name;
-	
+
 	@Column(name = "REVIEW_DATE", columnDefinition = "DATE", nullable = false)
 	private LocalDate reviewDate;
 }

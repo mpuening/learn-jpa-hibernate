@@ -12,8 +12,8 @@ import io.github.learnjpahibernate.model.Student;
 public interface StudentCoursesRepository extends JpaRepository<Student, Long> {
 
 	@EntityGraph(value = "student-courses-entity-graph")
-    List<Student> findAll();
-	
+	List<Student> findAll();
+
 	@EntityGraph("student-courses-entity-graph")
-    List<Student> findByCoursesName(String name);
+	List<Student> findByCoursesName(String name);
 }

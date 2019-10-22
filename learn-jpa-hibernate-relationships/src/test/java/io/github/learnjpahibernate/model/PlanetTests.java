@@ -35,8 +35,8 @@ public class PlanetTests extends AbstractEntityTest {
 
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select planet0_.id as id1_4_0_, planet0_.name as name2_4_0_ from planet planet0_ where planet0_.id=?")));
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select planet0_.id as id1_4_0_, planet0_.name as name2_4_0_ from planet planet0_ where planet0_.id=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

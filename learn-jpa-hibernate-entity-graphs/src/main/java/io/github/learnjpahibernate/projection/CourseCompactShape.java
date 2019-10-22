@@ -8,6 +8,6 @@ import io.github.learnjpahibernate.model.Course;
 public interface CourseCompactShape {
 
 	Long getId();
-	
+
 	String getName();
 }

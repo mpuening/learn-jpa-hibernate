@@ -57,7 +57,8 @@ public class InvoiceService {
 		columnMappings.put("ID", "id");
 		columnMappings.put("NAME", "name");
 		columnMappings.put("REVIEW_DATE", "2019-12-31");
-		Specification<Invoice> specification = ((invoice, cq, cb) -> cb.like(invoice.get("name"), "%" + companyName + "%"));
+		Specification<Invoice> specification = ((invoice, cq, cb) -> cb.like(invoice.get("name"),
+				"%" + companyName + "%"));
 		Query insertFromSelect = InsertFromSelect.createNativeQuery(insertTable, columnMappings, entityManager,
 				Invoice.class, specification);
 		int rowsUpdated = insertFromSelect.executeUpdate();

@@ -45,7 +45,7 @@ public class LearnJPAHibernateApplicationTests {
 			event.setCreatedDate(LocalDateTime.now());
 			entityManager.persist(event);
 			// To save memory, considering flushing and clearing the entity manager
-			if ((i+1) % BATCH_SIZE == 0) {
+			if ((i + 1) % BATCH_SIZE == 0) {
 				entityManager.flush();
 				entityManager.clear();
 			}

@@ -32,7 +32,8 @@ public class CoursesController {
 	}
 
 	/**
-	 * This is better because we controller exactly what data is fetched are returned.
+	 * This is better because we controller exactly what data is fetched are
+	 * returned.
 	 */
 	@GetMapping
 	public List<Object> getCourses(@RequestParam(name = "projection", defaultValue = "compact") String projection) {

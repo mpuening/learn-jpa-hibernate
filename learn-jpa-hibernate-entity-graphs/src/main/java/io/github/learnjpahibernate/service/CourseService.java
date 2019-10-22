@@ -23,7 +23,7 @@ public class CourseService {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
-	
+
 	@Autowired
 	protected ProjectionFactory projectionFactory;
 
@@ -44,19 +44,17 @@ public class CourseService {
 		} else if ("student".equalsIgnoreCase(projection)) {
 			entityGraph = "course-students-entity-graph";
 			projectionClass[0] = CourseStudentsShape.class;
-		}
-		else if ("full".equalsIgnoreCase(projection)) {
+		} else if ("full".equalsIgnoreCase(projection)) {
 			entityGraph = "courses-students-teachers-entity-graph";
 			projectionClass[0] = CourseFullShape.class;
 		}
 		Query query = entityManager.createQuery("SELECT c FROM Course c");
 		if (entityGraph != null) {
-			EntityGraph<?> graph = entityManager.getEntityGraph(entityGraph);			 
+			EntityGraph<?> graph = entityManager.getEntityGraph(entityGraph);
 			query.setHint("javax.persistence.loadgraph", graph);
 		}
-		return ((List<Course>)query.getResultList()).stream().map(course -> {
-			return projectionFactory.createProjection(projectionClass[0],
-                    course);
+		return ((List<Course>) query.getResultList()).stream().map(course -> {
+			return projectionFactory.createProjection(projectionClass[0], course);
 		}).collect(Collectors.toList());
 	}
 }

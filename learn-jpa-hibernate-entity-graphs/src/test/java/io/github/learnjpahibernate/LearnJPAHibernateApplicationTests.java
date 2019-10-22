@@ -35,7 +35,7 @@ public class LearnJPAHibernateApplicationTests {
 
 	@Autowired
 	protected CourseRepository courseRepository;
-	
+
 	@Test
 	public void testUpdateExistingEntities() {
 

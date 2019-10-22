@@ -32,6 +32,6 @@ public class Teacher extends AbstractEntity<Long> {
 	@Column(name = "NAME", columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
 	private String name;
 
-    @OneToMany(mappedBy="teacher")
-    private Set<Course> courses = new HashSet<>(0);
+	@OneToMany(mappedBy = "teacher")
+	private Set<Course> courses = new HashSet<>(0);
 }

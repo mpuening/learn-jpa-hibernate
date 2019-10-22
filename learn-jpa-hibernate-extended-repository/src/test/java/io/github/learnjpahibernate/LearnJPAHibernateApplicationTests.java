@@ -21,17 +21,17 @@ public class LearnJPAHibernateApplicationTests {
 
 	@Autowired
 	protected CourseRepository courseRepository;
-	
+
 	@Test
 	public void testExtendedStudentRepository() {
-		List<Student> students =  studentRepository.findByPropertyContainsValue("name", "re");
+		List<Student> students = studentRepository.findByPropertyContainsValue("name", "re");
 		// Greta and Fred
 		assertEquals(2, students.size());
 	}
-	
+
 	@Test
 	public void testExtendedCourseRepository() {
-		List<Course> courses =  courseRepository.findByPropertyContainsValue("name", "History");
+		List<Course> courses = courseRepository.findByPropertyContainsValue("name", "History");
 		// US and World History
 		assertEquals(2, courses.size());
 	}

@@ -32,8 +32,8 @@ public class SalesView extends Sales {
 	private Long unitsSold;
 
 	/**
-	 * This entity bean is from a view, and thus is not updatable. Therefore
-	 * we have a conversion method to return a version that can be updated.
+	 * This entity bean is from a view, and thus is not updatable. Therefore we have
+	 * a conversion method to return a version that can be updated.
 	 */
 	public UpdatableSales asUpdatable(Long unitsSold) {
 		return new UpdatableSales(this, unitsSold);

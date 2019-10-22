@@ -45,8 +45,8 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		// Note the inner joins that follow the one to one relationships
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
 						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
 						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
 						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "
@@ -118,8 +118,8 @@ public class PassengerTests extends AbstractEntityTest {
 
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
 						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
 						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
 						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "
@@ -130,8 +130,8 @@ public class PassengerTests extends AbstractEntityTest {
 		statementIndex++;
 		// Fetching existing list of hailing frequencies
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select hailingfre0_.person_id as person_i2_2_0_, hailingfre0_.frequency as frequenc1_2_0_, hailingfre0_.frequency as frequenc1_2_1_, hailingfre0_.person_id as person_i2_2_1_ "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select hailingfre0_.person_id as person_i2_2_0_, hailingfre0_.frequency as frequenc1_2_0_, hailingfre0_.frequency as frequenc1_2_1_, hailingfre0_.person_id as person_i2_2_1_ "
 						+ "from hailing_frequency hailingfre0_ where hailingfre0_.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
@@ -187,8 +187,8 @@ public class PassengerTests extends AbstractEntityTest {
 
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
 						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
 						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
 						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "

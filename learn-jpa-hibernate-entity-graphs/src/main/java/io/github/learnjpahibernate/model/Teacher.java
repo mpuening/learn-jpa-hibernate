@@ -35,6 +35,6 @@ public class Teacher extends AbstractEntity<Long> {
 	private String name;
 
 	@JsonBackReference
-    @OneToMany(mappedBy="teacher")
-    private Set<Course> courses = new HashSet<>(0);
+	@OneToMany(mappedBy = "teacher")
+	private Set<Course> courses = new HashSet<>(0);
 }

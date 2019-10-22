@@ -120,7 +120,7 @@ public class StudentReportTests {
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
 	}
-	
+
 	@Test
 	public void testCreatingStudentReportWithDynamicEntityGraph() {
 

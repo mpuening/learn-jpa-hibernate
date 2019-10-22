@@ -117,8 +117,8 @@ public class ShipTests extends AbstractEntityTest {
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
 						+ "from cabin cabins0_ where cabins0_.ship_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
@@ -182,8 +182,8 @@ public class ShipTests extends AbstractEntityTest {
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
 						+ "from cabin cabins0_ where cabins0_.ship_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));

@@ -44,8 +44,8 @@ public class CaptainTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		// Note the inner joins that follow the one to one relationships
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"select captain0_.id as id2_3_0_, captain0_.home_address_id as home_add4_3_0_, captain0_.name as name3_3_0_, captain0_.ship_id as ship_id5_3_0_, "
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("select captain0_.id as id2_3_0_, captain0_.home_address_id as home_add4_3_0_, captain0_.name as name3_3_0_, captain0_.ship_id as ship_id5_3_0_, "
 						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
 						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_, "
 						+ "ship3_.id as id1_8_3_, ship3_.name as name2_8_3_, ship3_.ship_class as ship_cla3_8_3_ "
@@ -152,8 +152,8 @@ public class CaptainTests extends AbstractEntityTest {
 
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
-		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers.is(
-				"insert into person (id, home_address_id, name, ship_id, type) values (null, ?, ?, ?, 'CAPTAIN')")));
+		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
+				.is("insert into person (id, home_address_id, name, ship_id, type) values (null, ?, ?, ?, 'CAPTAIN')")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(address.getId())));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
