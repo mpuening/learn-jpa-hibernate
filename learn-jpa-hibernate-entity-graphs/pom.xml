@@ -59,13 +59,11 @@
 		<dependency>
 			<groupId>net.ttddyy</groupId>
 			<artifactId>datasource-proxy</artifactId>
-			<version>1.5.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.ttddyy</groupId>
 			<artifactId>datasource-assert</artifactId>
-			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

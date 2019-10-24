@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import io.github.learnjpahibernate.config.DatasourceProxyBeanPostProcessor;
+import io.github.learnjpahibernate.config.DatasourceProxyConfiguration;
 import io.github.learnjpahibernate.repository.AddressRepository;
 import io.github.learnjpahibernate.repository.CaptainRepository;
 import io.github.learnjpahibernate.repository.PassengerRepository;
@@ -23,7 +23,7 @@ import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.QueryExecution;
 
 @DataJpaTest
-@Import(DatasourceProxyBeanPostProcessor.class)
+@Import(DatasourceProxyConfiguration.class)
 @Sql("/test-case-data.sql")
 public abstract class AbstractEntityTest {
 

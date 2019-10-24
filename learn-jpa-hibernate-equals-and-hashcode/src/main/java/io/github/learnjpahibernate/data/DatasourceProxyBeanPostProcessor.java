@@ -1,4 +1,4 @@
-package io.github.learnjpahibernate.config;
+package io.github.learnjpahibernate.data;
 
 import java.lang.reflect.Method;
 
@@ -9,14 +9,24 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 
-@Component
 public class DatasourceProxyBeanPostProcessor implements BeanPostProcessor {
+	private final boolean addLoggingInterceptor;
+	private final String name;
+
+	public DatasourceProxyBeanPostProcessor() {
+		this(false, null);
+	}
+
+	public DatasourceProxyBeanPostProcessor(boolean addLoggingInterceptor, String name) {
+		this.addLoggingInterceptor = addLoggingInterceptor;
+		this.name = name;
+	}
+
 	@Override
 	public Object postProcessBeforeInitialization(final Object bean, final String beanName) throws BeansException {
 		return bean;
@@ -30,7 +40,9 @@ public class DatasourceProxyBeanPostProcessor implements BeanPostProcessor {
 
 			ProxyFactory factory = new ProxyFactory(newBean);
 			factory.setProxyTargetClass(true);
-			factory.addAdvice(new LoggingDataSourceInterceptor((DataSource) newBean));
+			if (addLoggingInterceptor) {
+				factory.addAdvice(new LoggingDataSourceInterceptor((DataSource) newBean, name));
+			}
 			return factory.getProxy();
 		}
 		return bean;
@@ -43,8 +55,9 @@ public class DatasourceProxyBeanPostProcessor implements BeanPostProcessor {
 
 		private final DataSource dataSource;
 
-		public LoggingDataSourceInterceptor(final DataSource dataSource) {
-			this.dataSource = ProxyDataSourceBuilder.create(dataSource).name("Batch-Insert-Logger").asJson()
+		public LoggingDataSourceInterceptor(final DataSource dataSource, final String name) {
+			// For example: "Batch-Insert-Logger"
+			this.dataSource = ProxyDataSourceBuilder.create(dataSource).name(name).asJson()
 					.countQuery().logQueryToSysOut().build();
 		}
 
