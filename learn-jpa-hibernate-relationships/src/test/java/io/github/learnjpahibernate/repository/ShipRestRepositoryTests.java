@@ -41,17 +41,17 @@ public class ShipRestRepositoryTests {
 
 		mockMvc.perform(get("/ships/3/cabins?sort=id")).andDo(print()).andExpect(status().is2xxSuccessful())
 				.andExpect(jsonPath("_embedded.cabins[0]._links.self.href", startsWith("http://localhost/cabins")))
-				.andExpect(jsonPath("_embedded.cabins[0].deckLevel", equalTo(101)))
-				.andExpect(jsonPath("_embedded.cabins[0].bedCount", equalTo(50)))
-				.andExpect(jsonPath("_embedded.cabins[0].price", equalTo("USD 499.95")))
+				.andExpect(jsonPath("_embedded.cabins[0].deckLevel", equalTo(1)))
+				.andExpect(jsonPath("_embedded.cabins[0].bedCount", equalTo(1)))
+				.andExpect(jsonPath("_embedded.cabins[0].price", equalTo("USD 99.99")))
 				.andExpect(jsonPath("_embedded.cabins[1]._links.self.href", startsWith("http://localhost/cabins")))
 				.andExpect(jsonPath("_embedded.cabins[1].deckLevel", equalTo(1)))
 				.andExpect(jsonPath("_embedded.cabins[1].bedCount", equalTo(1)))
 				.andExpect(jsonPath("_embedded.cabins[1].price", equalTo("USD 99.99")))
 				.andExpect(jsonPath("_embedded.cabins[2]._links.self.href", startsWith("http://localhost/cabins")))
-				.andExpect(jsonPath("_embedded.cabins[2].deckLevel", equalTo(1)))
-				.andExpect(jsonPath("_embedded.cabins[2].bedCount", equalTo(1)))
-				.andExpect(jsonPath("_embedded.cabins[2].price", equalTo("USD 99.99")))
+				.andExpect(jsonPath("_embedded.cabins[2].deckLevel", equalTo(101)))
+				.andExpect(jsonPath("_embedded.cabins[2].bedCount", equalTo(50)))
+				.andExpect(jsonPath("_embedded.cabins[2].price", equalTo("USD 499.95")))
 				.andExpect(jsonPath("_embedded.cabins[3].price").doesNotExist());
 	}
 }

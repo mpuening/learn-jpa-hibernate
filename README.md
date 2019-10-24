@@ -673,7 +673,5 @@ Here are some links to other great information:
 
 ## TODO
 
-Code review.. too much repeating code
-Identity columns... start at 100?
 README.md files in sub modules. Just show me the code links...
 excessive config present? Like hibernate metrics: false?
