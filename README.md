@@ -22,7 +22,7 @@ So what is in this project?
 
 This project contains several modules that demonstrates different aspects of JPA.
 
-## `learn-jpa-hibernate-java2ddl`
+## [`learn-jpa-hibernate-java2ddl`](./learn-jpa-hibernate-java2ddl)
 
 Because JPA implements ORM, there *theoretically* exists a way to translate your Java
 Entity Beans to DDL, and vice versa, create Java Entity Beans from DDL.
@@ -53,7 +53,7 @@ The `learn-jpa-hibernate-swap-in-openjpa` project also contains commented out co
 in the `application.yml` file that makes `OpenJPA` generate schema but its output is 
 in the logs and not as a file.
 
-## `learn-jpa-hibernate-ddl2java`
+## [`learn-jpa-hibernate-ddl2java`](./learn-jpa-hibernate-ddl2java)
 
 Going in the opposite direction from starting with Java code is starting with an existing
 database schema, or at least "schema first" design.
@@ -100,7 +100,7 @@ move passed the issue. But don't take too long. It isn't terribly difficult to w
 Java code with JPA relationships. There is a reason why the DDL to Java Code conversion
 library isn't maintained very well.
 
-## `learn-jpa-hibernate-equals-and-hashcode`
+## [`learn-jpa-hibernate-equals-and-hashcode`](./learn-jpa-hibernate-equals-and-hashcode)
 
 There is an enormous amount of discussion on the internet about whether or not you need 
 to implement `equals()` and `hashCode()` on your entity beans. Below are just a few links:
@@ -140,7 +140,7 @@ and let `AbstractPersisable` or `AbstractEntity` provide the `equals()`, `hashCo
 and `toString()` implementations.
 
 
-## `learn-jpa-hibernate-relationships`
+## [`learn-jpa-hibernate-relationships`](./learn-jpa-hibernate-relationships)
 
 This project contains a *contrived* data model that demonstrates each of the relationship 
 types (e.g. one to many uni-directional and bi-directional). Spring Boot is used to 
@@ -467,7 +467,7 @@ Assert.assertThat(proxyDataSource, deleteCount(4));
 
     TODO: Add information to fetch stats.
 
-## `learn-jpa-hibernate-entity-graphs`
+## [`learn-jpa-hibernate-entity-graphs`](./learn-jpa-hibernate-entity-graphs)
 
 #### How to Recognize and Resolve the N+1 Problem
 
@@ -514,7 +514,7 @@ exactly what data should be returned to a client.
 This project defines several projections and compares the data returned to a client 
 to not using a projection.
 
-## `learn-jpa-hibernate-multiple-datasources`
+## [`learn-jpa-hibernate-multiple-datasources`](./learn-jpa-hibernate-multiple-datasources)
 
 Having multiple data sources also means having multiple entity manager factories and
 deciding if one should have multiple transaction managers or a single one with XA support.
@@ -528,7 +528,7 @@ with re-usable code that one can use to create data sources and entity manager f
 The `TransactionManagerConfiguration` class contains instructions to change from the Bitronix
 transaction manager to dual JPA data source transaction managers.
 
-## `learn-jpa-hibernate-extended-repository`
+## [`learn-jpa-hibernate-extended-repository`](./learn-jpa-hibernate-extended-repository)
 
 Spring's ability to dynamically implement `@Repository` interfaces is super powerful. 
 But sometimes there is a requirement where the out of box features do not support what 
@@ -540,7 +540,7 @@ change and/or override what Spring provides.
 This project implements a new method to query by a property passed into the repository
 and perform a `like` query against of value.
 
-## `learn-jpa-hibernate-mapped-super-class`
+## [`learn-jpa-hibernate-mapped-super-class`](./learn-jpa-hibernate-mapped-super-class)
 
 Mapped super classes provide a convenient location for modeling common
 columns/properties across two or more similar entity beans.
@@ -553,7 +553,7 @@ fact tables so that the developer doesn't need to model any dimension tables.
 Since views cannot be updated, an updatable version of the sales entity bean
 is created. The two versions of the sales entity share a mapped super class.
 
-## [`learn-jpa-hibernate-3rd-party-classes`](./learn-jpa-hibernate-3rd-party-classes/README.md)
+## [`learn-jpa-hibernate-3rd-party-classes`](./learn-jpa-hibernate-3rd-party-classes)
 
 Sometimes one may want or must use a Java class that one does not control (as is the case for 
 third party code). In this situation, one cannot put annotations on the class for them
@@ -565,7 +565,7 @@ they are documented by way of `persistence.xml`. In order to load `persistence.x
 must build an `EntityManagerFactory` that loads the file, which is located on the classpath
 in `/META-INF/persistence.xml`.
 
-## `learn-jpa-hibernate-L2-caching`
+## [`learn-jpa-hibernate-L2-caching`](./learn-jpa-hibernate-L2-caching)
 
 In JPA, the "Level 1" cache is the entity manager itself. The "Level 2" cache allows 
 for caching of entities and queries across entity sessions or transactions. In this
@@ -578,7 +578,7 @@ courses. The `TeacherRepository` uses a `QueryHint` to allow queries to cached.
 The `ehcache.xml` file has the configuration to allow one to carefully manage how
 objects are stored in the cached.
 
-## `learn-jpa-hibernate-batch-operations`
+## [`learn-jpa-hibernate-batch-operations`](./learn-jpa-hibernate-batch-operations)
 
 JPA batch operations align with JDBC batch operations and try to optimize a long series
 of SQL statements that need to be executed by the application.
@@ -592,7 +592,7 @@ A potential optimization when dealing with a long list of records is to flush an
 the entity manager of saved records. This way, the entire list of records does not need 
 to be stored in memory.
 
-## `learn-jpa-hibernate-bulk-operations`
+## [`learn-jpa-hibernate-bulk-operations`](./learn-jpa-hibernate-bulk-operations)
 
 Bulk operations are those that are performed by the database and not in the application.
 At the time of this writing, JPA supports only delete and update statements. JPA does not
@@ -605,8 +605,8 @@ specification to produce a query and column mappings to produce the insert state
 The class uses Hibernate internals to produce the native query statement that is still
 required to execute the query.
 
-## `learn-jpa-hibernate-active-record-aspects`
-## `learn-jpa-hibernate-active-record-example`
+## [`learn-jpa-hibernate-active-record-aspects`](./learn-jpa-hibernate-active-record-aspects)
+## [`learn-jpa-hibernate-active-record-example`](./learn-jpa-hibernate-active-record-example)
 
 Martin Fowler defines an active record as "an object that wraps a row in a database table or view,
 encapsulates the database access, and adds domain logic on that data." For Spring Data 
@@ -647,8 +647,8 @@ Warning!!!
 ```
 `Lombok` is not compatible with `AspectJ` at the time of this writing.
 
-## `learn-jpa-hibernate-swap-in-openjpa`
-## `learn-jpa-hibernate-swap-in-eclipselink`
+## [`learn-jpa-hibernate-swap-in-openjpa`](./learn-jpa-hibernate-swap-in-openjpa)
+## [`learn-jpa-hibernate-swap-in-eclipselink`](./learn-jpa-hibernate-swap-in-eclipselink)
 
 Many times when people say they are using JPA, they are using Hibernate. Even Spring's 
 own `spring-boot-starter-data-jpa` includes Hibernate. But people need to know that 
@@ -682,8 +682,3 @@ Here are some links to other great information:
 * https://vladmihalcea.com/tutorials/hibernate/
 * https://github.com/AnghelLeonard/Hibernate-SpringBoot
 * https://dzone.com/articles/50-best-performance-practices-for-hibernate-5-amp
-
-## TODO
-
-README.md files in sub modules. Just show me the code links...
-excessive config present? Like hibernate metrics: false?
