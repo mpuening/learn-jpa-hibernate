@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * 
  * 3) Remove "bitronixConfiguration" from the @DependsOn() dependency in the JPA
  * configuration classes
+ *
+ * 4) Remove spring-boot-starter-jta-bitronix from pom.xml
  */
 @Configuration
 public class TransactionManagerConfiguration {

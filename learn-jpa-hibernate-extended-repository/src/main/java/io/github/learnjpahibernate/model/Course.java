@@ -13,9 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedEntityGraphs;
 import javax.persistence.Table;
 
 import io.github.learnjpahibernate.data.AbstractEntity;
@@ -30,11 +27,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "COURSE")
-@NamedEntityGraphs({
-		@NamedEntityGraph(name = "course-teacher-entity-graph", attributeNodes = @NamedAttributeNode("teacher")),
-		@NamedEntityGraph(name = "course-students-entity-graph", attributeNodes = @NamedAttributeNode("students")),
-		@NamedEntityGraph(name = "courses-students-teachers-entity-graph", attributeNodes = {
-				@NamedAttributeNode("students"), @NamedAttributeNode("teacher") }) })
 public class Course extends AbstractEntity<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

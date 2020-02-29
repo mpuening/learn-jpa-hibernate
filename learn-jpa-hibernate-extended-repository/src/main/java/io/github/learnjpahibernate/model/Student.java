@@ -12,10 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedEntityGraphs;
-import javax.persistence.NamedSubgraph;
 import javax.persistence.Table;
 
 import io.github.learnjpahibernate.data.AbstractEntity;
@@ -30,9 +26,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "STUDENT")
-@NamedEntityGraphs({
-		@NamedEntityGraph(name = "student-courses-entity-graph", attributeNodes = @NamedAttributeNode("courses")),
-		@NamedEntityGraph(name = "student-courses-teachers-entity-graph", attributeNodes = @NamedAttributeNode(value = "courses", subgraph = "courses"), subgraphs = @NamedSubgraph(name = "courses", attributeNodes = @NamedAttributeNode("teacher"))) })
 public class Student extends AbstractEntity<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

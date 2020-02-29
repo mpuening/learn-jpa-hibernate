@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sales extends AbstractEntity<SalesId> {
+public abstract class Sales extends AbstractEntity<SalesId> {
 
 	@EmbeddedId
 	@AttributeOverrides({

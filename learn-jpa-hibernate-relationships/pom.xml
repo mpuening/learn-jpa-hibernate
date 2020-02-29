@@ -82,7 +82,6 @@
 	</dependencies>
 
 	<build>
-		<defaultGoal>generate-resources</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
