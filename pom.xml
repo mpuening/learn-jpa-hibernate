@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
+		<version>2.2.4.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -34,6 +34,7 @@
 		<module>learn-jpa-hibernate-multiple-datasources</module>
 		<module>learn-jpa-hibernate-extended-repository</module>
 		<module>learn-jpa-hibernate-mapped-super-class</module>
+		<module>learn-jpa-hibernate-3rd-party-classes</module>
 		<module>learn-jpa-hibernate-L2-caching</module>
 		<module>learn-jpa-hibernate-batch-operations</module>
 		<module>learn-jpa-hibernate-bulk-operations</module>

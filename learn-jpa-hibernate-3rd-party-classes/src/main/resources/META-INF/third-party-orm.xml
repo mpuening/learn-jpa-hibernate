@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<package>io.github.learnjpahibernate.model</package>
+	<entity class="Course" access="PROPERTY">
+		<table name="COURSE" />
+		<inheritance strategy="TABLE_PER_CLASS" />
+		<attributes>
+			<id name="id">
+				<column name="ID" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="NAME" />
+			</basic>
+			<many-to-many name="students"
+				target-entity="io.github.learnjpahibernate.model.Student"
+				mapped-by="courses">
+				<cascade-persist />
+				<cascade-merge />
+			</many-to-many>
+			<many-to-one name="teacher"
+				target-entity="io.github.learnjpahibernate.model.Teacher"
+				fetch="LAZY">
+				<join-colum name="TEACHER_ID" />
+			</many-to-one>
+		</attributes>
+	</entity>
+	<entity class="Student" access="PROPERTY">
+		<table name="STUDENT" />
+		<inheritance strategy="TABLE_PER_CLASS" />
+		<attributes>
+			<id name="id">
+				<column name="ID" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="NAME" />
+			</basic>
+			<many-to-many name="courses"
+				target-entity="io.github.learnjpahibernate.model.Course">
+				<join-table name="STUDENT_COURSE">
+					<join-column name="STUDENT_ID" />
+					<inverse-join-column name="COURSE_ID" />
+				</join-table>
+				<cascade-persist />
+				<cascade-merge />
+			</many-to-many>
+		</attributes>
+	</entity>
+	<entity class="Teacher" access="PROPERTY">
+		<table name="TEACHER" />
+		<inheritance strategy="TABLE_PER_CLASS" />
+		<attributes>
+			<id name="id">
+				<column name="ID" />
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="name">
+				<column name="NAME" />
+			</basic>
+			<one-to-many name="courses"
+				target-entity="io.github.learnjpahibernate.model.Course"
+				mapped-by="teacher">
+			</one-to-many>
+		</attributes>
+	</entity>
+</entity-mappings>

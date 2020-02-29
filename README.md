@@ -553,6 +553,18 @@ fact tables so that the developer doesn't need to model any dimension tables.
 Since views cannot be updated, an updatable version of the sales entity bean
 is created. The two versions of the sales entity share a mapped super class.
 
+## [`learn-jpa-hibernate-3rd-party-classes`](./learn-jpa-hibernate-3rd-party-classes/README.md)
+
+Sometimes one may want or must use a Java class that one does not control (as is the case for 
+third party code). In this situation, one cannot put annotations on the class for them
+to become entity beans. Therefore, one needs to resort to specifying the entity beans through 
+XML configuration, which is historically how JPA was done originally.
+
+In this project, the entity beans do not have any JPA annotations on them, and instead
+they are documented by way of `persistence.xml`. In order to load `persistence.xml`, one
+must build an `EntityManagerFactory` that loads the file, which is located on the classpath
+in `/META-INF/persistence.xml`.
+
 ## `learn-jpa-hibernate-L2-caching`
 
 In JPA, the "Level 1" cache is the entity manager itself. The "Level 2" cache allows 
