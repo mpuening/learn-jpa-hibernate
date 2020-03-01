@@ -58,25 +58,6 @@
 					<outxmlfile>/META-INF/aop.xml</outxmlfile>
 					<outxml>true</outxml>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.sun</groupId>
-						<artifactId>tools</artifactId>
-						<version>${java.version}</version>
-						<scope>system</scope>
-						<systemPath>${project.basedir}/pom.xml</systemPath>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

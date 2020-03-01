@@ -64,11 +64,6 @@
 								<loadproperties
 									srcFile="${hibernate.src.dir}/hibernate.properties" />
 
-								<path id="mapping.dtd.path.id">
-									<pathelement location="${hibernate.src.dir}/hibernate-mapping-3.0.dtd"/>
-								</path>
-								<pathconvert targetos="unix" property="mapping.dtd.path" refid="mapping.dtd.path.id"/>
-
 								<sql driver="${hibernate.connection.driver_class}"
 									url="${hibernate.connection.url}"
 									userid="${hibernate.connection.username}"
@@ -89,7 +84,8 @@
 										The only thing changed is the DTD location. This is done because schema validation 
 										will fail behind authenticated HTTP proxies. Also note that the hibernate.reveng.xml 
 										file is a stand alone file as well for similar reasons. -->
-									<property key="hibernateMappingDtdLocation" value="${mapping.dtd.path}" />
+									<property key="hibernateMappingDtdLocation"
+										value="${hibernate.src.dir}/hibernate-mapping-3.0.dtd" />
 									<hbm2hbmxml destdir="${hbmxml.dir}"
 										templatepath="${project.basedir}/src" />
 								</hibernatetool>

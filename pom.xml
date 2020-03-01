@@ -22,12 +22,15 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 	</properties>
 
 	<modules>
 		<module>learn-jpa-hibernate-java2ddl</module>
+		<!--
+		For Java 11 support, I am waiting on this: https://hibernate.atlassian.net/browse/HHH-12893
 		<module>learn-jpa-hibernate-ddl2java</module>
+		-->
 		<module>learn-jpa-hibernate-equals-and-hashcode</module>
 		<module>learn-jpa-hibernate-relationships</module>
 		<module>learn-jpa-hibernate-entity-graphs</module>
