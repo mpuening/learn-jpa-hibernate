@@ -62,6 +62,13 @@
 						<artifactId>aspectjtools</artifactId>
 						<version>${aspectj.version}</version>
 					</dependency>
+					<dependency>
+						<groupId>com.sun</groupId>
+						<artifactId>tools</artifactId>
+						<version>${java.version}</version>
+						<scope>system</scope>
+						<systemPath>${project.basedir}/pom.xml</systemPath>
+					</dependency>
 				</dependencies>
 				<executions>
 					<execution>
