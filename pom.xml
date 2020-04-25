@@ -45,6 +45,7 @@
 		<module>learn-jpa-hibernate-active-record-example</module>
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
 		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
+		<module>learn-jpa-hibernate-search</module>
 	</modules>
 
 	<dependencyManagement>

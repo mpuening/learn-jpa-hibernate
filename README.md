@@ -605,6 +605,14 @@ specification to produce a query and column mappings to produce the insert state
 The class uses Hibernate internals to produce the native query statement that is still
 required to execute the query.
 
+## [`learn-jpa-hibernate-search`](./learn-jpa-hibernate-search)
+
+Hibernate has integration with Lucene to do searches outside of the database using 
+an index.
+
+I wanted a project to learn how to build a lucene index and see how to perform 
+a search. This project has an easy method to search a single table.
+
 ## [`learn-jpa-hibernate-active-record-aspects`](./learn-jpa-hibernate-active-record-aspects)
 ## [`learn-jpa-hibernate-active-record-example`](./learn-jpa-hibernate-active-record-example)
 
