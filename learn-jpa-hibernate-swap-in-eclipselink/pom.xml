@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<eclipselink.version>2.7.4</eclipselink.version>
+		<eclipselink.version>2.7.7</eclipselink.version>
 	</properties>
 
 	<dependencies>
@@ -53,18 +53,6 @@
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 			<version>${eclipselink.version}</version>
-			<exclusions>
-				<!-- Jar signature issues occur with this dependency-->
-				<exclusion>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>jakarta.persistence</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<!-- Use this dependency until we figure out above issue -->
-			<groupId>javax.persistence</groupId>
-			<artifactId>javax.persistence-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
