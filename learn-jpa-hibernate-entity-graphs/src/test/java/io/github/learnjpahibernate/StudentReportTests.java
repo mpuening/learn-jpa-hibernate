@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import io.github.learnjpahibernate.service.StudentReportService;
@@ -16,6 +18,7 @@ import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.hamcrest.DataSourceAssertMatchers;
 
 @SpringBootTest
+@AutoConfigureTestDatabase(replace = Replace.ANY)
 public class StudentReportTests {
 
 	@Autowired

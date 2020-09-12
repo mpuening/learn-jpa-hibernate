@@ -31,7 +31,7 @@ public class StudentReportService {
 	protected StudentCoursesRepository studentCoursesRepository;
 
 	@Autowired
-	StudentCoursesTeachersRepository studentCoursesTeachersRepository;
+	protected StudentCoursesTeachersRepository studentCoursesTeachersRepository;
 
 	@PersistenceContext
 	protected EntityManager entityManager;

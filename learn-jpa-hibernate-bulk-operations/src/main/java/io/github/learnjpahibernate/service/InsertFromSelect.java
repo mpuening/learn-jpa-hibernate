@@ -62,7 +62,7 @@ public class InsertFromSelect {
 		List<Object> parameters = new ArrayList<>();
 
 		CriteriaQuery<Tuple> query = createSelectQuery(columnMappings, entityManager, entityClass, specification);
-		String selectjpaql = createJPAQLstatement(query, parameters);
+		String selectjpaql = createJPAQLstatement(entityManager, query, parameters);
 		String selectSql = convertJPAQLtoNativeSQL(entityManager, selectjpaql);
 		Query insert = createInsertStatement(insertTable, columnMappings, entityManager, selectSql, parameters);
 		return insert;
@@ -99,7 +99,12 @@ public class InsertFromSelect {
 	 * Use Hibernate internals to get the JPQL statement
 	 */
 	@SuppressWarnings("rawtypes")
-	private static String createJPAQLstatement(CriteriaQuery<Tuple> query, List<Object> parameters) {
+	private static String createJPAQLstatement(EntityManager entityManager, CriteriaQuery<Tuple> query,
+			List<Object> parameters) {
+		final Session session = entityManager.unwrap(Session.class);
+		final SessionFactory sessionFactory = session.getSessionFactory();
+		final Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getJdbcServices().getDialect();
+
 		AtomicInteger index = new AtomicInteger();
 		CriteriaInterpretation criteriaInterpretation = ((CriteriaQueryImpl) query).interpret(new RenderingContext() {
 
@@ -126,7 +131,7 @@ public class InsertFromSelect {
 
 			@Override
 			public Dialect getDialect() {
-				throw new UnsupportedOperationException("getDialect() not supported yet");
+				return dialect;
 			}
 
 			private final Stack<Clause> clauseStack = new StandardStack<>();

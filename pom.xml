@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.4.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -27,10 +27,7 @@
 
 	<modules>
 		<module>learn-jpa-hibernate-java2ddl</module>
-		<!--
-		For Java 11 support, I am waiting on this: https://hibernate.atlassian.net/browse/HHH-12893
 		<module>learn-jpa-hibernate-ddl2java</module>
-		-->
 		<module>learn-jpa-hibernate-equals-and-hashcode</module>
 		<module>learn-jpa-hibernate-relationships</module>
 		<module>learn-jpa-hibernate-entity-graphs</module>
@@ -92,7 +89,9 @@
 								</pluginExecution>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
+										<!-- Use fork of plugin that supports Java 11 for now -->
+										<!-- <groupId>org.codehaus.mojo</groupId> -->
+										<groupId>com.nickwongdev</groupId>
 										<artifactId>aspectj-maven-plugin</artifactId>
 										<versionRange>[1.8,)</versionRange>
 										<goals>
