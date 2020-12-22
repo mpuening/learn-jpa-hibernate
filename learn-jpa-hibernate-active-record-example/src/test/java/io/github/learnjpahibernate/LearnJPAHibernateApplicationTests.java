@@ -68,13 +68,13 @@ public class LearnJPAHibernateApplicationTests {
 			return null;
 		});
 
-		// Four select statements for algebra, alice, her courses, and jack (and an extra mystery query?)
+		// Four select statements for algebra, alice, her courses, and jack
 		// One update statement for algebra
 		// One insert statement to sign up alice for algebra
 		// Two delete statements for Jack and his courses
-		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(9));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(8));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(1));
-		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(5));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(4));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(1));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(2));
 	}
