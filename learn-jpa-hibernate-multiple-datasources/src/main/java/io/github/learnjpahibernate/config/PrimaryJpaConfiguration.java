@@ -30,7 +30,7 @@ public class PrimaryJpaConfiguration extends AbstractJpaConfiguration {
 	@Qualifier("primaryDataSource")
 	private DataSource primaryDataSource;
 
-	@DependsOn({ "bitronixConfiguration", "primaryDataSourceInitializer" })
+	@DependsOn("primaryDataSourceInitializer")
 	@Bean(name = "primaryEntityManagerFactory")
 	public EntityManagerFactory entityManagerFactory() throws IllegalArgumentException, NamingException {
 		return buildEntityManagerFactory(primaryDataSource, jpaProperties, "primaryPersistenceUnit",

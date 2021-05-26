@@ -9,11 +9,8 @@ import org.springframework.context.annotation.Configuration;
  * 
  * 2) Use the beans in this class and switch the switch the names of the
  * transaction managers
- * 
- * 3) Remove "bitronixConfiguration" from the @DependsOn() dependency in the JPA
- * configuration classes
  *
- * 4) Remove spring-boot-starter-jta-bitronix from pom.xml
+ * 3) Remove spring-boot-starter-jta-atomikos from pom.xml
  */
 @Configuration
 public class TransactionManagerConfiguration {
