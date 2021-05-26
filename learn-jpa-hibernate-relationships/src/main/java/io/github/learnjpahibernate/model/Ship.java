@@ -42,4 +42,13 @@ public class Ship extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "ship", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Cabin> cabins = new HashSet<>(0);
+
+	/**
+	 * TODO: Is this a Spring HATEOS Bug? Starting with Spring Boot 2.5, POSTs of new objects
+	 * with links to other existing objects were handled automatically. Now a String c'tor
+	 * is called, and logic must be implemented to deal with notation of the string.
+	 */
+	public Ship(String id) {
+		this.id = Long.valueOf(id.replace("/ships/", ""));
+	}
 }
