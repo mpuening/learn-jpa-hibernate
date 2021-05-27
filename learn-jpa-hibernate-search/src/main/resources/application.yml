@@ -7,7 +7,6 @@ spring:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: ''
-    initialization-mode: always
     hikari:
       maximum-pool-size: 3
       minimum-idle: 1
@@ -21,6 +20,13 @@ spring:
       hibernate.search.default.directory_provider: local-heap
 #      hibernate.search.default.directory_provider: filesystem
 #      hibernate.search.default.indexBase: /data/index/default
+  sql:
+    init:
+      enabled: true
+      schema-locations:
+      - classpath:/schema.sql
+      data-locations:
+      - classpath:/data.sql
 
 #logging:
   #level:

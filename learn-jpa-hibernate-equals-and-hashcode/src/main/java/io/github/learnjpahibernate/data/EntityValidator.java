@@ -186,7 +186,7 @@ public class EntityValidator<T extends Persistable<ID>, ID extends Serializable>
 	}
 
 	protected void assertEntityCanBeFound() {
-		T entity = repository.getOne(testEntity.getId());
+		T entity = repository.getById(testEntity.getId());
 		assertTrue(entity != null, "The recently saved entity could not be found (3)");
 		assertTrue(entity.equals(testEntity), "The queried entity does not equal the recently saved entity (3)");
 		assertTrue(testEntity.equals(entity), "The recently saved entity does not equal the queried entity (3)");
@@ -218,7 +218,7 @@ public class EntityValidator<T extends Persistable<ID>, ID extends Serializable>
 		assertTrue(set.contains(testEntity), "The entity is not found in the set after being deleted (6)");
 		T entity = null;
 		try {
-			entity = repository.getOne(testEntity.getId());
+			entity = repository.getById(testEntity.getId());
 		} catch (JpaObjectRetrievalFailureException thisIsExpected) {
 			assertTrue(
 					thisIsExpected.getCause().getClass().getName().equals("javax.persistence.EntityNotFoundException"),

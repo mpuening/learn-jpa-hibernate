@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.jdbc.DataSourceInitializationMode;
+import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -21,6 +21,8 @@ import org.springframework.util.StringUtils;
 
 public abstract class AbstractDataSourceConfiguration {
 
+	protected abstract boolean isSqlInitEnabled();
+
 	protected DataSource createDataSource(ExtendedDataSourceProperties dataSourceProperties)
 			throws IllegalArgumentException, NamingException {
 		if (dataSourceProperties.getJndiName() != null) {
@@ -28,12 +30,6 @@ public abstract class AbstractDataSourceConfiguration {
 		} else if (dataSourceProperties.getEmbeddedDatabaseType() != null) {
 			EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 			builder.setType(dataSourceProperties.getEmbeddedDatabaseType());
-			dataSourceProperties.getSchema().forEach(schema -> {
-				builder.addScript(schema);
-			});
-			dataSourceProperties.getData().forEach(data -> {
-				builder.addScript(data);
-			});
 			EmbeddedDatabase db = builder.build();
 			return db;
 		} else {
@@ -71,20 +67,19 @@ public abstract class AbstractDataSourceConfiguration {
 	}
 
 	protected DataSourceInitializer buildDatabasePopulator(ApplicationContext applicationContext, DataSource dataSource,
-			DataSourceProperties dataSourceProperties) throws NamingException {
+			SqlInitializationProperties sqlInitializationProperties) throws NamingException {
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-		databasePopulator.setContinueOnError(dataSourceProperties.isContinueOnError());
-		databasePopulator.setSeparator(dataSourceProperties.getSeparator());
+		databasePopulator.setContinueOnError(sqlInitializationProperties.isContinueOnError());
+		databasePopulator.setSeparator(sqlInitializationProperties.getSeparator());
 		databasePopulator.setSqlScriptEncoding(
-				dataSourceProperties.getSqlScriptEncoding() != null ? dataSourceProperties.getSqlScriptEncoding().name()
+				sqlInitializationProperties.getEncoding() != null ? sqlInitializationProperties.getEncoding().name()
 						: null);
-		databasePopulator.addScripts(getResources(applicationContext, dataSourceProperties.getSchema()));
-		databasePopulator.addScripts(getResources(applicationContext, dataSourceProperties.getData()));
+		databasePopulator.addScripts(getResources(applicationContext, sqlInitializationProperties.getSchemaLocations()));
+		databasePopulator.addScripts(getResources(applicationContext, sqlInitializationProperties.getDataLocations()));
 		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 		dataSourceInitializer.setDataSource(dataSource);
 		dataSourceInitializer.setDatabasePopulator(databasePopulator);
-		dataSourceInitializer
-				.setEnabled(!DataSourceInitializationMode.NEVER.equals(dataSourceProperties.getInitializationMode()));
+		dataSourceInitializer.setEnabled(isSqlInitEnabled());
 		return dataSourceInitializer;
 	}
 

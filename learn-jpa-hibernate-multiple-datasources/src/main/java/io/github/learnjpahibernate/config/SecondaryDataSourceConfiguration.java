@@ -4,7 +4,9 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -17,15 +19,29 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableConfigurationProperties({ SecondaryDataSourceConfiguration.SecondaryDataSourceProperties.class })
+@EnableConfigurationProperties({
+		SecondaryDataSourceConfiguration.SecondaryDataSourceProperties.class,
+		SecondaryDataSourceConfiguration.SecondarySqlInitializationProperties.class })
 public class SecondaryDataSourceConfiguration extends AbstractDataSourceConfiguration {
 	private static final String DATASOURCE_PREFIX = "application.secondary.datasource";
+	private static final String SQL_PREFIX = "application.secondary.sql.init";
+
+	@Value("${application.secondary.sql.init.enabled}")
+	protected boolean isSqlInitEnabled;
 
 	@Autowired
 	private ApplicationContext applicationContext;
 
 	@Autowired
 	private SecondaryDataSourceProperties secondaryDataSourceProperties;
+
+	@Autowired
+	private SecondarySqlInitializationProperties secondarySqlInitializationProperties;
+
+	@Override
+	protected boolean isSqlInitEnabled() {
+		return isSqlInitEnabled;
+	}
 
 	@Bean("secondaryDataSource")
 	public DataSource secondaryDataSource() throws IllegalArgumentException, NamingException {
@@ -34,7 +50,7 @@ public class SecondaryDataSourceConfiguration extends AbstractDataSourceConfigur
 
 	@Bean("secondaryDataSourceInitializer")
 	public DataSourceInitializer secondaryDataSourceInitializer() throws IllegalArgumentException, NamingException {
-		return buildDatabasePopulator(applicationContext, secondaryDataSource(), secondaryDataSourceProperties);
+		return buildDatabasePopulator(applicationContext, secondaryDataSource(), secondarySqlInitializationProperties);
 	}
 
 	@Bean("secondaryTransactionManager")
@@ -45,5 +61,9 @@ public class SecondaryDataSourceConfiguration extends AbstractDataSourceConfigur
 
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
 	public static class SecondaryDataSourceProperties extends ExtendedDataSourceProperties {
+	}
+
+	@ConfigurationProperties(prefix = SQL_PREFIX)
+	public static class SecondarySqlInitializationProperties extends SqlInitializationProperties {
 	}
 }

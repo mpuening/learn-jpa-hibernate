@@ -6,7 +6,7 @@ Learn JPA Hibernate
 To support multiple data sources and have the same Spring Boot features as having
 a single data source (e.g. loading SQL files, etc), do the following:
 
-1. Disable both Data Source and JPA Auto-configuration in your `Application` class
+1. Disable both Data Source and its Initialization and JPA Auto-configuration in your `application.yml` file exclude property
 2. Include both `AbstractDataSource` and `AbstractJpaConfiguration` classes in your 
    project
 3. Create a `DataSourceConfiguration` and `JpaConfiguration` for each data source you have
