@@ -18,8 +18,8 @@
 	</parent>
 
 	<properties>
-		<openjpa.version>3.1.2</openjpa.version>
-		<syncope.version>2.1.6</syncope.version>
+		<openjpa.version>3.2.0</openjpa.version>
+		<syncope.version>2.1.10</syncope.version>
 	</properties>
 
 	<dependencies>
