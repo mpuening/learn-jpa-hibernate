@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="1.0"
-	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd">
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+      http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
 	<persistence-unit-metadata>
 		<persistence-unit-defaults>
 			<access>PROPERTY</access>
@@ -20,17 +22,16 @@
 			<basic name="name">
 				<column name="NAME" />
 			</basic>
-			<many-to-many name="students"
-				target-entity="io.github.learnjpahibernate.model.Student"
-				mapped-by="courses">
-				<cascade-persist />
-				<cascade-merge />
-			</many-to-many>
 			<many-to-one name="teacher"
 				target-entity="io.github.learnjpahibernate.model.Teacher"
 				fetch="LAZY">
-				<join-colum name="TEACHER_ID" />
+				<join-column name="TEACHER_ID" />
 			</many-to-one>
+			<many-to-many name="students"
+				target-entity="io.github.learnjpahibernate.model.Student"
+				mapped-by="courses">
+				<cascade />
+			</many-to-many>
 		</attributes>
 	</entity>
 	<entity class="Student" access="PROPERTY">
@@ -50,8 +51,7 @@
 					<join-column name="STUDENT_ID" />
 					<inverse-join-column name="COURSE_ID" />
 				</join-table>
-				<cascade-persist />
-				<cascade-merge />
+				<cascade />
 			</many-to-many>
 		</attributes>
 	</entity>
