@@ -1,6 +1,8 @@
 Learn JPA Hibernate
 ===================
 
+[![Continuous Integration](https://github.com/mpuening/learn-jpa-hibernate/actions/workflows/ci.yml/badge.svg)](https://github.com/mpuening/learn-jpa-hibernate/actions/workflows/ci.yml)
+
 When Hibernate first came out, I heard people say that it is the future and *all* your 
 code should use Object Relational Mapping (ORM). Every now and then today, I hear someone 
 say that JPA/Hibernate sucks and should *never* be used. The truth is that JPA/Hibernate
