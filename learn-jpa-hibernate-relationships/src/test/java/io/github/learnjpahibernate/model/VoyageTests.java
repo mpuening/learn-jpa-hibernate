@@ -103,7 +103,7 @@ public class VoyageTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("insert into voyage (id, departure_date, departure_planet_id, destination_date, destination_planet_id, ship_id) values (null, ?, ?, ?, ?, ?)")));
+				.is("insert into voyage (id, departure_date, departure_planet_id, destination_date, destination_planet_id, ship_id) values (default, ?, ?, ?, ?, ?)")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers

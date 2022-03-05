@@ -82,7 +82,7 @@ public class AddressTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (null, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers

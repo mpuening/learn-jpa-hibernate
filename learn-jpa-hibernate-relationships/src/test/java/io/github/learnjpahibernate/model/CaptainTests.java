@@ -138,13 +138,13 @@ public class CaptainTests extends AbstractEntityTest {
 		// Cascade inserts
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (null, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(3, Matchers.is("Main Street")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into ship (id, name, ship_class) values (null, ?, ?)")));
+				.query(Matchers.is("insert into ship (id, name, ship_class) values (default, ?, ?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("USS Voyager")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -153,7 +153,7 @@ public class CaptainTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("insert into person (id, home_address_id, name, ship_id, type) values (null, ?, ?, ?, 'CAPTAIN')")));
+				.is("insert into person (id, home_address_id, name, ship_id, type) values (default, ?, ?, ?, 'CAPTAIN')")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(address.getId())));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

@@ -113,7 +113,7 @@
 					<dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-tools</artifactId>
-						<version>${hibernate.version}</version>
+						<version>${hibernate-tools.version}</version>
 					</dependency>
 					<dependency>
 						<groupId>org.jboss.logging</groupId>

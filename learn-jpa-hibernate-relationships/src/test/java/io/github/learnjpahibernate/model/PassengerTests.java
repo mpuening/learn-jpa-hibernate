@@ -276,13 +276,13 @@ public class PassengerTests extends AbstractEntityTest {
 		// Finally, insert Opie's data into the data base
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (null, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(3, Matchers.is("Maple Road")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("insert into person (id, home_address_id, name, type) values (null, ?, ?, 'PASSENGER')")));
+				Matchers.is("insert into person (id, home_address_id, name, type) values (default, ?, ?, 'PASSENGER')")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(2, Matchers.is("Opie")));
 		statementIndex++;
@@ -357,13 +357,13 @@ public class PassengerTests extends AbstractEntityTest {
 		// Cascade inserts
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (null, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(3, Matchers.is("Elm Street")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("insert into person (id, home_address_id, name, type) values (null, ?, ?, 'PASSENGER')")));
+				Matchers.is("insert into person (id, home_address_id, name, type) values (default, ?, ?, 'PASSENGER')")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(address.getId())));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
