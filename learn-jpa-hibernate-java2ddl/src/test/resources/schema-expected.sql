@@ -28,7 +28,7 @@
     create table preference (
        author_id bigint not null,
         name varchar(255) not null,
-        value varchar(255),
+        pref_value varchar(255),
         primary key (author_id, name)
     );
 

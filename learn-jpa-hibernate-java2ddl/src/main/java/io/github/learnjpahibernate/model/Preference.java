@@ -32,7 +32,7 @@ public class Preference extends AbstractEntity<PreferenceId> {
 	@JoinColumn(name = "AUTHOR_ID", nullable = false, insertable = false, updatable = false)
 	private Author author;
 
-	@Column(name = "VALUE")
+	@Column(name = "PREF_VALUE")
 	private String value;
 
 	@Data

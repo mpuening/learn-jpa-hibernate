@@ -15,5 +15,5 @@ insert into book_author(isbn_number, author_id) values ('0-201-63361-2', 4);
 insert into book_author(isbn_number, author_id) values ('978-0321205759', 1);
 insert into book_author(isbn_number, author_id) values ('978-0321205759', 5);
 
-insert into preference(author_id, name, value) values (5, 'Payday', 'Friday');
-insert into preference(author_id, name, value) values (5, 'Unit tests', 'Yes');
+insert into preference(author_id, name, pref_value) values (5, 'Payday', 'Friday');
+insert into preference(author_id, name, pref_value) values (5, 'Unit tests', 'Yes');

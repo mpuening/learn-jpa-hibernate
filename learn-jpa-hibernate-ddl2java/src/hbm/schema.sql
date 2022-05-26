@@ -27,7 +27,7 @@ create table codegen.book_author (
 create table codegen.preference (
     author_id bigint not null,
     name varchar(255),
-    value varchar(255),
+    pref_value varchar(255),
     primary key (author_id, name),
     constraint FK_preference_author foreign key (author_id) references codegen.author (id)
 );

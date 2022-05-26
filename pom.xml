@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.8</version>
+		<version>2.7.0</version>
 		<relativePath />
 	</parent>
 
@@ -26,9 +26,6 @@
 
 		<!-- This version adds Java 17 support -->
 		<aspectj.version>1.9.9.1</aspectj.version>
-
-		<!-- Hibernate tools does not follow Hibernate version anymore? -->
-		<hibernate-tools.version>5.6.2.Final</hibernate-tools.version>
 	</properties>
 
 	<modules>
