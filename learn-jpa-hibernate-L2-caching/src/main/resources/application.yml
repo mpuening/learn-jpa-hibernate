@@ -24,7 +24,7 @@ spring:
         cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
   sql:
     init:
-      enabled: true
+      mode: always
       schema-locations:
       - classpath:/schema.sql
       data-locations:

@@ -19,7 +19,7 @@ spring:
         generate_statistics: true
   sql:
     init:
-      enabled: true
+      mode: always
       schema-locations: []
       data-locations: []
 

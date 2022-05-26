@@ -21,7 +21,7 @@ spring:
         generate_statistics: false
   sql:
     init:
-      enabled: true
+      mode: always
       schema-locations:
       - classpath:/schema.sql
       data-locations:

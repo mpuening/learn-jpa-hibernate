@@ -174,7 +174,7 @@ it just means the student dropped out. Likewise, deleting a course does not mean
 students get deleted. It just means the course isn't offered anymore.
 
 Composition describes a relationship where the child entity cannot exist independently of the parent 
-entity. For example, an apartment building consists on apartments. If one were to delete 
+entity. For example, an apartment building consists of apartments. If one were to delete 
 the building, then the apartments would not exist either.
 
 In JPA, relationships can have an `orphanRemoval` setting that can be used to determine 
@@ -429,7 +429,7 @@ public class Person {
     Hibernate has features that have not been exposed through the JPA API.One of those
     features is `Type` mapping. On the `Cabin` entity class is a property called `price`.
     Even though it is implemented as one property, it is stored as two columns in the database.
-    One column for the monetary amount and another for cerrency type. It even stores the numeric
+    One column for the monetary amount and another for currency type. It even stores the numeric
     value in the minor amount (e.g. pennies) so that the database doesn't lose fractions of pennies.
     (Remember Superman III?). You can find the logic to support the type in `MonetaryAmountUserType`.
 

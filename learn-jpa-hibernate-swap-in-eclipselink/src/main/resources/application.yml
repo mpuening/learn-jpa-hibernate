@@ -29,7 +29,7 @@ spring:
       eclipselink.logging.level.sql: FINE
   sql:
     init:
-      enabled: true
+      mode: always
       schema-locations:
       - classpath:/schema.sql
       data-locations:

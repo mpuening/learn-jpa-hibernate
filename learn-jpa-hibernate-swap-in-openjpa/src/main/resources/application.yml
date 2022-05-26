@@ -29,7 +29,7 @@ spring:
 #     openjpa.jdbc.SynchronizeMappings: buildSchema(ForeignKeys=true) 
   sql:
     init:
-      enabled: true
+      mode: always
       schema-locations:
       - classpath:/schema.sql
       data-locations:
