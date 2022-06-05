@@ -8,13 +8,13 @@ import java.util.Properties;
 
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.schema.TargetType;
 import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
-import org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 public class DDLExporter {
@@ -61,7 +61,7 @@ public class DDLExporter {
 			StandardServiceRegistry registry) throws Exception {
 		MetadataSources metadataSources = localSessionFactoryBean.getMetadataSources();
 		Metadata metadata = metadataSources.getMetadataBuilder(registry)
-				.applyPhysicalNamingStrategy(new SpringPhysicalNamingStrategy())
+				.applyPhysicalNamingStrategy(new PhysicalNamingStrategyStandardImpl())
 				.applyImplicitNamingStrategy(new SpringImplicitNamingStrategy()).build();
 		return (MetadataImplementor) metadata;
 	}

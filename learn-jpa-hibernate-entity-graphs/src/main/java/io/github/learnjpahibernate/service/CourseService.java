@@ -3,10 +3,10 @@ package io.github.learnjpahibernate.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.persistence.EntityGraph;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.projection.ProjectionFactory;
@@ -51,7 +51,7 @@ public class CourseService {
 		Query query = entityManager.createQuery("SELECT c FROM Course c");
 		if (entityGraph != null) {
 			EntityGraph<?> graph = entityManager.getEntityGraph(entityGraph);
-			query.setHint("javax.persistence.loadgraph", graph);
+			query.setHint("jakarta.persistence.loadgraph", graph);
 		}
 		return ((List<Course>) query.getResultList()).stream().map(course -> {
 			return projectionFactory.createProjection(projectionClass[0], course);

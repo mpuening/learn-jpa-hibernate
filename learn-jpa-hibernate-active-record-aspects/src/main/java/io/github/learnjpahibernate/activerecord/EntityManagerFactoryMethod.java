@@ -1,6 +1,6 @@
 package io.github.learnjpahibernate.activerecord;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Factory method to allow configurable means to access the EntityManager.

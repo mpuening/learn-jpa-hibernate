@@ -2,8 +2,8 @@ package io.github.learnjpahibernate.activerecord.aspect;
 
 import java.util.Map;
 
-import javax.persistence.LockModeType;
-import javax.persistence.Transient;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Configurable;
 

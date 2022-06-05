@@ -2,7 +2,7 @@ package io.github.learnjpahibernate.data;
 
 import java.io.Serializable;
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;

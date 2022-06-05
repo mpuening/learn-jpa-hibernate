@@ -20,9 +20,9 @@ spring:
     hibernate:
       ddl-auto: validate
     properties:
-      hibernate.search.default.directory_provider: local-heap
-#      hibernate.search.default.directory_provider: filesystem
-#      hibernate.search.default.indexBase: /data/index/default
+      hibernate.search.backend.directory.type: local-heap
+#     hibernate.search.backend.directory.type: local-filesystem
+#     hibernate.search.backend.directory.root: /tmp/learn-jpa-hibernate-lucene
   sql:
     init:
       mode: always

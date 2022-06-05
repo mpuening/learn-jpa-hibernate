@@ -5,18 +5,17 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.TermVector;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.springframework.data.domain.Auditable;
 import org.springframework.lang.Nullable;
 
@@ -39,11 +38,11 @@ public class Event extends AbstractEntity<Long> implements Auditable<String, Lon
 	@Column(name = "ID")
 	private Long id;
 
-	@Field(termVector = TermVector.YES)
+	@FullTextField
 	@Column(name = "DESCRIPTION", columnDefinition = "VARCHAR(100)", nullable = false, length = 100)
 	private String description;
 
-	@Field(termVector = TermVector.YES)
+	@FullTextField
 	@Column(name = "CREATED_BY", columnDefinition = "VARCHAR(100)", length = 100)
 	private @Nullable String createdBy;
 
@@ -51,7 +50,7 @@ public class Event extends AbstractEntity<Long> implements Auditable<String, Lon
 	@Temporal(TemporalType.TIMESTAMP)
 	private @Nullable Date createdDate;
 
-	@Field(termVector = TermVector.YES)
+	@FullTextField
 	@Column(name = "LAST_MODIFIED_BY", columnDefinition = "VARCHAR(100)", length = 100)
 	private @Nullable String lastModifiedBy;
 

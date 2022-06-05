@@ -6,7 +6,7 @@
 
 	<groupId>io.github.learnjpahibernate</groupId>
 	<artifactId>learn-jpa-hibernate</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>learn-jpa-hibernate</name>
@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.0</version>
+		<version>3.0.0-M3</version>
 		<relativePath />
 	</parent>
 
@@ -46,8 +46,32 @@
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
 		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
 		<module>learn-jpa-hibernate-search</module>
+
+		<!-- Temporary modules used while waiting for full Jakarta EE 9 support -->
+		<module>jakarta-support/narayana-spring-boot-starter-jakarta</module>
 	</modules>
 
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+  
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

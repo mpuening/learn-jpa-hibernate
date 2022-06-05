@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>io.github.learnjpahibernate</groupId>
 		<artifactId>learn-jpa-hibernate</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -21,12 +21,16 @@
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>
 			<artifactId>learn-jpa-hibernate-equals-and-hashcode</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
+		<!-- Spring Boot no longer maintains JTA starters -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+			<groupId>io.github.learnjpahibernate</groupId>
+			<artifactId>narayana-spring-boot-starter-jakarta</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<classifier>jakartaee</classifier>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -38,6 +42,10 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbytools</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

@@ -3,11 +3,11 @@ package io.github.learnjpahibernate.activerecord;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.Query;
-import javax.persistence.Transient;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Query;
+import jakarta.persistence.Transient;
+import jakarta.persistence.TypedQuery;
 
 public abstract class Jpa2ActiveRecord<PK extends Serializable> extends Jpa1ActiveRecord<PK> {
 

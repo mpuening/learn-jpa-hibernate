@@ -1,4 +1,3 @@
----
 spring:
   application:
     name: learnjpahibernate
@@ -70,6 +69,7 @@ application:
         data-locations:
         - classpath:/data-secondary.sql
 
-#logging:
-  #level:
-    #org.springframework.data.jpa: DEBUG
+logging:
+  level:
+    org.springframework.transaction: DEBUG
+    com.arjuna: DEBUG

@@ -2,10 +2,10 @@ package io.github.learnjpahibernate.activerecord.aspect;
 
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 public class Jpa2EntityFinder extends Jpa1EntityFinder {
 	public static <T> T find(Class<T> entityClass, Object primaryKey, Map<String, Object> properties) {

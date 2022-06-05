@@ -8,3 +8,5 @@ of the API in the `EventService` class.
 
 I am uncertain if the configuration is the best way for a real project (even outside 
 of the this project using an in-memory index).
+
+For more information, see this: https://www.mindbowser.com/hibernate-search-6-with-spring-boot/

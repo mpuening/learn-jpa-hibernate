@@ -10,7 +10,7 @@ a single data source (e.g. loading SQL files, etc), do the following:
 2. Include both `AbstractDataSource` and `AbstractJpaConfiguration` classes in your 
    project
 3. Create a `DataSourceConfiguration` and `JpaConfiguration` for each data source you have
-4. Choose your transaction model: JTA or not. This project uses JTA, and `spring-boot-starter-jta-atomikos`
+4. Choose your transaction model: JTA or not. This project uses JTA, and `narayana-spring-boot-starter`
    is included in the project; should you not need JTA transactions, include `TransactionManagerConfiguation` in 
    your project and follow the instructions in that class
 5. Make sure you separate your domain classes and repositories so that each configuration 

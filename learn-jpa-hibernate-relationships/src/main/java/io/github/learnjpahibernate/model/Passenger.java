@@ -2,9 +2,9 @@ package io.github.learnjpahibernate.model;
 
 import java.util.Set;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

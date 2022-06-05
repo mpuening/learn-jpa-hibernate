@@ -1,6 +1,6 @@
 package io.github.learnjpahibernate.activerecord.aspect;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public class Jpa1EntityFinder {
 	public static <T> T find(Class<T> entityClass, Object primaryKey) {

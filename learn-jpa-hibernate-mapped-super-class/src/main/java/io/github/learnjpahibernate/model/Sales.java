@@ -1,11 +1,11 @@
 package io.github.learnjpahibernate.model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.MappedSuperclass;
 
 import io.github.learnjpahibernate.data.AbstractEntity;
 import io.github.learnjpahibernate.model.Sales.SalesId;

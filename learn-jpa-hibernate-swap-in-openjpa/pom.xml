@@ -13,20 +13,20 @@
 	<parent>
 		<groupId>io.github.learnjpahibernate</groupId>
 		<artifactId>learn-jpa-hibernate</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<properties>
 		<openjpa.version>3.2.2</openjpa.version>
-		<syncope.version>2.1.11</syncope.version>
+		<serp.version>1.15.1</serp.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>
 			<artifactId>learn-jpa-hibernate-equals-and-hashcode</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,11 +54,24 @@
 			<groupId>org.apache.openjpa</groupId>
 			<artifactId>openjpa</artifactId>
 			<version>${openjpa.version}</version>
+			<classifier>jakarta</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.syncope.core</groupId>
-			<artifactId>syncope-core-persistence-jpa</artifactId>
-			<version>${syncope.version}</version>
+			<groupId>net.sourceforge.serp</groupId>
+			<artifactId>serp</artifactId>
+			<version>1.15.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -105,7 +118,7 @@
 				<executions>
 					<execution>
 						<id>enhancer</id>
-						<phase>process-classes</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>enhance</goal>
 						</goals>
@@ -116,6 +129,17 @@
 						<groupId>org.apache.openjpa</groupId>
 						<artifactId>openjpa</artifactId>
 						<version>${openjpa.version}</version>
+						<classifier>jakarta</classifier>
+					</dependency>
+					<dependency>
+						<groupId>jakarta.persistence</groupId>
+						<artifactId>jakarta.persistence-api</artifactId>
+						<version>${jakarta-persistence.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>jakarta.transaction</groupId>
+						<artifactId>jakarta.transaction-api</artifactId>
+						<version>${jakarta-transaction.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>

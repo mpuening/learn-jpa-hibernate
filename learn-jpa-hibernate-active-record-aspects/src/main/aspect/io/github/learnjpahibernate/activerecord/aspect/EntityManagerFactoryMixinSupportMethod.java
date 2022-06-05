@@ -1,6 +1,6 @@
 package io.github.learnjpahibernate.activerecord.aspect;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import io.github.learnjpahibernate.activerecord.EntityManagerFactoryMethod;
 import io.github.learnjpahibernate.activerecord.aspect.JpaActiveRecordAspect.JpaActiveRecord_internal;

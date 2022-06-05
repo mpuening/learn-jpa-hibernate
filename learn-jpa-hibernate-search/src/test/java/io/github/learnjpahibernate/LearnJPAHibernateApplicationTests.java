@@ -43,8 +43,9 @@ public class LearnJPAHibernateApplicationTests {
 		List<Event> events = eventService.searchEvents("birthday");
 		assertNotNull(events);
 		assertEquals(2, events.size());
-		assertEquals("Boy Birthday Party", events.get(0).getDescription());
-		assertEquals("Girl Birthday Party", events.get(1).getDescription());
+		// Need to support results in any order
+		assertTrue("Boy Birthday Party".equals(events.get(0).getDescription()) || "Girl Birthday Party".equals(events.get(0).getDescription()));
+		assertTrue("Boy Birthday Party".equals(events.get(1).getDescription()) || "Girl Birthday Party".equals(events.get(1).getDescription()));
 
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(1));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(0));
@@ -56,12 +57,12 @@ public class LearnJPAHibernateApplicationTests {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select this_.id as id1_0_0_, this_.created_by as created_2_0_0_, this_.created_date as created_3_0_0_, this_.description as descript4_0_0_, this_.last_modified_by as last_mod5_0_0_, this_.last_modified_date as last_mod6_0_0_ "
-						+ "from event this_ where (this_.id in (?, ?))")));
+				.is("select event0_.id as id1_0_, event0_.created_by as created_2_0_, event0_.created_date as created_3_0_, event0_.description as descript4_0_, event0_.last_modified_by as last_mod5_0_, event0_.last_modified_date as last_mod6_0_ "
+						+ "from event event0_ where event0_.id in (? , ?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(5L)));
+				DataSourceAssertMatchers.paramAsLong(1, Matchers.in(List.of(5L, 15L))));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(15L)));
+				DataSourceAssertMatchers.paramAsLong(2, Matchers.in(List.of(15L, 5L))));
 	}
 
 	protected QueryExecution getExecution(ProxyTestDataSource dataSource, int index) {

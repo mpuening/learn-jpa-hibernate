@@ -1,13 +1,11 @@
 package io.github.learnjpahibernate.config;
 
 import javax.naming.NamingException;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +17,12 @@ import org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableConfigurationProperties({ OpenJpaConfiguration.OpenJpaProperties.class })
 public class OpenJpaConfiguration {
 	@Autowired
 	private DataSource dataSource;
 
 	@Autowired
-	private OpenJpaProperties jpaProperties;
+	private JpaProperties jpaProperties;
 
 	@Bean
 	public PlatformTransactionManager transactionManager() throws IllegalArgumentException, NamingException {
@@ -59,10 +56,5 @@ public class OpenJpaConfiguration {
 		localContainerEntityManagerFactoryBean.setJpaDialect(new OpenJpaDialect());
 		localContainerEntityManagerFactoryBean.afterPropertiesSet();
 		return localContainerEntityManagerFactoryBean.getObject();
-	}
-
-	// If one prefers, the prefix could be "openjpa.jpa"
-	@ConfigurationProperties(prefix = "spring.jpa")
-	public static class OpenJpaProperties extends JpaProperties {
 	}
 }

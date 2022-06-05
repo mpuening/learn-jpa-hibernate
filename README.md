@@ -522,12 +522,12 @@ Having multiple data sources also means having multiple entity manager factories
 deciding if one should have multiple transaction managers or a single one with XA support.
 
 This project shows how to set up multiple data sources, one H2 database, one Derby database 
-with a JTA transaction manager using Atomikos.
+with a JTA transaction manager using Narayana.
 
 There are abstract classes, `AbstractDataSourceConfiguration` and `AbstractJpaConfiguration`
 with re-usable code that one can use to create data sources and entity manager factories.
 
-The `TransactionManagerConfiguration` class contains instructions to change from the Atomikos
+The `TransactionManagerConfiguration` class contains instructions to change from the Narayana
 transaction manager to dual (but separate) JPA data source transaction managers.
 
 ## [`learn-jpa-hibernate-extended-repository`](./learn-jpa-hibernate-extended-repository)

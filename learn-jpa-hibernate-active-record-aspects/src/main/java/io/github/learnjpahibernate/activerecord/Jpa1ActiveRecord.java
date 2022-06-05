@@ -2,10 +2,10 @@ package io.github.learnjpahibernate.activerecord;
 
 import java.io.Serializable;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Transient;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Configurable;
 

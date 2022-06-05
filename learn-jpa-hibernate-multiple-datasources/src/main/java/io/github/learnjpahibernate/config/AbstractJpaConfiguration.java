@@ -1,6 +1,6 @@
 package io.github.learnjpahibernate.config;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
