@@ -3,7 +3,8 @@ package io.github.learnjpahibernate.util;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.hibernate.boot.Metadata;
@@ -12,8 +13,10 @@ import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.spi.MetadataImplementor;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.hibernate.tool.schema.TargetType;
+import org.hibernate.cfg.AvailableSettings;
+import org.hibernate.engine.config.spi.ConfigurationService;
+import org.hibernate.tool.schema.spi.DelayedDropRegistryNotAvailableImpl;
+import org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator;
 import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
@@ -27,12 +30,18 @@ public class DDLExporter {
 			String outputFile = fileName;
 			Files.deleteIfExists(Paths.get(outputFile));
 			MetadataImplementor metadata = createMetadata(localSessionFactoryBean, serviceRegistry);
+			
+			Map<String, Object> settings = new HashMap<>(serviceRegistry.getService(ConfigurationService.class).getSettings());
+			settings.put(AvailableSettings.JAKARTA_HBM2DDL_SCRIPTS_ACTION, "create-drop");
+			settings.put(AvailableSettings.JAKARTA_HBM2DDL_SCRIPTS_DROP_TARGET, outputFile);
+			settings.put(AvailableSettings.JAKARTA_HBM2DDL_SCRIPTS_CREATE_TARGET, outputFile);
+			settings.put(AvailableSettings.FORMAT_SQL, true);
 
-			SchemaExport export = new SchemaExport();
-			export.setDelimiter(";");
-			export.setFormat(true);
-			export.setOutputFile(outputFile);
-			export.create(EnumSet.of(TargetType.SCRIPT), metadata);
+			SchemaManagementToolCoordinator.process(
+					metadata,
+					serviceRegistry,
+					settings,
+					DelayedDropRegistryNotAvailableImpl.INSTANCE);
 		} finally {
 			StandardServiceRegistryBuilder.destroy(serviceRegistry);
 		}
@@ -56,7 +65,6 @@ public class DDLExporter {
 		return props;
 	}
 
-	@SuppressWarnings("deprecation")
 	protected MetadataImplementor createMetadata(LocalSessionFactoryBean localSessionFactoryBean,
 			StandardServiceRegistry registry) throws Exception {
 		MetadataSources metadataSources = localSessionFactoryBean.getMetadataSources();

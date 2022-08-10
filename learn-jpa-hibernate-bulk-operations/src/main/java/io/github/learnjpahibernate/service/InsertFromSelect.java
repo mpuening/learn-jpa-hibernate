@@ -1,39 +1,35 @@
 package io.github.learnjpahibernate.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import org.hibernate.Session;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.engine.spi.LoadQueryInfluencers;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.query.internal.ParameterMetadataImpl;
+import org.hibernate.query.internal.QueryParameterBindingsImpl;
+import org.hibernate.query.spi.QueryOptions;
+import org.hibernate.query.spi.QueryParameterBindings;
+import org.hibernate.query.sqm.internal.DomainParameterXref;
+import org.hibernate.query.sqm.sql.SqmTranslator;
+import org.hibernate.query.sqm.sql.SqmTranslatorFactory;
+import org.hibernate.query.sqm.tree.expression.ValueBindJpaCriteriaParameter;
+import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
+import org.hibernate.sql.ast.tree.select.SelectStatement;
+import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.ParameterExpression;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Selection;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.dialect.Dialect;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory;
-import org.hibernate.hql.spi.QueryTranslator;
-import org.hibernate.hql.spi.QueryTranslatorFactory;
-import org.hibernate.internal.util.collections.Stack;
-import org.hibernate.internal.util.collections.StandardStack;
-import org.hibernate.query.criteria.internal.CriteriaQueryImpl;
-import org.hibernate.query.criteria.internal.compile.CriteriaInterpretation;
-import org.hibernate.query.criteria.internal.compile.ExplicitParameterInfo;
-import org.hibernate.query.criteria.internal.compile.RenderingContext;
-import org.hibernate.query.criteria.internal.expression.function.FunctionExpression;
-import org.hibernate.sql.ast.Clause;
-import org.springframework.data.jpa.domain.Specification;
 
 public class InsertFromSelect {
 
@@ -62,8 +58,7 @@ public class InsertFromSelect {
 		List<Object> parameters = new ArrayList<>();
 
 		CriteriaQuery<Tuple> query = createSelectQuery(columnMappings, entityManager, entityClass, specification);
-		String selectjpaql = createJPAQLstatement(entityManager, query, parameters);
-		String selectSql = convertJPAQLtoNativeSQL(entityManager, selectjpaql);
+		String selectSql = convertJPAQLtoNativeSQL(entityManager, query, parameters);
 		Query insert = createInsertStatement(insertTable, columnMappings, entityManager, selectSql, parameters);
 		return insert;
 	}
@@ -96,79 +91,42 @@ public class InsertFromSelect {
 	}
 
 	/**
-	 * Use Hibernate internals to get the JPQL statement
+	 * Use Hibernate internals to get the Native SQL statement
 	 */
 	@SuppressWarnings("rawtypes")
-	private static String createJPAQLstatement(EntityManager entityManager, CriteriaQuery<Tuple> query,
+	private static String convertJPAQLtoNativeSQL(EntityManager entityManager, CriteriaQuery<Tuple> query,
 			List<Object> parameters) {
 		final Session session = entityManager.unwrap(Session.class);
-		final SessionFactory sessionFactory = session.getSessionFactory();
-		final Dialect dialect = ((SessionFactoryImplementor) sessionFactory).getJdbcServices().getDialect();
+		final SessionFactoryImplementor sessionFactory = (SessionFactoryImplementor) session.getSessionFactory();
+		final Dialect dialect = sessionFactory.getJdbcServices().getDialect();
+		final SqmTranslatorFactory ftranslatorFactory = sessionFactory.getQueryEngine().getSqmTranslatorFactory();
 
-		AtomicInteger index = new AtomicInteger();
-		CriteriaInterpretation criteriaInterpretation = ((CriteriaQueryImpl) query).interpret(new RenderingContext() {
+		SqmSelectStatement sqm = (SqmSelectStatement) query;
+		DomainParameterXref domainParameterXref = DomainParameterXref.from(sqm);
+		ParameterMetadataImpl parameterMetadata = new ParameterMetadataImpl(domainParameterXref.getQueryParameters());
+		QueryParameterBindings parameterBindings = QueryParameterBindingsImpl.from(parameterMetadata, sessionFactory);
+		SqmTranslator<SelectStatement> selectTranslator = ftranslatorFactory.createSelectTranslator(
+				sqm,
+				QueryOptions.NONE,
+				domainParameterXref,
+				parameterBindings,
+				LoadQueryInfluencers.NONE,
+				sessionFactory,
+				true);
 
-			@Override
-			public String generateAlias() {
-				return "o";
-			}
+		String sql = dialect
+				.getSqlAstTranslatorFactory()
+				.buildSelectTranslator(sessionFactory, new SelectStatement(selectTranslator.translate().getSqlAst().getQueryPart()))
+				.translate(null, QueryOptions.NONE)
+				.getSql();
 
-			@Override
-			public ExplicitParameterInfo registerExplicitParameter(ParameterExpression<?> criteriaQueryParameter) {
-				throw new UnsupportedOperationException("registerExplicitParameter() not supported yet");
-			}
-
-			@Override
-			public String registerLiteralParameterBinding(Object parameter, Class javaType) {
-				parameters.add(parameter);
-				return "?" + index.incrementAndGet();
-			}
-
-			@Override
-			public String getCastType(Class javaType) {
-				throw new UnsupportedOperationException("getCastType() not supported yet");
-			}
-
-			@Override
-			public Dialect getDialect() {
-				return dialect;
-			}
-
-			private final Stack<Clause> clauseStack = new StandardStack<>();
-			private final Stack<FunctionExpression> functionContextStack = new StandardStack<>();
-
-			@Override
-			public Stack<Clause> getClauseStack() {
-				return clauseStack;
-			}
-
-			@Override
-			public Stack<FunctionExpression> getFunctionStack() {
-				return functionContextStack;
-			}
+		// Save parameter values to be used insert statement
+		parameterBindings.visitBindings((parameter, queryParameterBinding) -> {
+			ValueBindJpaCriteriaParameter impl = (ValueBindJpaCriteriaParameter)parameter;
+			 parameters.add(impl.getValue());
 		});
-		String selectjpaql = null;
-		try {
-			selectjpaql = (String) FieldUtils.readField(criteriaInterpretation, "val$jpaqlString", true);
-			selectjpaql = selectjpaql.replace(":?", "?");
-		} catch (IllegalAccessException e) {
-			throw new IllegalArgumentException("Unable to calculate JPQL statement", e);
-		}
-		return selectjpaql;
-	}
 
-	/**
-	 * Convert jpaql to native sql, also using Hibernate internals
-	 */
-	private static String convertJPAQLtoNativeSQL(EntityManager entityManager, String selectjpaql) {
-		final Session session = entityManager.unwrap(Session.class);
-		final SessionFactory sessionFactory = session.getSessionFactory();
-		final QueryTranslatorFactory ast = new ASTQueryTranslatorFactory();
-		final QueryTranslator queryTranslator = ast.createQueryTranslator("select", selectjpaql, Collections.EMPTY_MAP,
-				(SessionFactoryImplementor) sessionFactory, null);
-		queryTranslator.compile(null, false);
-		String selectSql = queryTranslator.getSQLString();
-		return selectSql;
+		return sql;
 	}
 
 	/**

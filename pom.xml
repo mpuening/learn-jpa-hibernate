@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0-M3</version>
+		<version>3.0.0-M4</version>
 		<relativePath />
 	</parent>
 
@@ -49,6 +49,7 @@
 
 		<!-- Temporary modules used while waiting for full Jakarta EE 9 support -->
 		<module>jakarta-support/narayana-spring-boot-starter-jakarta</module>
+		<module>jakarta-support/ehcache-jakarta</module>
 	</modules>
 
 	<repositories>

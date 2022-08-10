@@ -115,8 +115,9 @@ public class LearnJPAHibernateApplicationTests {
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.query(Matchers.is("insert into LATE_INVOICE(ID,NAME,REVIEW_DATE) "
-						+ "select invoice0_.id as col_0_0_, invoice0_.name as col_1_0_, '2019-12-31' as col_2_0_ "
-						+ "from invoice invoice0_ where invoice0_.name like ?")));
+						+ "select i1_0.id,i1_0.name,'2019-12-31' "
+						+ "from invoice i1_0 "
+						+ "where i1_0.name like ?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("%Douglas%")));
 	}

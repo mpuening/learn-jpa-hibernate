@@ -57,8 +57,9 @@ public class LearnJPAHibernateApplicationTests {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select event0_.id as id1_0_, event0_.created_by as created_2_0_, event0_.created_date as created_3_0_, event0_.description as descript4_0_, event0_.last_modified_by as last_mod5_0_, event0_.last_modified_date as last_mod6_0_ "
-						+ "from event event0_ where event0_.id in (? , ?)")));
+				.is("select e1_0.id,e1_0.created_by,e1_0.created_date,e1_0.description,e1_0.last_modified_by,e1_0.last_modified_date "
+						+ "from event e1_0 "
+						+ "where e1_0.id in(?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.in(List.of(5L, 15L))));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

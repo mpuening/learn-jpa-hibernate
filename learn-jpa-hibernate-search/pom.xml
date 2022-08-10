@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<hibernate-search.version>6.1.5.Final</hibernate-search.version>
+		<hibernate-search.version>6.2.0.Alpha1</hibernate-search.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,7 +32,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.search</groupId>
-			<artifactId>hibernate-search-mapper-orm-jakarta</artifactId>
+			<artifactId>hibernate-search-mapper-orm-orm6</artifactId>
 			<version>${hibernate-search.version}</version>
 		</dependency>
 		<dependency>

@@ -36,9 +36,10 @@ public class AddressTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select address0_.id as id1_0_0_, address0_.city as city2_0_0_, address0_.planet_id as planet_i4_0_0_, address0_.street as street3_0_0_, planet1_.id as id1_4_1_, planet1_.name as name2_4_1_ "
-						+ "from address address0_ inner join planet planet1_ on address0_.planet_id=planet1_.id "
-						+ "where address0_.id=?")));
+				.is("select a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street "
+						+ "from address a1_0 "
+						+ "join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where a1_0.id=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
@@ -78,7 +79,7 @@ public class AddressTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select planet0_.id as id1_4_, planet0_.name as name2_4_ from planet planet0_ where planet0_.name=?")));
+				.is("select p1_0.id,p1_0.name from planet p1_0 where p1_0.name=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers

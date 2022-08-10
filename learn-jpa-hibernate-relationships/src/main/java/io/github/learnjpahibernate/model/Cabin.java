@@ -1,7 +1,11 @@
 package io.github.learnjpahibernate.model;
 
 import javax.money.MonetaryAmount;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,8 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CompositeType;
 
 import io.github.learnjpahibernate.data.AbstractEntity;
 import io.github.learnjpahibernate.model.money.MonetaryAmountJsonSerialize;
@@ -43,8 +46,12 @@ public class Cabin extends AbstractEntity<Long> {
 
 	@NotNull
 	@MonetaryAmountJsonSerialize
-	@Type(type = "io.github.learnjpahibernate.model.money.MonetaryAmountUserType")
-	@Columns(columns = { @Column(name = "PRICE"), @Column(name = "CURRENCY") })
+	@CompositeType(io.github.learnjpahibernate.model.money.MonetaryAmountUserType.class)
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name = "currency", column = @Column(name = "CURRENCY")),
+		@AttributeOverride(name = "number", column = @Column(name = "PRICE"))
+	})
 	private MonetaryAmount price;
 
 	@NotNull

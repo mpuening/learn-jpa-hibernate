@@ -45,14 +45,11 @@ public class CaptainTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		// Note the inner joins that follow the one to one relationships
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select captain0_.id as id2_3_0_, captain0_.home_address_id as home_add4_3_0_, captain0_.name as name3_3_0_, captain0_.ship_id as ship_id5_3_0_, "
-						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
-						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_, "
-						+ "ship3_.id as id1_8_3_, ship3_.name as name2_8_3_, ship3_.ship_class as ship_cla3_8_3_ "
-						+ "from person captain0_ inner join address address1_ on captain0_.home_address_id=address1_.id "
-						+ "inner join planet planet2_ on address1_.planet_id=planet2_.id "
-						+ "left outer join ship ship3_ on captain0_.ship_id=ship3_.id "
-						+ "where captain0_.id=? and captain0_.type='CAPTAIN'")));
+				.is("select c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.id,s1_0.name,s1_0.ship_class "
+						+ "from person c1_0 join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "left join ship s1_0 on s1_0.id=c1_0.ship_id "
+						+ "where c1_0.type='CAPTAIN' and c1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		// Here is the update to captain.
@@ -130,8 +127,7 @@ public class CaptainTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("select planet0_.id as id1_4_, planet0_.name as name2_4_ "
-						+ "from planet planet0_ where planet0_.name=?")));
+				DataSourceAssertMatchers.query(Matchers.is("select p1_0.id,p1_0.name from planet p1_0 where p1_0.name=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Earth")));
 		statementIndex++;

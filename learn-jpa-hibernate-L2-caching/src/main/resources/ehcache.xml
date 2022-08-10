@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
-	monitoring="autodetect" dynamicConfig="true">
-	<defaultCache name="defaut" maxElementsInMemory="500"
-		eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="300"
-		overflowToDisk="false" diskPersistent="false"
-		memoryStoreEvictionPolicy="LRU" />
-	<cache name="io.github.learnjpahibernate.model.Course"
-		maxElementsInMemory="500" eternal="false" timeToIdleSeconds="300"
-		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
-		memoryStoreEvictionPolicy="LRU" />
-	<cache name="io.github.learnjpahibernate.model.Course.teacher"
-		maxElementsInMemory="500" eternal="false" timeToIdleSeconds="300"
-		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
-		memoryStoreEvictionPolicy="LRU" />
-	<!-- Max of one query cached to test ehcache setting -->
-	<cache name="default-query-results-region"
-		maxElementsInMemory="1" eternal="false" timeToIdleSeconds="300"
-		timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false"
-		memoryStoreEvictionPolicy="LRU" />
-</ehcache>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.ehcache.org/v3"
+	xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+	xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+	<service>
+		<jsr107:defaults enable-management="true" enable-statistics="true" />
+	</service>
+
+	<cache-template name="simple">
+		<expiry>
+			<ttl unit="minutes">5</ttl>
+		</expiry>
+		<heap unit="entries">500</heap>
+	</cache-template>
+
+	<cache alias="io.github.learnjpahibernate.model.Course"
+		uses-template="simple" />
+
+	<cache alias="io.github.learnjpahibernate.model.Course.teacher"
+		uses-template="simple" />
+
+	<cache alias="io.github.learnjpahibernate.model.Course.students"
+		uses-template="simple" />
+
+	<cache alias="default-query-results-region"
+		uses-template="simple">
+		<!-- Max of one query cached to test ehcache evictions actually work -->
+		<heap unit="entries">1</heap>
+	</cache>
+		
+	<cache alias="default-update-timestamps-region"
+		uses-template="simple" />
+	
+</config> 

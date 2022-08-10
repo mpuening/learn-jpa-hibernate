@@ -41,20 +41,15 @@ public class VoyageTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select voyage0_.id as id1_9_0_, voyage0_.departure_date as departur2_9_0_, voyage0_.departure_planet_id as departur4_9_0_, voyage0_.destination_date as destinat3_9_0_, voyage0_.destination_planet_id as destinat5_9_0_, voyage0_.ship_id as ship_id6_9_0_, "
-						+ "planet1_.id as id1_4_1_, planet1_.name as name2_4_1_, "
-						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_, "
-						+ "ship3_.id as id1_8_3_, ship3_.name as name2_8_3_, ship3_.ship_class as ship_cla3_8_3_, "
-						+ "captain4_.id as id2_3_4_, captain4_.home_address_id as home_add4_3_4_, captain4_.name as name3_3_4_, captain4_.ship_id as ship_id5_3_4_, "
-						+ "address5_.id as id1_0_5_, address5_.city as city2_0_5_, address5_.planet_id as planet_i4_0_5_, address5_.street as street3_0_5_, "
-						+ "planet6_.id as id1_4_6_, planet6_.name as name2_4_6_ "
-						+ "from voyage voyage0_ inner join planet planet1_ on voyage0_.departure_planet_id=planet1_.id "
-						+ "inner join planet planet2_ on voyage0_.destination_planet_id=planet2_.id "
-						+ "inner join ship ship3_ on voyage0_.ship_id=ship3_.id "
-						+ "left outer join person captain4_ on ship3_.id=captain4_.ship_id and captain4_.type='CAPTAIN' "
-						+ "left outer join address address5_ on captain4_.home_address_id=address5_.id "
-						+ "left outer join planet planet6_ on address5_.planet_id=planet6_.id "
-						+ "where voyage0_.id=?")));
+				.is("select v1_0.id,v1_0.departure_date,d1_0.id,d1_0.name,v1_0.destination_date,d2_0.id,d2_0.name,s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from voyage v1_0 "
+						+ "join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
+						+ "join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
+						+ "join ship s1_0 on s1_0.id=v1_0.ship_id "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where v1_0.id=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers

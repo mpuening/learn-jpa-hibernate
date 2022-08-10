@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigDecimal;
-
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
@@ -46,14 +44,12 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select ship0_.id as id1_8_0_, ship0_.name as name2_8_0_, ship0_.ship_class as ship_cla3_8_0_, "
-						+ "captain1_.id as id2_3_1_, captain1_.home_address_id as home_add4_3_1_, captain1_.name as name3_3_1_, captain1_.ship_id as ship_id5_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_ "
-						+ "from ship ship0_ left outer join person captain1_ on ship0_.id=captain1_.ship_id and captain1_.type='CAPTAIN' "
-						+ "left outer join address address2_ on captain1_.home_address_id=address2_.id "
-						+ "left outer join planet planet3_ on address2_.planet_id=planet3_.id "
-						+ "where ship0_.id=?")));
+				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from ship s1_0 "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where s1_0.id=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -105,43 +101,42 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select ship0_.id as id1_8_0_, ship0_.name as name2_8_0_, ship0_.ship_class as ship_cla3_8_0_, "
-						+ "captain1_.id as id2_3_1_, captain1_.home_address_id as home_add4_3_1_, captain1_.name as name3_3_1_, captain1_.ship_id as ship_id5_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_ "
-						+ "from ship ship0_ left outer join person captain1_ on ship0_.id=captain1_.ship_id and captain1_.type='CAPTAIN' "
-						+ "left outer join address address2_ on captain1_.home_address_id=address2_.id "
-						+ "left outer join planet planet3_ on address2_.planet_id=planet3_.id "
-						+ "where ship0_.id=?")));
+				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from ship s1_0 "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where s1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
-						+ "from cabin cabins0_ where cabins0_.ship_id=?")));
+				.is("select c1_0.ship_id,c1_0.id,c1_0.bed_count,c1_0.deck_level,c1_0.currency,c1_0.price "
+						+ "from cabin c1_0 "
+						+ "where c1_0.ship_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("update cabin set bed_count=?, deck_level=?, price=?, currency=?, ship_id=? where id=?")));
+				Matchers.is("update cabin set bed_count=?, deck_level=?, currency=?, price=?, ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(5, Matchers.is(id)));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsString(4, Matchers.is("USD")));
+				DataSourceAssertMatchers.paramAsString(3, Matchers.is("USD")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsBigDecimal(3, Matchers.is(BigDecimal.valueOf(10999L))));
+				DataSourceAssertMatchers.paramAsLong(4, Matchers.is(Long.valueOf(10999L))));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("update cabin set bed_count=?, deck_level=?, price=?, currency=?, ship_id=? where id=?")));
+				Matchers.is("update cabin set bed_count=?, deck_level=?, currency=?, price=?, ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(5, Matchers.is(id)));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsString(4, Matchers.is("USD")));
+				DataSourceAssertMatchers.paramAsString(3, Matchers.is("USD")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.paramAsBigDecimal(3, Matchers.is(BigDecimal.valueOf(10999L))));
+				DataSourceAssertMatchers.paramAsLong(4, Matchers.is(Long.valueOf(10999L))));
 	}
 
 	@Test
@@ -170,21 +165,20 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select ship0_.id as id1_8_0_, ship0_.name as name2_8_0_, ship0_.ship_class as ship_cla3_8_0_, "
-						+ "captain1_.id as id2_3_1_, captain1_.home_address_id as home_add4_3_1_, captain1_.name as name3_3_1_, captain1_.ship_id as ship_id5_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_ "
-						+ "from ship ship0_ left outer join person captain1_ on ship0_.id=captain1_.ship_id and captain1_.type='CAPTAIN' "
-						+ "left outer join address address2_ on captain1_.home_address_id=address2_.id "
-						+ "left outer join planet planet3_ on address2_.planet_id=planet3_.id "
-						+ "where ship0_.id=?")));
+				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from ship s1_0 "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where s1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select cabins0_.ship_id as ship_id6_1_0_, cabins0_.id as id1_1_0_, cabins0_.id as id1_1_1_, cabins0_.bed_count as bed_coun2_1_1_, cabins0_.deck_level as deck_lev3_1_1_, cabins0_.price as price4_1_1_, cabins0_.currency as currency5_1_1_, cabins0_.ship_id as ship_id6_1_1_ "
-						+ "from cabin cabins0_ where cabins0_.ship_id=?")));
+				.is("select c1_0.ship_id,c1_0.id,c1_0.bed_count,c1_0.deck_level,c1_0.currency,c1_0.price "
+						+ "from cabin c1_0 "
+						+ "where c1_0.ship_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;

@@ -56,9 +56,9 @@ public class LearnJPAHibernateApplicationTests {
 		// With batching, insert count is decreased: 5000 / 50 = 100 insert stmts
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.executionCount(201));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.insertCount(100));
-		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(0));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.selectCount(101));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.updateCount(0));
 		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.deleteCount(0));
-		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.otherCount(101));
+		MatcherAssert.assertThat(proxyDataSource, DataSourceAssertMatchers.otherCount(0));
 	}
 }

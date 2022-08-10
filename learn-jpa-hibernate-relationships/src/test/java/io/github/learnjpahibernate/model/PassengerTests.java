@@ -46,12 +46,10 @@ public class PassengerTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		// Note the inner joins that follow the one to one relationships
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
-						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
-						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
-						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "
-						+ "inner join planet planet2_ on address1_.planet_id=planet2_.id "
-						+ "where passenger0_.id=? and passenger0_.type='PASSENGER'")));
+				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+						+ "from person p1_0 join address a1_0 on a1_0.id=p1_0.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "where p1_0.type='PASSENGER' and p1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		// Here is the update to passenger.
@@ -119,28 +117,29 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
-						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
-						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
-						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "
-						+ "inner join planet planet2_ on address1_.planet_id=planet2_.id "
-						+ "where passenger0_.id=? and passenger0_.type='PASSENGER'")));
+				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+						+ "from person p1_0 "
+						+ "join address a1_0 on a1_0.id=p1_0.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "where p1_0.type='PASSENGER' and p1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		// Fetching existing list of hailing frequencies
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select hailingfre0_.person_id as person_i2_2_0_, hailingfre0_.frequency as frequenc1_2_0_, hailingfre0_.frequency as frequenc1_2_1_, hailingfre0_.person_id as person_i2_2_1_ "
-						+ "from hailing_frequency hailingfre0_ where hailingfre0_.person_id=?")));
+				.is("select h1_0.person_id,h1_0.frequency "
+						+ "from hailing_frequency h1_0 "
+						+ "where h1_0.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		// Merge test of new one
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("select hailingfre0_.frequency as frequenc1_2_0_, hailingfre0_.person_id as person_i2_2_0_ "
-						+ "from hailing_frequency hailingfre0_ where hailingfre0_.frequency=? and hailingfre0_.person_id=?")));
+				Matchers.is("select h1_0.frequency,h1_0.person_id "
+						+ "from hailing_frequency h1_0 "
+						+ "where (h1_0.frequency,h1_0.person_id) in((?,?))")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(id)));
 		statementIndex++;
@@ -188,88 +187,80 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passenger0_.id as id2_3_0_, passenger0_.home_address_id as home_add4_3_0_, passenger0_.name as name3_3_0_, "
-						+ "address1_.id as id1_0_1_, address1_.city as city2_0_1_, address1_.planet_id as planet_i4_0_1_, address1_.street as street3_0_1_, "
-						+ "planet2_.id as id1_4_2_, planet2_.name as name2_4_2_ "
-						+ "from person passenger0_ inner join address address1_ on passenger0_.home_address_id=address1_.id "
-						+ "inner join planet planet2_ on address1_.planet_id=planet2_.id "
-						+ "where passenger0_.id=? and passenger0_.type='PASSENGER'")));
+				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+						+ "from person p1_0 "
+						+ "join address a1_0 on a1_0.id=p1_0.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "where p1_0.type='PASSENGER' and p1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		// Get all Aunt Bea's reservations
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select reservatio0_.person_id as person_i2_7_0_, reservatio0_.reservation_id as reservat1_7_0_, "
-						+ "reservatio1_.id as id1_5_1_, reservatio1_.voyage_id as voyage_i2_5_1_, "
-						+ "voyage2_.id as id1_9_2_, voyage2_.departure_date as departur2_9_2_, voyage2_.departure_planet_id as departur4_9_2_, voyage2_.destination_date as destinat3_9_2_, voyage2_.destination_planet_id as destinat5_9_2_, voyage2_.ship_id as ship_id6_9_2_, planet3_.id as id1_4_3_, "
-						+ "planet3_.name as name2_4_3_, planet4_.id as id1_4_4_, "
-						+ "planet4_.name as name2_4_4_, ship5_.id as id1_8_5_, "
-						+ "ship5_.name as name2_8_5_, ship5_.ship_class as ship_cla3_8_5_, "
-						+ "captain6_.id as id2_3_6_, captain6_.home_address_id as home_add4_3_6_, captain6_.name as name3_3_6_, captain6_.ship_id as ship_id5_3_6_, "
-						+ "address7_.id as id1_0_7_, address7_.city as city2_0_7_, address7_.planet_id as planet_i4_0_7_, address7_.street as street3_0_7_, "
-						+ "planet8_.id as id1_4_8_, planet8_.name as name2_4_8_ "
-						+ "from reservation_person reservatio0_ inner join reservation reservatio1_ on reservatio0_.reservation_id=reservatio1_.id "
-						+ "inner join voyage voyage2_ on reservatio1_.voyage_id=voyage2_.id "
-						+ "inner join planet planet3_ on voyage2_.departure_planet_id=planet3_.id "
-						+ "inner join planet planet4_ on voyage2_.destination_planet_id=planet4_.id "
-						+ "inner join ship ship5_ on voyage2_.ship_id=ship5_.id "
-						+ "left outer join person captain6_ on ship5_.id=captain6_.ship_id and captain6_.type='CAPTAIN' "
-						+ "left outer join address address7_ on captain6_.home_address_id=address7_.id "
-						+ "left outer join planet planet8_ on address7_.planet_id=planet8_.id "
-						+ "where reservatio0_.person_id=?")));
+				.is("select r1_0.person_id,r1_1.id,v1_0.id,v1_0.departure_date,d1_0.id,d1_0.name,v1_0.destination_date,d2_0.id,d2_0.name,s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from reservation_person r1_0 "
+						+ "join reservation r1_1 on r1_1.id=r1_0.reservation_id "
+						+ "left join voyage v1_0 on v1_0.id=r1_1.voyage_id "
+						+ "left join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
+						+ "left join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
+						+ "left join ship s1_0 on s1_0.id=v1_0.ship_id "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
+						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
+						+ "where r1_0.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		// For each reservation, collect it's passengers.. see resolve N+1 project
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passengers0_.reservation_id as reservat1_7_0_, passengers0_.person_id as person_i2_7_0_, "
-						+ "person1_.id as id2_3_1_, person1_.home_address_id as home_add4_3_1_, person1_.name as name3_3_1_, person1_.ship_id as ship_id5_3_1_, person1_.type as type1_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_, "
-						+ "ship4_.id as id1_8_4_, ship4_.name as name2_8_4_, ship4_.ship_class as ship_cla3_8_4_ "
-						+ "from reservation_person passengers0_ inner join person person1_ on passengers0_.person_id=person1_.id left outer join address address2_ on person1_.home_address_id=address2_.id left outer join planet planet3_ on address2_.planet_id=planet3_.id left outer join ship ship4_ on person1_.ship_id=ship4_.id "
-						+ "where passengers0_.reservation_id=?")));
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+						+ "from reservation_person p1_0 "
+						+ "join person p1_1 on p1_1.id=p1_0.person_id "
+						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "left join ship s1_0 on s1_0.id=p1_1.ship_id "
+						+ "where p1_0.reservation_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(Matchers.in(Arrays.asList(1L, 2L, 3L, 4L)))));
 		statementIndex++;
 		// Here is the second one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passengers0_.reservation_id as reservat1_7_0_, passengers0_.person_id as person_i2_7_0_, "
-						+ "person1_.id as id2_3_1_, person1_.home_address_id as home_add4_3_1_, person1_.name as name3_3_1_, person1_.ship_id as ship_id5_3_1_, person1_.type as type1_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_, "
-						+ "ship4_.id as id1_8_4_, ship4_.name as name2_8_4_, ship4_.ship_class as ship_cla3_8_4_ "
-						+ "from reservation_person passengers0_ inner join person person1_ on passengers0_.person_id=person1_.id left outer join address address2_ on person1_.home_address_id=address2_.id left outer join planet planet3_ on address2_.planet_id=planet3_.id left outer join ship ship4_ on person1_.ship_id=ship4_.id "
-						+ "where passengers0_.reservation_id=?")));
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+						+ "from reservation_person p1_0 "
+						+ "join person p1_1 on p1_1.id=p1_0.person_id "
+						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "left join ship s1_0 on s1_0.id=p1_1.ship_id "
+						+ "where p1_0.reservation_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(Matchers.in(Arrays.asList(1L, 2L, 3L, 4L)))));
 		statementIndex++;
 		// Here is the third one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passengers0_.reservation_id as reservat1_7_0_, passengers0_.person_id as person_i2_7_0_, "
-						+ "person1_.id as id2_3_1_, person1_.home_address_id as home_add4_3_1_, person1_.name as name3_3_1_, person1_.ship_id as ship_id5_3_1_, person1_.type as type1_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_, "
-						+ "ship4_.id as id1_8_4_, ship4_.name as name2_8_4_, ship4_.ship_class as ship_cla3_8_4_ "
-						+ "from reservation_person passengers0_ inner join person person1_ on passengers0_.person_id=person1_.id left outer join address address2_ on person1_.home_address_id=address2_.id left outer join planet planet3_ on address2_.planet_id=planet3_.id left outer join ship ship4_ on person1_.ship_id=ship4_.id "
-						+ "where passengers0_.reservation_id=?")));
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+						+ "from reservation_person p1_0 "
+						+ "join person p1_1 on p1_1.id=p1_0.person_id "
+						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "left join ship s1_0 on s1_0.id=p1_1.ship_id "
+						+ "where p1_0.reservation_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(Matchers.in(Arrays.asList(1L, 2L, 3L, 4L)))));
 		statementIndex++;
 		// Here is the fourth one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select passengers0_.reservation_id as reservat1_7_0_, passengers0_.person_id as person_i2_7_0_, "
-						+ "person1_.id as id2_3_1_, person1_.home_address_id as home_add4_3_1_, person1_.name as name3_3_1_, person1_.ship_id as ship_id5_3_1_, person1_.type as type1_3_1_, "
-						+ "address2_.id as id1_0_2_, address2_.city as city2_0_2_, address2_.planet_id as planet_i4_0_2_, address2_.street as street3_0_2_, "
-						+ "planet3_.id as id1_4_3_, planet3_.name as name2_4_3_, "
-						+ "ship4_.id as id1_8_4_, ship4_.name as name2_8_4_, ship4_.ship_class as ship_cla3_8_4_ "
-						+ "from reservation_person passengers0_ inner join person person1_ on passengers0_.person_id=person1_.id left outer join address address2_ on person1_.home_address_id=address2_.id left outer join planet planet3_ on address2_.planet_id=planet3_.id left outer join ship ship4_ on person1_.ship_id=ship4_.id "
-						+ "where passengers0_.reservation_id=?")));
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+						+ "from reservation_person p1_0 "
+						+ "join person p1_1 on p1_1.id=p1_0.person_id "
+						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
+						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
+						+ "left join ship s1_0 on s1_0.id=p1_1.ship_id "
+						+ "where p1_0.reservation_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(Matchers.in(Arrays.asList(1L, 2L, 3L, 4L)))));
 		statementIndex++;
@@ -349,8 +340,7 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("select planet0_.id as id1_4_, planet0_.name as name2_4_ "
-						+ "from planet planet0_ where planet0_.name=?")));
+				DataSourceAssertMatchers.query(Matchers.is("select p1_0.id,p1_0.name from planet p1_0 where p1_0.name=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Earth")));
 		statementIndex++;
