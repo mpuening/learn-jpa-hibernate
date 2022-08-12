@@ -14,14 +14,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-import io.github.learnjpahibernate.activerecord.aspect.Jpa2ActiveRecordMixin;
+import io.github.learnjpahibernate.activerecord.aspect.Jpa3ActiveRecordMixin;
 
 /**
  * This entity uses AspectJ's mix-in ability get active record support
  */
 @Entity
 @Table(name = "STUDENT")
-@Jpa2ActiveRecordMixin
+@Jpa3ActiveRecordMixin
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

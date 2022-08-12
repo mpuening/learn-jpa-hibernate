@@ -16,7 +16,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import io.github.learnjpahibernate.activerecord.Course;
 import io.github.learnjpahibernate.activerecord.Student;
-import io.github.learnjpahibernate.activerecord.aspect.Jpa2EntityFinder;
+import io.github.learnjpahibernate.activerecord.aspect.Jpa3EntityFinder;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 import net.ttddyy.dsproxy.asserts.hamcrest.DataSourceAssertMatchers;
 
@@ -46,7 +46,7 @@ public class LearnJPAHibernateApplicationTests {
 			algebra.setName("Algebra!!");
 
 			// Sign Alice up for algebra
-			Student alice = Jpa2EntityFinder.find(Student.class, Long.valueOf(1L));
+			Student alice = Jpa3EntityFinder.find(Student.class, Long.valueOf(1L));
 			assertNotNull(alice);
 			assertEquals(Long.valueOf(1L), alice.getId());
 			assertEquals("Alice", alice.getName());
@@ -57,7 +57,7 @@ public class LearnJPAHibernateApplicationTests {
 			courses.add(algebra);
 
 			// Jack is dropping out
-			Student jack = Jpa2EntityFinder.find(Student.class, Long.valueOf(10L));
+			Student jack = Jpa3EntityFinder.find(Student.class, Long.valueOf(10L));
 			assertNotNull(jack);
 			assertEquals(Long.valueOf(10L), jack.getId());
 			assertEquals("Jack", jack.getName());

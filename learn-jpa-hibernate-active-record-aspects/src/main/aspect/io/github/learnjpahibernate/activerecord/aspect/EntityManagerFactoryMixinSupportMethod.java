@@ -3,7 +3,7 @@ package io.github.learnjpahibernate.activerecord.aspect;
 import jakarta.persistence.EntityManager;
 
 import io.github.learnjpahibernate.activerecord.EntityManagerFactoryMethod;
-import io.github.learnjpahibernate.activerecord.aspect.JpaActiveRecordAspect.JpaActiveRecord_internal;
+import io.github.learnjpahibernate.activerecord.aspect.AbstractJpa1ActiveRecordAspect.AbstractJpa1ActiveRecord_internal;
 
 /**
  * This class provides a default FactoryMethod that relies on AspectJ to set
@@ -34,7 +34,7 @@ public class EntityManagerFactoryMixinSupportMethod implements EntityManagerFact
 	public EntityManager entityManagerForClass(Class<?> clazz) {
 		EntityManager entityManager = null;
 		try {
-			entityManager = ((JpaActiveRecord_internal) (clazz.newInstance())).internalUseOnly_EntityManager();
+			entityManager = ((AbstractJpa1ActiveRecord_internal) (clazz.newInstance())).internalUseOnly_EntityManager();
 			if (entityManager == null) {
 				throw new IllegalStateException(
 						"Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");

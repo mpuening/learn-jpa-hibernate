@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "COURSE")
-public class Course extends Jpa2ActiveRecord<Long> {
+public class Course extends Jpa3ActiveRecord<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
