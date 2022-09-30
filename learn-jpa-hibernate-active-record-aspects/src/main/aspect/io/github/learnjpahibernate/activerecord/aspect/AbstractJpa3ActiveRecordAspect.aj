@@ -5,6 +5,6 @@ public abstract aspect AbstractJpa3ActiveRecordAspect extends AbstractJpa2Active
     public interface AbstractJpa3ActiveRecord_internal extends AbstractJpa2ActiveRecord_internal {
     }
 
-	// No new methods added at this time
+    // No new methods added at this time
 
 }

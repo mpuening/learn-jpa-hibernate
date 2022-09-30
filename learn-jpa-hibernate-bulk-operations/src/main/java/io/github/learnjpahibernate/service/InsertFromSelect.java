@@ -123,7 +123,7 @@ public class InsertFromSelect {
 		// Save parameter values to be used insert statement
 		parameterBindings.visitBindings((parameter, queryParameterBinding) -> {
 			ValueBindJpaCriteriaParameter impl = (ValueBindJpaCriteriaParameter)parameter;
-			 parameters.add(impl.getValue());
+			parameters.add(impl.getValue());
 		});
 
 		return sql;
