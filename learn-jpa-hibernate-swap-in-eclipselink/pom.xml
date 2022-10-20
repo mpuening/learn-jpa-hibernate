@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<eclipselink.version>4.0.0-M3</eclipselink.version>
+		<eclipselink.version>4.0.0-RC2</eclipselink.version>
 	</properties>
 
 	<dependencies>

@@ -18,8 +18,8 @@
 	</parent>
 
 	<properties>
-		<narayana-boot.version>2.6.4</narayana-boot.version>
-		<narayana.version>5.12.6.Final</narayana.version>
+		<narayana-boot.version>2.6.7</narayana-boot.version>
+		<narayana.version>5.13.0.Final</narayana.version>
 		<eclipse.transformer.version>0.2.0</eclipse.transformer.version>
 	</properties>
 
