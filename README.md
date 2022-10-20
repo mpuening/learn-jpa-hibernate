@@ -615,6 +615,13 @@ an index.
 I wanted a project to learn how to build a lucene index and see how to perform 
 a search. This project has an easy method to search a single table.
 
+## [`learn-jpa-hibernate-blaze`](./learn-jpa-hibernate-blaze)
+
+Blaze Persistence is an alternative API to the JPA Criteria API.
+
+This project has a handful of test methods that demonstrate using Blaze Persistence. Blaze
+certainly does have a more natural API to building queries based on entity beans.
+
 ## [`learn-jpa-hibernate-active-record-aspects`](./learn-jpa-hibernate-active-record-aspects)
 ## [`learn-jpa-hibernate-active-record-example`](./learn-jpa-hibernate-active-record-example)
 
