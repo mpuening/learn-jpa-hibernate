@@ -117,7 +117,7 @@ public class LearnJPAHibernateApplicationTests {
 				DataSourceAssertMatchers.query(Matchers.is("insert into LATE_INVOICE(ID,NAME,REVIEW_DATE) "
 						+ "select i1_0.id,i1_0.name,'2019-12-31' "
 						+ "from invoice i1_0 "
-						+ "where i1_0.name like ?")));
+						+ "where i1_0.name like ? escape ''")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("%Douglas%")));
 	}
