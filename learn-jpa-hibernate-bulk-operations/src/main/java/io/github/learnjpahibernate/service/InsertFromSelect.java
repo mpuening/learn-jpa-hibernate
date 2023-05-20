@@ -118,7 +118,7 @@ public class InsertFromSelect {
 				.getSqlAstTranslatorFactory()
 				.buildSelectTranslator(sessionFactory, new SelectStatement(selectTranslator.translate().getSqlAst().getQueryPart()))
 				.translate(null, QueryOptions.NONE)
-				.getSql();
+				.getSqlString();
 
 		// Save parameter values to be used insert statement
 		parameterBindings.visitBindings((parameter, queryParameterBinding) -> {

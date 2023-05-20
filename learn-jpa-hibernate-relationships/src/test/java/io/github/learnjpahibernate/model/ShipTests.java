@@ -44,7 +44,7 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
 						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
@@ -53,7 +53,7 @@ public class ShipTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("update ship set name=?, ship_class=? where id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("update ship set name=?,ship_class=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("U.S.S. Billings")));
 		statementIndex++;
@@ -101,7 +101,7 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
 						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
@@ -120,7 +120,7 @@ public class ShipTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("update cabin set bed_count=?, deck_level=?, currency=?, price=?, ship_id=? where id=?")));
+				Matchers.is("update cabin set bed_count=?,deck_level=?,currency=?,price=?,ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(5, Matchers.is(id)));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -130,7 +130,7 @@ public class ShipTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("update cabin set bed_count=?, deck_level=?, currency=?, price=?, ship_id=? where id=?")));
+				Matchers.is("update cabin set bed_count=?,deck_level=?,currency=?,price=?,ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(5, Matchers.is(id)));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -165,7 +165,7 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
 						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
@@ -215,11 +215,11 @@ public class ShipTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into ship (id, name, ship_class) values (default, ?, ?)")));
+				.query(Matchers.is("insert into ship (name,ship_class,id) values (?,?,default)")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("update ship set name=?, ship_class=? where id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("update ship set name=?,ship_class=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("USS Enterprise-A")));
 		statementIndex++;

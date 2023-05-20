@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.6</version>
+		<version>3.1.0</version>
 		<relativePath />
 	</parent>
 
@@ -41,7 +41,8 @@
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
 		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
 		<module>learn-jpa-hibernate-search</module>
-		<module>learn-jpa-hibernate-blaze</module>
+<!-- Waiting on https://github.com/Blazebit/blaze-persistence/issues/1685 -->
+<!-- 		<module>learn-jpa-hibernate-blaze</module> -->
 
 		<!-- Temporary modules used while waiting for full Jakarta EE 9 support -->
 		<module>jakarta-support/narayana-spring-boot-starter-jakarta</module>
@@ -52,7 +53,7 @@
 			<dependency>
 				<groupId>net.ttddyy</groupId>
 				<artifactId>datasource-proxy</artifactId>
-				<version>1.7</version>
+				<version>1.9</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>

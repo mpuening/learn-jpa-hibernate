@@ -20,6 +20,13 @@ import org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator;
 import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+/**
+ * This class uses amHibernate 5 compatible LocalSessionFactoryBean. Is there one
+ * for Hibernate 6? No? In the event it becomes deprecated, check out the following
+ * link for ideas for replacement:
+ *
+ * https://shekhargulati.com/2018/01/09/programmatically-generating-database-schema-with-hibernate-5/
+ */
 public class DDLExporter {
 	public void exportDDL(String packageName, String dialect, String fileName) throws Exception {
 		LocalSessionFactoryBean localSessionFactoryBean = createLocalSessionFactoryBean(packageName, dialect);

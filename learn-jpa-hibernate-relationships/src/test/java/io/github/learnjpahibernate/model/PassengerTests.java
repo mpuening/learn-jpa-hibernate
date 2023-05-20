@@ -46,7 +46,7 @@ public class PassengerTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		// Note the inner joins that follow the one to one relationships
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+				.is("select p1_0.id,p1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
 						+ "from person p1_0 join address a1_0 on a1_0.id=p1_0.home_address_id "
 						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
 						+ "where p1_0.type='PASSENGER' and p1_0.id=?")));
@@ -56,7 +56,7 @@ public class PassengerTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("update person set home_address_id=?, name=? where id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("update person set home_address_id=?,name=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(2, Matchers.is("Aunt Bea")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -117,7 +117,7 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+				.is("select p1_0.id,p1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
 						+ "from person p1_0 "
 						+ "join address a1_0 on a1_0.id=p1_0.home_address_id "
 						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
@@ -146,13 +146,13 @@ public class PassengerTests extends AbstractEntityTest {
 		// insert statements
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into hailing_frequency (frequency, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into hailing_frequency (frequency,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(id)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("update address set city=?, planet_id=?, street=? where id=?")));
+				.query(Matchers.is("update address set city=?,planet_id=?,street=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Mayberry, North Carolina")));
 	}
@@ -187,7 +187,7 @@ public class PassengerTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.id,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
+				.is("select p1_0.id,p1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_0.name "
 						+ "from person p1_0 "
 						+ "join address a1_0 on a1_0.id=p1_0.home_address_id "
 						+ "left join planet p2_0 on p2_0.id=a1_0.planet_id "
@@ -198,7 +198,7 @@ public class PassengerTests extends AbstractEntityTest {
 		// Get all Aunt Bea's reservations
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select r1_0.person_id,r1_1.id,v1_0.id,v1_0.departure_date,d1_0.id,d1_0.name,v1_0.destination_date,d2_0.id,d2_0.name,s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select r1_0.person_id,r1_1.id,r1_1.voyage_id,v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,d1_0.id,d1_0.name,v1_0.destination_date,v1_0.destination_planet_id,d2_0.id,d2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person r1_0 "
 						+ "join reservation r1_1 on r1_1.id=r1_0.reservation_id "
 						+ "left join voyage v1_0 on v1_0.id=r1_1.voyage_id "
@@ -215,7 +215,7 @@ public class PassengerTests extends AbstractEntityTest {
 		// For each reservation, collect it's passengers.. see resolve N+1 project
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,p1_1.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person p1_0 "
 						+ "join person p1_1 on p1_1.id=p1_0.person_id "
 						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
@@ -228,7 +228,7 @@ public class PassengerTests extends AbstractEntityTest {
 		// Here is the second one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,p1_1.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person p1_0 "
 						+ "join person p1_1 on p1_1.id=p1_0.person_id "
 						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
@@ -241,7 +241,7 @@ public class PassengerTests extends AbstractEntityTest {
 		// Here is the third one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,p1_1.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person p1_0 "
 						+ "join person p1_1 on p1_1.id=p1_0.person_id "
 						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
@@ -254,7 +254,7 @@ public class PassengerTests extends AbstractEntityTest {
 		// Here is the fourth one...
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,a1_0.id,a1_0.city,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
+				.is("select p1_0.reservation_id,p1_1.id,p1_1.type,p1_1.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p2_0.id,p2_0.name,a1_0.street,p1_1.name,s1_0.id,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person p1_0 "
 						+ "join person p1_1 on p1_1.id=p1_0.person_id "
 						+ "left join address a1_0 on a1_0.id=p1_1.home_address_id "
@@ -267,37 +267,37 @@ public class PassengerTests extends AbstractEntityTest {
 		// Finally, insert Opie's data into the data base
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (city,planet_id,street,id) values (?,?,?,default)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(3, Matchers.is("Maple Road")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("insert into person (id, home_address_id, name, type) values (default, ?, ?, 'PASSENGER')")));
+				Matchers.is("insert into person (home_address_id,name,type,id) values (?,?,'PASSENGER',default)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(2, Matchers.is("Opie")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into reservation_person (reservation_id, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into reservation_person (reservation_id,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.greaterThan(2L)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into reservation_person (reservation_id, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into reservation_person (reservation_id,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.greaterThan(2L)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into reservation_person (reservation_id, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into reservation_person (reservation_id,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.greaterThan(2L)));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into reservation_person (reservation_id, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into reservation_person (reservation_id,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.greaterThan(2L)));
 	}
@@ -347,13 +347,13 @@ public class PassengerTests extends AbstractEntityTest {
 		// Cascade inserts
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (city,planet_id,street,id) values (?,?,?,default)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(3, Matchers.is("Elm Street")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("insert into person (id, home_address_id, name, type) values (default, ?, ?, 'PASSENGER')")));
+				Matchers.is("insert into person (home_address_id,name,type,id) values (?,?,'PASSENGER',default)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(address.getId())));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -361,20 +361,20 @@ public class PassengerTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into hailing_frequency (frequency, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into hailing_frequency (frequency,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(andy.getId())));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into hailing_frequency (frequency, person_id) values (?, ?)")));
+				.query(Matchers.is("insert into hailing_frequency (frequency,person_id) values (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(andy.getId())));
 		// Here is the update to passenger.
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("update person set home_address_id=?, name=? where id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("update person set home_address_id=?,name=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(address.getId())));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

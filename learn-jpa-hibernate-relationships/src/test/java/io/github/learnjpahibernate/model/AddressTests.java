@@ -36,14 +36,14 @@ public class AddressTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street "
+				.is("select a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street "
 						+ "from address a1_0 "
 						+ "join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where a1_0.id=?")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("update address set city=?, planet_id=?, street=? where id=?")));
+				.query(Matchers.is("update address set city=?,planet_id=?,street=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Washington")));
 		statementIndex++;
@@ -83,11 +83,11 @@ public class AddressTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("insert into address (id, city, planet_id, street) values (default, ?, ?, ?)")));
+				.query(Matchers.is("insert into address (city,planet_id,street,id) values (?,?,?,default)")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("update address set city=?, planet_id=?, street=? where id=?")));
+				.query(Matchers.is("update address set city=?,planet_id=?,street=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("New York")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -32,6 +33,7 @@ public class Author extends AbstractEntity<Long> {
 	@ManyToMany(mappedBy = "authors")
 	private Set<Book> books = new HashSet<>(0);
 
-	@OneToMany(mappedBy = "id.authorId")
+	@OneToMany
+	@JoinColumn(name = "AUTHOR_ID", nullable = false, insertable = false, updatable = false)
 	private Set<Preference> preferences = new HashSet<>(0);
 }

@@ -41,7 +41,7 @@ public class VoyageTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select v1_0.id,v1_0.departure_date,d1_0.id,d1_0.name,v1_0.destination_date,d2_0.id,d2_0.name,s1_0.id,c1_0.id,a1_0.id,a1_0.city,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,d1_0.id,d1_0.name,v1_0.destination_date,v1_0.destination_planet_id,d2_0.id,d2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from voyage v1_0 "
 						+ "join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
 						+ "join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
@@ -53,7 +53,7 @@ public class VoyageTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("update voyage set departure_date=?, departure_planet_id=?, destination_date=?, destination_planet_id=?, ship_id=? where id=?")));
+				.is("update voyage set departure_date=?,departure_planet_id=?,destination_date=?,destination_planet_id=?,ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.paramAsDate(3,
 				Matchers.is(Date.from(newDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))));
 		// Referential integrity prevents delete, but let's not delete the history of
@@ -98,11 +98,11 @@ public class VoyageTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("insert into voyage (id, departure_date, departure_planet_id, destination_date, destination_planet_id, ship_id) values (default, ?, ?, ?, ?, ?)")));
+				.is("insert into voyage (departure_date,departure_planet_id,destination_date,destination_planet_id,ship_id,id) values (?,?,?,?,?,default)")));
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("update voyage set departure_date=?, departure_planet_id=?, destination_date=?, destination_planet_id=?, ship_id=? where id=?")));
+				.is("update voyage set departure_date=?,departure_planet_id=?,destination_date=?,destination_planet_id=?,ship_id=? where id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.paramAsDate(3,
 				Matchers.is(Date.from(destinationDate.plusDays(1L).atStartOfDay(ZoneId.systemDefault()).toInstant()))));
 		statementIndex++;
