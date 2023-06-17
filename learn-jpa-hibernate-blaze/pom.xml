@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<blaze-persistence.version>1.6.8</blaze-persistence.version>
+		<blaze-persistence.version>1.6.9</blaze-persistence.version>
 	</properties>
 
 	<dependencies>
@@ -37,7 +37,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.blazebit</groupId>
-			<artifactId>blaze-persistence-integration-hibernate-6.0</artifactId>
+			<artifactId>blaze-persistence-integration-hibernate-6.2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

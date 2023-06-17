@@ -41,8 +41,7 @@
 		<module>learn-jpa-hibernate-swap-in-openjpa</module>
 		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
 		<module>learn-jpa-hibernate-search</module>
-<!-- Waiting on https://github.com/Blazebit/blaze-persistence/issues/1685 -->
-<!-- 		<module>learn-jpa-hibernate-blaze</module> -->
+		<module>learn-jpa-hibernate-blaze</module>
 
 		<!-- Temporary modules used while waiting for full Jakarta EE 9 support -->
 		<module>jakarta-support/narayana-spring-boot-starter-jakarta</module>
