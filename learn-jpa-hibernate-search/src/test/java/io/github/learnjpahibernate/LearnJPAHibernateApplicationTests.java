@@ -59,7 +59,7 @@ public class LearnJPAHibernateApplicationTests {
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
 				.is("select e1_0.id,e1_0.created_by,e1_0.created_date,e1_0.description,e1_0.last_modified_by,e1_0.last_modified_date "
 						+ "from event e1_0 "
-						+ "where e1_0.id in(?,?)")));
+						+ "where e1_0.id in (?,?)")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.in(List.of(5L, 15L))));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),

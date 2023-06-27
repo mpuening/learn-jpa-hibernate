@@ -139,7 +139,7 @@ public class PassengerTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
 				Matchers.is("select h1_0.frequency,h1_0.person_id "
 						+ "from hailing_frequency h1_0 "
-						+ "where (h1_0.frequency,h1_0.person_id) in((?,?))")));
+						+ "where (h1_0.frequency,h1_0.person_id) in ((?,?))")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(id)));
 		statementIndex++;
