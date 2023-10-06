@@ -19,10 +19,7 @@
 
 	<properties>
 		<!-- Hibernate tools does not follow Hibernate version anymore? -->
-		<hibernate-tools.version>5.6.2.Final</hibernate-tools.version>
-
-		<!-- Version 2.1.x seems to be incamptible with hbm tools -->
-		<h2.version>1.4.200</h2.version>
+		<hibernate-tools.version>5.6.15.Final</hibernate-tools.version>
 	</properties>
 
 	<dependencies>
