@@ -46,7 +46,7 @@ public class VoyageTests extends AbstractEntityTest {
 						+ "join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
 						+ "join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
 						+ "join ship s1_0 on s1_0.id=v1_0.ship_id "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where v1_0.id=?")));
