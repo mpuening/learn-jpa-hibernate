@@ -25,10 +25,9 @@
 		</dependency>
 		<!-- Spring Boot no longer maintains JTA starters -->
 		<dependency>
-			<groupId>io.github.learnjpahibernate</groupId>
-			<artifactId>narayana-spring-boot-starter-jakarta</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-			<classifier>jakartaee</classifier>
+			<groupId>dev.snowdrop</groupId>
+			<artifactId>narayana-spring-boot-starter</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 
 		<dependency>

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * 2) Use the beans in this class and switch the switch the names of the
  * transaction managers
  *
- * 3) Remove transactions-spring-boot-starter from pom.xml
+ * 3) Remove narayana-spring-boot-starter from pom.xml
  */
 @Configuration
 public class TransactionManagerConfiguration {
