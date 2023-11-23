@@ -128,18 +128,18 @@ public class PassengerTests extends AbstractEntityTest {
 		// Fetching existing list of hailing frequencies
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select h1_0.person_id,h1_0.frequency "
-						+ "from hailing_frequency h1_0 "
-						+ "where h1_0.person_id=?")));
+				.is("select hf1_0.person_id,hf1_0.frequency "
+						+ "from hailing_frequency hf1_0 "
+						+ "where hf1_0.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
 		// Merge test of new one
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(
-				Matchers.is("select h1_0.frequency,h1_0.person_id "
-						+ "from hailing_frequency h1_0 "
-						+ "where (h1_0.frequency,h1_0.person_id) in ((?,?))")));
+				Matchers.is("select hf1_0.frequency,hf1_0.person_id "
+						+ "from hailing_frequency hf1_0 "
+						+ "where (hf1_0.frequency,hf1_0.person_id) in ((?,?))")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(2, Matchers.is(id)));
 		statementIndex++;
@@ -198,14 +198,14 @@ public class PassengerTests extends AbstractEntityTest {
 		// Get all Aunt Bea's reservations
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select r1_0.person_id,r1_1.id,r1_1.voyage_id,v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,d1_0.id,d1_0.name,v1_0.destination_date,v1_0.destination_planet_id,d2_0.id,d2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+				.is("select r1_0.person_id,r1_1.id,r1_1.voyage_id,v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,dp1_0.id,dp1_0.name,v1_0.destination_date,v1_0.destination_planet_id,dp2_0.id,dp2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from reservation_person r1_0 "
 						+ "join reservation r1_1 on r1_1.id=r1_0.reservation_id "
 						+ "left join voyage v1_0 on v1_0.id=r1_1.voyage_id "
-						+ "left join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
-						+ "left join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
+						+ "left join planet dp1_0 on dp1_0.id=v1_0.departure_planet_id "
+						+ "left join planet dp2_0 on dp2_0.id=v1_0.destination_planet_id "
 						+ "left join ship s1_0 on s1_0.id=v1_0.ship_id "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where r1_0.person_id=?")));

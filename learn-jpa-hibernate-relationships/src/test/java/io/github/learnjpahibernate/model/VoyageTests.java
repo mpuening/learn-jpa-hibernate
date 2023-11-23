@@ -41,12 +41,11 @@ public class VoyageTests extends AbstractEntityTest {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
-				.is("select v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,d1_0.id,d1_0.name,v1_0.destination_date,v1_0.destination_planet_id,d2_0.id,d2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
-						+ "from voyage v1_0 "
-						+ "join planet d1_0 on d1_0.id=v1_0.departure_planet_id "
-						+ "join planet d2_0 on d2_0.id=v1_0.destination_planet_id "
+				.is("select v1_0.id,v1_0.departure_date,v1_0.departure_planet_id,dp1_0.id,dp1_0.name,v1_0.destination_date,v1_0.destination_planet_id,dp2_0.id,dp2_0.name,v1_0.ship_id,s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
+						+ "from voyage v1_0 join planet dp1_0 on dp1_0.id=v1_0.departure_planet_id "
+						+ "join planet dp2_0 on dp2_0.id=v1_0.destination_planet_id "
 						+ "join ship s1_0 on s1_0.id=v1_0.ship_id "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where v1_0.id=?")));

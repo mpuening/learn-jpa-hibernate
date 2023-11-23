@@ -46,7 +46,7 @@ public class ShipTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
 				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where s1_0.id=?")));
@@ -103,7 +103,7 @@ public class ShipTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
 				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where s1_0.id=?")));
@@ -167,7 +167,7 @@ public class ShipTests extends AbstractEntityTest {
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers.query(Matchers
 				.is("select s1_0.id,c1_0.id,c1_0.home_address_id,a1_0.id,a1_0.city,a1_0.planet_id,p1_0.id,p1_0.name,a1_0.street,c1_0.name,s1_0.name,s1_0.ship_class "
 						+ "from ship s1_0 "
-						+ "left join person c1_0 on s1_0.id=c1_0.ship_id and c1_0.type='CAPTAIN' "
+						+ "left join person c1_0 on s1_0.id=c1_0.ship_id "
 						+ "left join address a1_0 on a1_0.id=c1_0.home_address_id "
 						+ "left join planet p1_0 on p1_0.id=a1_0.planet_id "
 						+ "where s1_0.id=?")));
