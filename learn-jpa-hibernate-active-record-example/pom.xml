@@ -55,11 +55,6 @@
 				<dependencies>
 					<dependency>
 						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
 						<artifactId>aspectjtools</artifactId>
 						<version>${aspectj.version}</version>
 					</dependency>
@@ -73,8 +68,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
 					<complianceLevel>${java.version}</complianceLevel>
 					<!-- <outxmlfile>/META-INF/aop.xml</outxmlfile> -->
 					<outxml>true</outxml>
