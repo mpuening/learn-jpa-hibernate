@@ -141,6 +141,12 @@
 						<artifactId>jakarta.transaction-api</artifactId>
 						<version>${jakarta-transaction.version}</version>
 					</dependency>
+					<!-- Added for Java 21 support -->
+					<dependency>
+						<groupId>org.apache.xbean</groupId>
+						<artifactId>xbean-asm9-shaded</artifactId>
+						<version>4.23</version>
+					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>

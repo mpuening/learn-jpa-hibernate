@@ -39,8 +39,7 @@
 		<module>learn-jpa-hibernate-bulk-operations</module>
 		<module>learn-jpa-hibernate-active-record-aspects</module>
 		<module>learn-jpa-hibernate-active-record-example</module>
-<!-- Waiting for openjpa version 4.0.0 to be released -->
-<!--		<module>learn-jpa-hibernate-swap-in-openjpa</module>-->
+		<module>learn-jpa-hibernate-swap-in-openjpa</module>
 		<module>learn-jpa-hibernate-swap-in-eclipselink</module>
 		<module>learn-jpa-hibernate-search</module>
 		<module>learn-jpa-hibernate-blaze</module>
