@@ -110,7 +110,7 @@ public class InsertFromSelect {
 				QueryOptions.NONE,
 				domainParameterXref,
 				parameterBindings,
-				LoadQueryInfluencers.NONE,
+				new LoadQueryInfluencers(sessionFactory),
 				sessionFactory,
 				true);
 
