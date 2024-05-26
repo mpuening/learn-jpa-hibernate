@@ -54,7 +54,7 @@ public class LearnJPAHibernateApplicationTests {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex), DataSourceAssertMatchers
-				.query(Matchers.is("update invoice set account_manager=? where account_manager=?")));
+				.query(Matchers.is("update invoice i1_0 set account_manager=? where i1_0.account_manager=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Alice")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
@@ -82,7 +82,7 @@ public class LearnJPAHibernateApplicationTests {
 		int statementIndex = 0;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("delete from invoice where name=?")));
+				DataSourceAssertMatchers.query(Matchers.is("delete from invoice i1_0 where i1_0.name=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsString(1, Matchers.is("Douglas")));
 	}

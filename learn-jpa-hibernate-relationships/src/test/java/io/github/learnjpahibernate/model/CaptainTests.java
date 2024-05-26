@@ -65,7 +65,7 @@ public class CaptainTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("delete from hailing_frequency where person_id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("delete from hailing_frequency hf1_0 where hf1_0.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
@@ -182,7 +182,7 @@ public class CaptainTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("delete from hailing_frequency where person_id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("delete from hailing_frequency hf1_0 where hf1_0.person_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(janeway.getId())));
 		statementIndex++;

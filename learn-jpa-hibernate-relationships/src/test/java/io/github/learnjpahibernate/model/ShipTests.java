@@ -59,7 +59,7 @@ public class ShipTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("delete from cabin where ship_id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("delete from cabin c1_0 where c1_0.ship_id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.is(id)));
 		statementIndex++;
@@ -184,7 +184,7 @@ public class ShipTests extends AbstractEntityTest {
 		statementIndex++;
 		MatcherAssert.assertThat(getExecution(proxyDataSource, statementIndex), DataSourceAssertMatchers.isPrepared());
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
-				DataSourceAssertMatchers.query(Matchers.is("delete from cabin where id=?")));
+				DataSourceAssertMatchers.query(Matchers.is("delete from cabin c1_0 where c1_0.id=?")));
 		MatcherAssert.assertThat(getPrepared(proxyDataSource, statementIndex),
 				DataSourceAssertMatchers.paramAsLong(1, Matchers.greaterThanOrEqualTo(1L)));
 	}
