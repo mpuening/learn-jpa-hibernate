@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<hibernate-search.version>7.1.1.Final</hibernate-search.version>
+		<hibernate-search.version>7.1.2.Final</hibernate-search.version>
 	</properties>
 	<dependencies>
 		<dependency>

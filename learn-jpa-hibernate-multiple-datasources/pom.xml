@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<narayana.version>3.1.1</narayana.version>
+		<narayana.version>3.2.0</narayana.version>
 	</properties>
 
 	<dependencies>
