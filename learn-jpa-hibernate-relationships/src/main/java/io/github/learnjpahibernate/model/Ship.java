@@ -37,7 +37,7 @@ public class Ship extends AbstractEntity<Long> {
 	@Column(name = "SHIP_CLASS", columnDefinition = "VARCHAR(50)", nullable = false, unique = false, length = 50)
 	private String shipClass;
 
-	@OneToOne(mappedBy = "ship", optional = true)
+	@OneToOne(mappedBy = "ship", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, optional = true)
 	private Captain captain;
 
 	@OneToMany(mappedBy = "ship", cascade = { CascadeType.PERSIST, CascadeType.MERGE })

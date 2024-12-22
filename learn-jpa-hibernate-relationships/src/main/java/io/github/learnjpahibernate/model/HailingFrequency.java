@@ -2,6 +2,7 @@ package io.github.learnjpahibernate.model;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -38,7 +39,7 @@ public class HailingFrequency extends AbstractEntity<HailingFrequencyId> {
 	// to model it as bidirectional... it is the only way to avoid having to require
 	// a "generated id column", and the corresponding update statements typical with
 	// Hibernate's OneToMany relationship implementation.
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "PERSON_ID", nullable = false, insertable = false, updatable = false)
 	private Person person;
 

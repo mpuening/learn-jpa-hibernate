@@ -3,6 +3,14 @@ Learn JPA Hibernate
 
 [![Continuous Integration](https://github.com/mpuening/learn-jpa-hibernate/actions/workflows/ci.yml/badge.svg)](https://github.com/mpuening/learn-jpa-hibernate/actions/workflows/ci.yml)
 
+```
+Note: I have three disabled test cases, due to some bug with class hierarchies: look for:
+
+    @Disabled("FIXME_HIBERNATE_DELETE_BUG_ON_CLASS_HIERARCHY ???")
+
+The delete statement is never executed, despite respository.delete(entity) being called.
+```
+
 When Hibernate first came out, I heard people say that it is the future and *all* your 
 code should use Object Relational Mapping (ORM). Every now and then today, I hear someone 
 say that JPA/Hibernate sucks and should *never* be used. The truth is that JPA/Hibernate
