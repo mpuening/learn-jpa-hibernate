@@ -17,10 +17,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-		<openjpa.version>4.0.1</openjpa.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>

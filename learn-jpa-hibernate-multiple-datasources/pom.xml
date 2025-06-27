@@ -17,10 +17,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-		<narayana.version>3.3.1</narayana.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>

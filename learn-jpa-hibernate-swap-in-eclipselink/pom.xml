@@ -17,10 +17,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-		<eclipselink.version>4.0.4</eclipselink.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>

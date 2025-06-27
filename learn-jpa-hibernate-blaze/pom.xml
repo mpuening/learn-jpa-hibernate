@@ -17,10 +17,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-		<blaze-persistence.version>1.6.14</blaze-persistence.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.learnjpahibernate</groupId>

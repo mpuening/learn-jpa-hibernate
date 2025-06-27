@@ -15,12 +15,23 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.1</version>
+		<version>3.5.3</version>
 		<relativePath />
 	</parent>
 
 	<properties>
 		<java.version>21</java.version>
+
+		<!-- OVERRIDE: Latest version that works for now -->
+		<aspectj.version>1.9.22</aspectj.version>
+
+		<!-- Project versions -->
+		<aspectj-plugin.version>1.14.1</aspectj-plugin.version>
+		<blaze-persistence.version>1.6.15</blaze-persistence.version>
+		<hibernate-search.version>7.2.4.Final</hibernate-search.version>
+		<narayana.version>3.4.2.2</narayana.version>
+		<eclipselink.version>4.0.7</eclipselink.version>
+		<openjpa.version>4.1.1</openjpa.version>
 	</properties>
 
 	<modules>
