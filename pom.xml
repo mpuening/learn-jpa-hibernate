@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.3</version>
+		<version>3.5.8</version>
 		<relativePath />
 	</parent>
 
@@ -27,10 +27,10 @@
 
 		<!-- Project versions -->
 		<aspectj-plugin.version>1.14.1</aspectj-plugin.version>
-		<blaze-persistence.version>1.6.15</blaze-persistence.version>
+		<blaze-persistence.version>1.6.17</blaze-persistence.version>
 		<hibernate-search.version>7.2.4.Final</hibernate-search.version>
-		<narayana.version>3.4.2.2</narayana.version>
-		<eclipselink.version>4.0.7</eclipselink.version>
+		<narayana.version>3.5.0</narayana.version>
+		<eclipselink.version>4.0.8</eclipselink.version>
 		<openjpa.version>4.1.1</openjpa.version>
 	</properties>
 
