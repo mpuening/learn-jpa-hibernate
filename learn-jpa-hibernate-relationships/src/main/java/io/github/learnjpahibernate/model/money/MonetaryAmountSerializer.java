@@ -1,6 +1,5 @@
 package io.github.learnjpahibernate.model.money;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import javax.money.MonetaryAmount;
@@ -8,20 +7,19 @@ import javax.money.format.AmountFormatQueryBuilder;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.BeanProperty;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-public class MonetaryAmountSerializer extends JsonSerializer<MonetaryAmount> implements ContextualSerializer {
+public class MonetaryAmountSerializer extends ValueSerializer<MonetaryAmount> {
 	private final Locale locale;
 
 	private final String pattern;
 
 	public MonetaryAmountSerializer() {
-		this(Locale.US, "Â¤ 0.00");
+		this(Locale.US, "¤ 0.00");
 	}
 
 	public MonetaryAmountSerializer(Locale locale, String pattern) {
@@ -30,8 +28,7 @@ public class MonetaryAmountSerializer extends JsonSerializer<MonetaryAmount> imp
 	}
 
 	@Override
-	public void serialize(MonetaryAmount monetaryAmount, JsonGenerator generator, SerializerProvider serializers)
-			throws IOException {
+	public void serialize(MonetaryAmount monetaryAmount, JsonGenerator generator, SerializationContext ctxt) throws JacksonException {
 		if (monetaryAmount != null) {
 			MonetaryAmountFormat customFormat = MonetaryFormats
 					.getAmountFormat(AmountFormatQueryBuilder.of(this.locale).set("pattern", this.pattern).build());
@@ -40,15 +37,14 @@ public class MonetaryAmountSerializer extends JsonSerializer<MonetaryAmount> imp
 	}
 
 	@Override
-	public JsonSerializer<MonetaryAmount> createContextual(SerializerProvider provider, BeanProperty property)
-			throws JsonMappingException {
-		JsonSerializer<MonetaryAmount> result = new MonetaryAmountSerializer();
+    public ValueSerializer<MonetaryAmount> createContextual(SerializationContext ctxt, BeanProperty property) {
+		ValueSerializer<MonetaryAmount> result = new MonetaryAmountSerializer();
 		MonetaryAmountJsonSerialize annotation = null;
 		if (property != null) {
 			annotation = property.getAnnotation(MonetaryAmountJsonSerialize.class);
 		}
 		if (annotation != null) {
-			Locale locale = new Locale(annotation.lang(), annotation.country());
+			Locale locale = Locale.of(annotation.lang(), annotation.country());
 			String pattern = annotation.pattern();
 			result = new MonetaryAmountSerializer(locale, pattern);
 		}

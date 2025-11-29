@@ -3,9 +3,9 @@ spring:
     name: learnjpahibernate
   autoconfigure:
     exclude:
-    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-    - org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration
-    - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+    - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+    - org.springframework.boot.jdbc.autoconfigure.DataSourceInitializationAutoConfiguration
+    - org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration
 
 application:
   primary:

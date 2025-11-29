@@ -17,11 +17,11 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.engine.config.spi.ConfigurationService;
 import org.hibernate.tool.schema.spi.DelayedDropRegistryNotAvailableImpl;
 import org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator;
-import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.boot.hibernate.SpringImplicitNamingStrategy;
+import org.springframework.orm.jpa.hibernate.LocalSessionFactoryBean;
 
 /**
- * This class uses amHibernate 5 compatible LocalSessionFactoryBean. Is there one
+ * This class uses Hibernate 5 compatible LocalSessionFactoryBean. Is there one
  * for Hibernate 6? No? In the event it becomes deprecated, check out the following
  * link for ideas for replacement:
  *

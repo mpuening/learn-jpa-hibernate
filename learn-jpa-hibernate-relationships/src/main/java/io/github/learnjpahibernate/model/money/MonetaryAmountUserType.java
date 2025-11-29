@@ -8,7 +8,6 @@ import javax.money.MonetaryAmount;
 import javax.money.NumberValue;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.metamodel.spi.ValueAccess;
 import org.hibernate.usertype.CompositeUserType;
 import org.javamoney.moneta.Money;
@@ -38,7 +37,7 @@ public class MonetaryAmountUserType implements CompositeUserType<MonetaryAmount>
 	}
 
 	@Override
-	public MonetaryAmount instantiate(ValueAccess valueAccess, SessionFactoryImplementor sessionFactory) {
+	public MonetaryAmount instantiate(ValueAccess valueAccess) {
 		// alphabetical
 		String currencyCode = valueAccess.getValue(0, String.class);
 		Long numberValue = valueAccess.getValue(1, Long.class);

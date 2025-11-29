@@ -6,7 +6,7 @@
 
 	<groupId>io.github.learnjpahibernate</groupId>
 	<artifactId>learn-jpa-hibernate</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>learn-jpa-hibernate</name>
@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.8</version>
+		<version>4.0.0</version>
 		<relativePath />
 	</parent>
 
@@ -25,12 +25,15 @@
 		<!-- OVERRIDE: Latest version that works for now -->
 		<aspectj.version>1.9.22</aspectj.version>
 
+		<!-- OVERRIDE: Bog fix needed, remove when fixed in spring -->
+    	<jackson-bom.version>3.0.3</jackson-bom.version>
+
 		<!-- Project versions -->
 		<aspectj-plugin.version>1.14.1</aspectj-plugin.version>
 		<blaze-persistence.version>1.6.17</blaze-persistence.version>
-		<hibernate-search.version>7.2.4.Final</hibernate-search.version>
-		<narayana.version>3.5.0</narayana.version>
-		<eclipselink.version>4.0.8</eclipselink.version>
+		<hibernate-search.version>8.1.2.Final</hibernate-search.version>
+		<narayana.version>4.0.0.Beta1</narayana.version>
+		<eclipselink.version>5.0.0-B11</eclipselink.version>
 		<openjpa.version>4.1.1</openjpa.version>
 	</properties>
 

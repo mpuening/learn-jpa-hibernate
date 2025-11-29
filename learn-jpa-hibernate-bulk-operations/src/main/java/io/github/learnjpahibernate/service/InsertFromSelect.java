@@ -111,7 +111,7 @@ public class InsertFromSelect {
 				domainParameterXref,
 				parameterBindings,
 				new LoadQueryInfluencers(sessionFactory),
-				sessionFactory,
+				sessionFactory.getSqlTranslationEngine(),
 				true);
 
 		String sql = dialect

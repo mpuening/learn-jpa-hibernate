@@ -1,12 +1,11 @@
 package io.github.learnjpahibernate.config;
 
 import javax.naming.NamingException;
-import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jpa.autoconfigure.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,6 +14,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 public class EclipselinkConfiguration {
@@ -49,7 +50,9 @@ public class EclipselinkConfiguration {
 	protected EntityManagerFactory buildEntityManagerFactory(DataSource dataSource, JpaProperties jpaProperties,
 			String persistenceUnit, String... packages) {
 		JpaVendorAdapter adapter = getJpaVendorAdapter(jpaProperties);
-		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(adapter, jpaProperties.getProperties(),
+		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(
+				adapter,
+				(ds) -> jpaProperties.getProperties(),
 				null);
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = builder.dataSource(dataSource)
 				.persistenceUnit(persistenceUnit).packages(packages).build();

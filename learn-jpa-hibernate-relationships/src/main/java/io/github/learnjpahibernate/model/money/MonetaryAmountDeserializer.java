@@ -1,21 +1,22 @@
 package io.github.learnjpahibernate.model.money;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.node.StringNode;
 
-public class MonetaryAmountDeserializer extends JsonDeserializer<MonetaryAmount> {
+public class MonetaryAmountDeserializer extends ValueDeserializer<MonetaryAmount> {
 	@Override
 	public MonetaryAmount deserialize(JsonParser parser, DeserializationContext sortorder)
-			throws IOException, JsonProcessingException {
-		String moneyValue = parser.getCodec().readValue(parser, String.class);
+			throws JacksonException {
+		StringNode moneyValueNode = parser.readValueAsTree();
+		String moneyValue = moneyValueNode.asString();
 		MonetaryAmount result = null;
 		if (moneyValue != null && !moneyValue.isEmpty()) {
 			String[] tokens = moneyValue.split(" ");

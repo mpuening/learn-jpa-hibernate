@@ -1,15 +1,14 @@
 package io.github.learnjpahibernate.config;
 
 import javax.naming.NamingException;
-import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.jpa.autoconfigure.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,6 +21,8 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
@@ -67,7 +68,9 @@ public class JpaConfiguration {
 	protected EntityManagerFactory buildEntityManagerFactory(DataSource dataSource, JpaProperties jpaProperties,
 			String persistenceUnit, String... packages) {
 		JpaVendorAdapter adapter = getJpaVendorAdapter(jpaProperties);
-		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(adapter, jpaProperties.getProperties(),
+		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(
+				adapter,
+				(ds) -> jpaProperties.getProperties(),
 				null);
 		AbstractEntityManagerFactoryBean entityManagerFactoryBean = builder.dataSource(dataSource)
 				// .persistenceUnit(persistenceUnit)

@@ -11,6 +11,6 @@ import io.github.learnjpahibernate.model.Course;
 @RepositoryRestResource(collectionResourceRel = "courses", path = "courses")
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-	@Query("FROM Course c")
+	@Query("SELECT c FROM Course c")
 	Stream<Course> queryAllStreaming();
 }

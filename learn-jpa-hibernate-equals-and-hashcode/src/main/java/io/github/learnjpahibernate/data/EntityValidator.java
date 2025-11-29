@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
@@ -219,9 +219,12 @@ public class EntityValidator<T extends Persistable<ID>, ID extends Serializable>
 		T entity = null;
 		try {
 			entity = repository.getReferenceById(testEntity.getId());
-		} catch (JpaObjectRetrievalFailureException thisIsExpected) {
+		} catch (ObjectRetrievalFailureException thisIsExpected) {
+			boolean expectedExceptionFound = 
+					thisIsExpected.getCause().getClass().getName().equals("jakarta.persistence.EntityNotFoundException") ||
+					thisIsExpected.getCause().getClass().getName().equals("org.hibernate.ObjectNotFoundException");
 			assertTrue(
-					thisIsExpected.getCause().getClass().getName().equals("jakarta.persistence.EntityNotFoundException"),
+					expectedExceptionFound,
 					"The wrong type of exception occurred while querying deleted entity (6)");
 		}
 		assertTrue(entity == null, "The deleted entity can still be queried (6)");

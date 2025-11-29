@@ -23,7 +23,9 @@ public class CoursesController {
 	protected CourseService courseService;
 
 	/**
-	 * This will blow up because we will try to navigate JPA relationships after the
+	 * Apparently, this works in Spring Boot 4 now.
+	 *
+	 * Previously, this would blow up because we will try to navigate JPA relationships after the
 	 * session is closed.
 	 */
 	@GetMapping("/poorly")
