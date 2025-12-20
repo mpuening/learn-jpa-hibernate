@@ -104,7 +104,7 @@ public class InsertFromSelect {
 		SqmSelectStatement sqm = (SqmSelectStatement) query;
 		DomainParameterXref domainParameterXref = DomainParameterXref.from(sqm);
 		ParameterMetadataImpl parameterMetadata = new ParameterMetadataImpl(domainParameterXref.getQueryParameters());
-		QueryParameterBindings parameterBindings = QueryParameterBindingsImpl.from(parameterMetadata, sessionFactory);
+		QueryParameterBindingsImpl parameterBindings = QueryParameterBindingsImpl.from(parameterMetadata, sessionFactory);
 		SqmTranslator<SelectStatement> selectTranslator = ftranslatorFactory.createSelectTranslator(
 				sqm,
 				QueryOptions.NONE,
@@ -121,10 +121,12 @@ public class InsertFromSelect {
 				.getSqlString();
 
 		// Save parameter values to be used insert statement
-		parameterBindings.visitBindings((parameter, queryParameterBinding) -> {
-			ValueBindJpaCriteriaParameter impl = (ValueBindJpaCriteriaParameter)parameter;
-			parameters.add(impl.getValue());
-		});
+		domainParameterXref
+				.getParameterResolutions()
+				.getJpaCriteriaParamResolutions()
+				.forEach((k,v) ->  {
+					parameters.add(v.getJpaCriteriaParameter().getValue());
+				});
 
 		return sql;
 	}
